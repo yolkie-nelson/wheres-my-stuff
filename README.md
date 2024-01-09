@@ -40,9 +40,11 @@ directory for more info.
 The other directories, `ghi` and `api`, are services, that
 you can start building off of.
 
-Inside of `ghi` is a minimal React app that has an "under
-construction" page. It is setup similarly to all of the
-other React projects that you have worked on.
+Inside of `ghi` is a minimal React app that has an "under construction" page.
+This app is written using the [Vite](https://vitejs.dev/) bundler. The example
+code is also using [jsdoc](https://jsdoc.app/) to provide type hints for
+JavaScript. You are not required to use JSDoc yourself, and you will be removing
+these examples and providing your own code for `App.jsx`
 
 Inside of `api` is a minimal FastAPI application.
 "Where are all the files?" you might ask? Well, the
