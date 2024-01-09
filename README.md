@@ -108,7 +108,7 @@ deployment, but it just consists of these steps:
 
 - add these GitLab CI/CD variables:
   - PUBLIC_URL : this is your gitlab pages URL
-  - REACT_APP_API_HOST: enter "blank" for now
+  - VITE_APP_API_HOST: enter "blank" for now
 
 #### Your GitLab pages URL
 
