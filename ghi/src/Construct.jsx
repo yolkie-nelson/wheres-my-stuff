@@ -1,10 +1,21 @@
+//@ts-check
 /**
- * @typedef {{module: number, week: number, day: number, min: number}} LaunchInfo
+ * @typedef {{module: number, week: number, day: number, min: number, hour: number}} LaunchInfo
  *
- * @param {{info: LaunchInfo}} props
+ * @param {{info: LaunchInfo | undefined }} props
  * @returns {React.ReactNode}
  */
 function Construct(props) {
+    if (!props.info) {
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <p>Loading...</p>
+                </header>
+            </div>
+        )
+    }
+
     return (
         <div className="App">
             <header className="App-header">
