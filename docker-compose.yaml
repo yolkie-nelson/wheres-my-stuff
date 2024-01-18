@@ -16,6 +16,9 @@ services:
             - 8000:8000
         volumes:
             - ./api:/app
+        depends-on:
+            - pg-admin
+            - postgres-data
     postgres:
         image: postgres:14.5-bullseye
         volumes:
