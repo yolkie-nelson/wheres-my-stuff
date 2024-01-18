@@ -19,7 +19,7 @@ class AccountsQueries:
 
     @property
     def collection(self):
-        return db[self.collection_name] #accounts.username??
+        return db[self.collection_name]  # accounts.username??
 
     def get(self, username: str):
         account = self.collection.find_one({"username": username})

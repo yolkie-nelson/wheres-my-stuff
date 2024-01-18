@@ -9,13 +9,13 @@ class MyAuthenticator(Authenticator):
     async def get_account_data(
         self,
         username: str,
-        accounts: AccountsQueries,  #did not use AccountIn
+        accounts: AccountsQueries,  # did not use AccountIn
     ):
         return accounts.get(username)
 
     def get_account_getter(
         self,
-        accounts: AccountsQueries = Depends(),   #did not use AccountIn
+        accounts: AccountsQueries = Depends(),   # did not use AccountIn
     ):
         return accounts
 
