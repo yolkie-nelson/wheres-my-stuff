@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from jtwdown_fastapi.authentication import Token
+from jwtdown_fastapi.authentication import Token
 
 
 class AccountIn(BaseModel):

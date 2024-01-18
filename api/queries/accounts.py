@@ -1,36 +1,37 @@
 import os
-# from queries.equipment import SQLQueries
 import psycopg2
-# from psycopg_pool import ConnectionPool
 from models import AccountIn
-
-DATABASE_URL = os.enviorn['DATABASE_URL']
-# pool = ConnectionPool(conninfo=os.environ.get("DATABASE_URL"))
-client = psycopg2(DATABASE_URL)
-db = client['postgres-data']
-
-
 class DuplicateAccountError(ValueError):
     pass
-
-
 class AccountsQueries:
-    collection_name = 'accounts'
-
-    @property
-    def collection(self):
-        return db[self.collection_name]  # accounts.username??
-
+    def __init__(self, conn):
+        self.conn = conn
+    def create_table(self):
+        with self.conn.cursor() as cur:
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS accounts (
+                    id SERIAL PRIMARY KEY,
+                    username VARCHAR(255) UNIQUE,
+                    hashed_password VARCHAR(255)
+                )
+            """)
+            self.conn.commit()
     def get(self, username: str):
-        account = self.collection.find_one({"username": username})
-        if account is None:
-            return account
-        account['id'] = str(account['_id'])
-        return account
-
+        with self.conn.cursor() as cur:
+            cur.execute("SELECT * FROM accounts WHERE username = %s", (username,))
+            account = cur.fetchone()
+            if account is None:
+                return account
+            return {
+                'id': account[0],
+                'username': account[1],
+                'hashed_password': account[2]
+            }
     def create(self, info: AccountIn, hashed_password: str):
-        if self.get(username=info.username) is not None:
-            raise DuplicateAccountError
-        account = info.dict()
-        account['hashed_password'] = hashed_password
-        self.collection.insert_one(account)
+        with self.conn.cursor() as cur:
+            try:
+                cur.execute("INSERT INTO accounts (username, hashed_password) VALUES (%s, %s)",
+                            (info.username, hashed_password))
+                self.conn.commit()
+            except psycopg2.IntegrityError:
+                raise DuplicateAccountError
