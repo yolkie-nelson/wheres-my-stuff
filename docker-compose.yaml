@@ -4,21 +4,6 @@ volumes:
     pg-admin:
         external: true
 services:
-    fastapi:
-        environment:
-            CORS_HOST: http://localhost:5173
-            DATABASE_URL: postgresql://user:password@postgres/postgres-data
-            SIGNING_KEY: ${SIGNING_KEY}
-        build:
-            context: api
-            dockerfile: Dockerfile.dev
-        ports:
-            - 8000:8000
-        volumes:
-            - ./api:/app
-        depends-on:
-            - pg-admin
-            - postgres-data
     postgres:
         image: postgres:14.5-bullseye
         volumes:
@@ -39,6 +24,21 @@ services:
             PGADMIN_DEFAULT_EMAIL: user@user.com
             PGADMIN_DEFAULT_PASSWORD: password
             PGADMIN_DISABLE_POSTFIX: 1
+    fastapi:
+        environment:
+            CORS_HOST: http://localhost:5173
+            DATABASE_URL: postgresql://user:${postgres_password}@postgres/postgres-data
+            SIGNING_KEY: ${SIGNING_KEY}
+        build:
+            context: api
+            dockerfile: Dockerfile.dev
+        ports:
+            - 8000:8000
+        volumes:
+            - ./api:/app
+        depends_on:
+            - postgres
+            - pg-admin
     ghi:
         image: node:lts-bullseye
         command: /bin/bash run.sh

@@ -1,11 +1,13 @@
 import os
-from queries.equipment import SQLQueries
+# from queries.equipment import SQLQueries
 import psycopg2
-from psycopg_pool import ConnectionPool
+# from psycopg_pool import ConnectionPool
 from models import AccountIn
 
-
-pool = ConnectionPool(conninfo=os.environ.get("DATABASE_URL"))
+DATABASE_URL = os.enviorn['DATABASE_URL']
+# pool = ConnectionPool(conninfo=os.environ.get("DATABASE_URL"))
+client = psycopg2(DATABASE_URL)
+db = client['postgres-data']
 
 
 class DuplicateAccountError(ValueError):
@@ -17,7 +19,7 @@ class AccountsQueries:
 
     @property
     def collection(self):
-        return db[self.collection_name]
+        return db[self.collection_name]  # accounts.username??
 
     def get(self, username: str):
         account = self.collection.find_one({"username": username})
