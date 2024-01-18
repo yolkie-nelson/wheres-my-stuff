@@ -1,9 +1,17 @@
-from fastapi import APIRouter, Request, Response, Depends, HTTPException, status
+from fastapi import (
+    APIRouter,
+    Request,
+    Response,
+    Depends,
+    HTTPException,
+    status
+)
 from models import AccountIn, AccountToken, AccountOut, AccountForm
 from queries.accounts import AccountsQueries
 from authenticator import authenticator
 from psycopg2 import IntegrityError
 from typing import Optional
+
 
 router = APIRouter()
 @router.get('/token', response_model=AccountToken | None)
@@ -17,9 +25,13 @@ async def get_token(
             "type": "Bearer",
             "account": account,
         }
+
+
 @router.get("/api/accounts")
 async def get_account(
-    account_data: Optional[dict] = Depends(authenticator.try_get_current_account_data),
+    account_data: Optional[dict] = Depends(
+        authenticator.try_get_current_account_data
+        ),
 ):
     if account_data:
         return AccountOut
