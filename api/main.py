@@ -2,11 +2,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from authenticator import authenticator
-# import jwtdown_fastapi
+from routers import accounts
+#import jwtdown_fastapi
 
 
 app = FastAPI()
 app.include_router(authenticator.router, tags=['Auth'])
+app.include_router(accounts.router, tags=['Auth'])
 
 
 app.add_middleware(

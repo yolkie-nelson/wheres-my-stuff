@@ -6,16 +6,7 @@ class DuplicateAccountError(ValueError):
 class AccountsQueries:
     def __init__(self, conn):
         self.conn = conn
-    def create_table(self):
-        with self.conn.cursor() as cur:
-            cur.execute("""
-                CREATE TABLE IF NOT EXISTS accounts (
-                    id SERIAL PRIMARY KEY,
-                    username VARCHAR(255) UNIQUE,
-                    hashed_password VARCHAR(255)
-                )
-            """)
-            self.conn.commit()
+
     def get(self, username: str):
         with self.conn.cursor() as cur:
             cur.execute("SELECT * FROM accounts WHERE username = %s", (username,))
@@ -27,6 +18,7 @@ class AccountsQueries:
                 'username': account[1],
                 'hashed_password': account[2]
             }
+        
     def create(self, info: AccountIn, hashed_password: str):
         with self.conn.cursor() as cur:
             try:
