@@ -21,6 +21,7 @@ class AccountOutWithHashedPassword(BaseModel):
 class AccountOut(BaseModel):
     id: int
     username: str
+    password: str
 
 
 class Equipment(BaseModel):

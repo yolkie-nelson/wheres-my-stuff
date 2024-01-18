@@ -1,6 +1,9 @@
 import os
 import psycopg2
+
 from models import AccountIn
+
+#pool = ConnectionPool(conninfo=os.environ.get('DATABASE_URL'))
 class DuplicateAccountError(ValueError):
     pass
 class AccountsQueries:
@@ -18,12 +21,26 @@ class AccountsQueries:
                 'username': account[1],
                 'hashed_password': account[2]
             }
-        
+
     def create(self, info: AccountIn, hashed_password: str):
-        with self.conn.cursor() as cur:
-            try:
-                cur.execute("INSERT INTO accounts (username, hashed_password) VALUES (%s, %s)",
-                            (info.username, hashed_password))
-                self.conn.commit()
-            except psycopg2.IntegrityError:
-                raise DuplicateAccountError
+
+        # with pool.connection() as conn:
+        #     with conn.cursor() as cur:
+        #         params = [
+        #             info.username,
+        #             info.password
+        #         ]
+        #         cur.execute(
+        #             """
+        #             INSERT INTO accounts (username, hashed_password)
+        #             VALUES (%s, %s)
+        #             RETURNING id, username, hashed_password)
+        #             """
+        #             )
+            with self.conn.cursor() as cur:
+                try:
+                    cur.execute("INSERT INTO accounts (username, hashed_password) VALUES (%s, %s)",
+                                (info.username, hashed_password))
+                    self.conn.commit()
+                except psycopg2.IntegrityError:
+                    raise DuplicateAccountError
