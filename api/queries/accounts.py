@@ -38,7 +38,6 @@ class AccountOutWithHashedPassword(AccountOut):
 
 class AccountsQueries:
     def get(self, username: str) -> AccountOutWithHashedPassword:
-        print("here in get): " + username)
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
@@ -54,10 +53,10 @@ class AccountsQueries:
                     for row in cur.fetchall():
                         record = {}
                         for i, column in enumerate(cur.description):
+                            print(cur.description)
                             record[column.name] = row[i]
                     return AccountOutWithHashedPassword(**record)
                 except Exception:
-                    print("exception")
                     return {
                         "message": "Could not get account from this username"
                     }
@@ -85,5 +84,4 @@ class AccountsQueries:
                     record = {}
                     for i, column in enumerate(cur.description):
                         record[column.name] = row[i]
-                print(record)
                 return AccountOutWithHashedPassword(**record)
