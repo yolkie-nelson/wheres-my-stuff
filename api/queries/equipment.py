@@ -31,7 +31,6 @@ class EquipmentOut(BaseModel):
 
 class EquipmentQueries:
     def get(self, serial_number: str) -> EquipmentOut:
-        print("here in get): " + serial_number)
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
