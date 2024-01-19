@@ -1,5 +1,15 @@
-12/17/23: Cloned repo & began coding. Established Postgress Database and started Authenticator.
+## Journal Entries
 
-12/18/23: Refactored accounts queries and routers to try to make it work. Struggled with authentication but worked through several errors and eventually resolved it. Was successfully able to create an account with an access token. Did this on a new 'authentication' branch. 
+### 12/17/23
+- Cloned repo & began coding
+- Established Postgres Database
+- Started working on Authenticator
 
-12/19/23:
+### 12/18/23
+- Refactored accounts queries and routers to make it work
+- Struggled with authentication but resolved several errors
+- Successfully created an account with an access token
+- Created and worked on the 'authentication' branch
+
+### 12/19/23
+- Began equipment and equipment type queries and routers
