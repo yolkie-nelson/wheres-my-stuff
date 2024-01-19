@@ -1,21 +1,20 @@
 import os
 from fastapi import Depends
 from jwtdown_fastapi.authentication import Authenticator
-from queries.accounts import AccountsQueries
-from models import AccountOutWithHashedPassword, AccountOut
+from queries.accounts import AccountsQueries, AccountOutWithHashedPassword
 
 
 class MyAuthenticator(Authenticator):
     async def get_account_data(
         self,
         username: str,
-        accounts: AccountsQueries,  # did not use AccountIn
+        accounts: AccountsQueries,
     ):
         return accounts.get(username)
 
     def get_account_getter(
         self,
-        accounts: AccountsQueries = Depends(),   # did not use AccountIn
+        accounts: AccountsQueries = Depends(),
     ):
         return accounts
 
@@ -23,10 +22,12 @@ class MyAuthenticator(Authenticator):
         return account.hashed_password
 
     def get_account_data_for_cookie(
-            self,
-            account: AccountOutWithHashedPassword
-            ):
-        return account.username, AccountOut(**account.dict())
+        self,
+        account
+    ):
+        if isinstance(account, dict):
+            account = AccountOutWithHashedPassword(**account)
+        return account.username, account.dict()
 
 
 authenticator = MyAuthenticator(os.environ["SIGNING_KEY"])

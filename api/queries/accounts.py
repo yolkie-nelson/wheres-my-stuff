@@ -1,46 +1,89 @@
 import os
-import psycopg2
+from psycopg_pool import ConnectionPool
+from pydantic import BaseModel
+from jwtdown_fastapi.authentication import Token
 
-from models import AccountIn
 
-#pool = ConnectionPool(conninfo=os.environ.get('DATABASE_URL'))
+pool = ConnectionPool(conninfo=os.environ.get('DATABASE_URL'))
+
+
 class DuplicateAccountError(ValueError):
     pass
+
+
+class AccountIn(BaseModel):
+    username: str
+    password: str
+
+
+class AccountForm(BaseModel):
+    username: str
+    password: str
+
+
+class AccountOut(BaseModel):
+    id: int
+    username: str
+
+
+class AccountToken(Token):
+    account: AccountOut
+
+
+class AccountOutWithHashedPassword(AccountOut):
+    id: str
+    username: str
+    hashed_password: str
+
+
 class AccountsQueries:
-    def __init__(self, conn):
-        self.conn = conn
-
-    def get(self, username: str):
-        with self.conn.cursor() as cur:
-            cur.execute("SELECT * FROM accounts WHERE username = %s", (username,))
-            account = cur.fetchone()
-            if account is None:
-                return account
-            return {
-                'id': account[0],
-                'username': account[1],
-                'hashed_password': account[2]
-            }
-
-    def create(self, info: AccountIn, hashed_password: str):
-
-        # with pool.connection() as conn:
-        #     with conn.cursor() as cur:
-        #         params = [
-        #             info.username,
-        #             info.password
-        #         ]
-        #         cur.execute(
-        #             """
-        #             INSERT INTO accounts (username, hashed_password)
-        #             VALUES (%s, %s)
-        #             RETURNING id, username, hashed_password)
-        #             """
-        #             )
-            with self.conn.cursor() as cur:
+    def get(self, username: str) -> AccountOutWithHashedPassword:
+        print("here in get): " + username)
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT *
+                    FROM accounts
+                    WHERE username = %s;
+                    """,
+                    [username],
+                )
                 try:
-                    cur.execute("INSERT INTO accounts (username, hashed_password) VALUES (%s, %s)",
-                                (info.username, hashed_password))
-                    self.conn.commit()
-                except psycopg2.IntegrityError:
-                    raise DuplicateAccountError
+                    record = None
+                    for row in cur.fetchall():
+                        record = {}
+                        for i, column in enumerate(cur.description):
+                            record[column.name] = row[i]
+                    return AccountOutWithHashedPassword(**record)
+                except Exception:
+                    print("exception")
+                    return {
+                        "message": "Could not get account from this username"
+                    }
+
+    def create_account(
+            self, data, hashed_password) -> AccountOutWithHashedPassword:
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                params = [
+                    data.username,
+                    hashed_password
+                ]
+                cur.execute(
+                    """
+                    INSERT INTO accounts (username, hashed_password)
+                    VALUES (%s, %s)
+                    RETURNING id, username, hashed_password
+                    """,
+                    params,
+                )
+
+                record = None
+                row = cur.fetchone()
+                if row is not None:
+                    record = {}
+                    for i, column in enumerate(cur.description):
+                        record[column.name] = row[i]
+                print(record)
+                return AccountOutWithHashedPassword(**record)
