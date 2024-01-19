@@ -12,7 +12,7 @@ pool = ConnectionPool(conninfo=os.environ.get('DATABASE_URL'))
 class EquipmentIn(BaseModel):
     equipment_type: Optional(EquipmentType)
     model_name: str
-    desctription: str
+    description: str
     serial_number: int
     warehouse: int
     date_serviced: date
@@ -22,7 +22,7 @@ class EquipmentIn(BaseModel):
 class EquipmentOut(BaseModel):
     equipment_type: Optional(EquipmentType)
     model_name: str
-    desctription: str
+    description: str
     serial_number: int
     warehouse: int
     date_serviced: date
@@ -62,7 +62,7 @@ class EquipmentQueries:
                 params = [
                     data.equipment_type,
                     data.model_name,
-                    data.desctription,
+                    data.description,
                     data.serial_number,
                     data.warehouse,
                     data.date_serviced,
