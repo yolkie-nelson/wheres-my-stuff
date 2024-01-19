@@ -14,19 +14,6 @@ from typing import Optional
 
 router = APIRouter()
 
-
-@router.get("/api/accounts")
-async def get_account(
-    account_data: Optional[dict] = Depends(
-        authenticator.try_get_current_account_data
-        ),
-):
-    if account_data:
-        return AccountOut
-    else:
-        raise HTTPException(status_code=401, detail="Access denied, kick rocks")
-
-
 @router.post("/api/accounts/", response_model=AccountToken)
 async def create_account(
     info: AccountIn,
