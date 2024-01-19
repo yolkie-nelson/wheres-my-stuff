@@ -1,5 +1,94 @@
-# import os
+from pydantic import BaseModel
+from typing import Optional
+from datetime import date
+from queries.equipment_type import EquipmentType
+from psycopg_pool import ConnectionPool
+import os
 
-# DATABASE_URL = os.environ["DATABASE_URL"]
-# client =
-# db = client["stuff-database"]
+
+pool = ConnectionPool(conninfo=os.environ.get('DATABASE_URL'))
+
+
+class EquipmentIn(BaseModel):
+    equipment_type: Optional(EquipmentType)
+    model_name: str
+    desctription: str
+    serial_number: int
+    warehouse: int
+    date_serviced: date
+    photo: str
+
+
+class EquipmentOut(BaseModel):
+    equipment_type: Optional(EquipmentType)
+    model_name: str
+    desctription: str
+    serial_number: int
+    warehouse: int
+    date_serviced: date
+    photo: str
+
+
+class EquipmentQueries:
+    def get(self, serial_number: str) -> EquipmentOut:
+        print("here in get): " + serial_number)
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT *
+                    FROM equipment
+                    WHERE serial_number = %s;
+                    """,
+                    [serial_number],
+                )
+                try:
+                    record = None
+                    for row in cur.fetchall():
+                        record = {}
+                        for i, column in enumerate(cur.description):
+                            record[column.name] = row[i]
+                    return EquipmentOut(**record)
+                except Exception:
+                    print("exception")
+                    return {
+                        "message": "Could not get equipment from this serial number"
+                    }
+
+    def create_equipment(
+            self, data) -> EquipmentOut:
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                params = [
+                    data.equipment_type,
+                    data.model_name,
+                    data.desctription,
+                    data.serial_number,
+                    data.warehouse,
+                    data.date_serviced,
+                    data.photo,
+                ]
+                cur.execute(
+                    """
+                    INSERT INTO accounts (
+                        equipment_type,
+                        model_name,
+                        description,
+                        serial_number,
+                        warehouse,
+                        date_serviced,
+                        photo)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)
+                    RETURNING id, model_name, serial_number
+                    """,
+                    params,
+                )
+
+                record = None
+                row = cur.fetchone()
+                if row is not None:
+                    record = {}
+                    for i, column in enumerate(cur.description):
+                        record[column.name] = row[i]
+                print(record)
+                return EquipmentOut(**record)
