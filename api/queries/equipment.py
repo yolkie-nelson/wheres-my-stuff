@@ -1,6 +1,8 @@
 from pydantic import BaseModel
 from datetime import date
+from typing import Union, List
 from queries.equipment_type import EquipmentTypeOut
+from queries.storage_site import StorageSiteOut
 from psycopg_pool import ConnectionPool
 import os
 
@@ -11,85 +13,92 @@ class Error(BaseModel):
     message: str
 
 class EquipmentIn(BaseModel):
-    equipment_type: int
+    equipment_type_id: int
     model_name: str
     description: str
     serial_number: int
-    warehouse: int
+    storage_site_id: int
     date_serviced: date
     photo: str
 
 
 class EquipmentOut(BaseModel):
     id: int
-    equipment_type: str
+    equipment_type_id: int
     model_name: str
     description: str
     serial_number: int
-    warehouse: int
+    storage_site_id: int
     date_serviced: date
     photo: str
 
 
 class EquipmentQueries:
-    def get(self, serial_number: str) -> EquipmentOut:
-        with pool.connection() as conn:
-            with conn.cursor() as cur:
-                cur.execute(
-                    """
-                    SELECT *
-                    FROM equipment
-                    WHERE serial_number = %s;
-                    """,
-                    [serial_number],
-                )
-                try:
-                    record = None
-                    for row in cur.fetchall():
-                        record = {}
-                        for i, column in enumerate(cur.description):
-                            record[column.name] = row[i]
-                    return EquipmentOut(**record)
-                except Exception:
-                    print("exception")
-                    return {
-                        "message": "Could not get equipment from this serial number"
-                    }
+    def get_equipment(self) -> Union[Error, List[EquipmentOut]]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """
+                        SELECT *
+                        FROM equipment
+                        ORDER BY id;
+                        """,
+                    )
+                    return [
+                        EquipmentOut(
+                            id=record[0],
+                            equipment_type=record[1],
+                            model_name=record[2],
+                            description=record[3],
+                            serial_number=record[4],
+                            storage_site=record[5],
+                            date_serviced=record[6],
+                            photo=record[7]
+                        )
+                        for record in cur
+                    ]
+        except Exception:
+            return {
+                "message": "Could not get equipment from this serial number"
+            }
 
-    def create_equipment(
-            self, data) -> EquipmentOut:
-        with pool.connection() as conn:
-            with conn.cursor() as cur:
-                params = [
-                    data.equipment_type,
-                    data.model_name,
-                    data.description,
-                    data.serial_number,
-                    data.warehouse,
-                    data.date_serviced,
-                    data.photo,
-                ]
-                cur.execute(
-                    """
-                    INSERT INTO equipment (
-                        equipment_type,
+    def create_equipment(self, equipment: EquipmentIn) -> EquipmentOut:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    result = cur.execute(
+                        """
+                        INSERT INTO equipment (
                         model_name,
                         description,
                         serial_number,
-                        warehouse,
+                        storage_site_id,
                         date_serviced,
-                        photo)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s)
-                    RETURNING id, model_name, serial_number
-                    """,
-                    params,
-                )
+                        photo,
+                        equipment_type_id
+                        )
+                        VALUES (%s, %s, %s, %s, %s, %s, %s)
+                        RETURNING equipment_id;
+                        """,
+                        [
+                            equipment.model_name,
+                            equipment.description,
+                            equipment.serial_number,
+                            equipment.storage_site_id,
+                            equipment.date_serviced,
+                            equipment.photo,
+                            equipment.equipment_type_id,
+                        ]
+                    )
+                    id = result.fetchone()[0]
+                    return self.equipment_in_to_out(id, equipment)
+        except Exception as e:
+                print(e)
+                return {
+                    "message": "Could not create equipment type"
+                }
 
-                record = None
-                row = cur.fetchone()
-                if row is not None:
-                    record = {}
-                    for i, column in enumerate(cur.description):
-                        record[column.name] = row[i]
-                print(record)
-                return EquipmentOut(**record)
+    def equipment_in_to_out(self, id: int, equipment: EquipmentIn):
+        old_data = equipment.dict()
+        return EquipmentOut(id=id, **old_data)

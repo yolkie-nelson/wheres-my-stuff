@@ -26,7 +26,7 @@ def create_storage_site(
     response: Response,
     queries: StorageSiteQueries = Depends()
 ):
-    response.status_code = 400
+    #response.status_code = 400
     return queries.create_storage_site(storage_site)
 
 
