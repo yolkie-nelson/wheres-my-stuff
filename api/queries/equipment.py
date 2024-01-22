@@ -1,15 +1,17 @@
 from pydantic import BaseModel
 from datetime import date
-from queries.equipment_type import EquipmentTypeIn
+from queries.equipment_type import EquipmentTypeOut
 from psycopg_pool import ConnectionPool
 import os
 
 
 pool = ConnectionPool(conninfo=os.environ.get('DATABASE_URL'))
 
+class Error(BaseModel):
+    message: str
 
 class EquipmentIn(BaseModel):
-    equipment_type: EquipmentTypeIn
+    equipment_type: int
     model_name: str
     description: str
     serial_number: int
@@ -20,7 +22,7 @@ class EquipmentIn(BaseModel):
 
 class EquipmentOut(BaseModel):
     id: int
-    equipment_type: EquipmentTypeIn
+    equipment_type: str
     model_name: str
     description: str
     serial_number: int
