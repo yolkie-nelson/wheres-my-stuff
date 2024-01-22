@@ -6,13 +6,12 @@ from fastapi import (
     HTTPException,
     status
 )
-from queries.equipment import EquipmentIn, EquipmentOut, EquipmentQueries
+from queries.equipment import EquipmentIn, EquipmentQueries, EquipmentOut
 from authenticator import authenticator
 from typing import Optional
 
 
 router = APIRouter()
-
 
 @router.post("/api/equipment/", response_model=EquipmentOut)
 async def create_equipment(

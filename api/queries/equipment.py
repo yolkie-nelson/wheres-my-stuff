@@ -1,7 +1,6 @@
 from pydantic import BaseModel
-from typing import Optional
 from datetime import date
-from queries.equipment_type import EquipmentType
+from queries.equipment_type import EquipmentTypeIn
 from psycopg_pool import ConnectionPool
 import os
 
@@ -10,7 +9,7 @@ pool = ConnectionPool(conninfo=os.environ.get('DATABASE_URL'))
 
 
 class EquipmentIn(BaseModel):
-    equipment_type: Optional(EquipmentType)
+    equipment_type: EquipmentTypeIn
     model_name: str
     description: str
     serial_number: int
@@ -20,7 +19,8 @@ class EquipmentIn(BaseModel):
 
 
 class EquipmentOut(BaseModel):
-    equipment_type: Optional(EquipmentType)
+    id: int
+    equipment_type: EquipmentTypeIn
     model_name: str
     description: str
     serial_number: int
@@ -69,7 +69,7 @@ class EquipmentQueries:
                 ]
                 cur.execute(
                     """
-                    INSERT INTO accounts (
+                    INSERT INTO equipment (
                         equipment_type,
                         model_name,
                         description,
