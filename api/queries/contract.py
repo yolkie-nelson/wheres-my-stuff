@@ -14,7 +14,7 @@ class Error(BaseModel):
 
 class ContractIn(BaseModel):
     equipment_serial: int
-    job_site_name: str
+    job_site_id: int
     start_date: date
     end_date: date
     description: str
@@ -23,7 +23,7 @@ class ContractIn(BaseModel):
 class ContractOut(BaseModel):
     id: int
     equipment_serial: int
-    job_site_name: str
+    job_site_id: int
     start_date: date
     end_date: date
     description: str
@@ -44,7 +44,7 @@ class ContractQueries:
                     return [
                         ContractOut(
                             id=record[0],
-                            equipment_serial=record[1],
+                            contract_serial=record[1],
                             job_site_name=record[3],
                             start_date=record[4],
                             end_date=record[5],
@@ -55,6 +55,37 @@ class ContractQueries:
         except Exception:
             return {
                 "message": "could not get list of contracts"
+            }
+
+    def create_contract(self, contract: ContractIn) -> ContractOut:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    result = cur.execute(
+                        """
+                        INSERT INTO contract (
+                        equipment_serial,
+                        job_site_id,
+                        start_date,
+                        end_date,
+                        description
+                        )
+                        VALUES (%s, %s, %s, %s, %s)
+                        RETURNING contract;
+                        """,
+                        [
+                            contract.equipment_serial,
+                            contract.job_site_id,
+                            contract.start_date,
+                            contract.end_date,
+                            contract.description,
+                        ]
+                    )
+                    id = result.fetchone()[0]
+                    return self.contract_in_to_out(id, contract)
+        except Exception:
+            return {
+                "message": "Could not create contract type"
             }
 
     def contract_in_to_out(self, id: int, contract: ContractIn):
