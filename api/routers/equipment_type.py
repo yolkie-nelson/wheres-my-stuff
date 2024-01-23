@@ -15,14 +15,14 @@ from typing import Union, List, Optional
 router = APIRouter()
 
 
-@router.get("/api/type/", response_model=Union[List[EquipmentTypeOut], Error])
+@router.get("/api/types/", response_model=Union[List[EquipmentTypeOut], Error])
 def get_equipment_type(
     queries: EquipmentTypeQueries = Depends()
 ):
     return queries.get_equipment_type()
 
 
-@router.post("/api/type/", response_model=Union[EquipmentTypeOut, Error])
+@router.post("/api/types/", response_model=Union[EquipmentTypeOut, Error])
 def create_equipment_type(
     equipment_type: EquipmentTypeIn,
     response: Response,
@@ -55,7 +55,7 @@ def update_equipment_type(
     return queries.update_equipment_type(equipment_type_id, equipment_type)
 
 
-@router.delete("/api/type/{equipment_type_id}", response_model=bool)
+@router.delete("/api/types/{equipment_type_id}", response_model=bool)
 def delete_equipment_type(
     equipment_type_id: int,
     queries: EquipmentTypeQueries = Depends()
