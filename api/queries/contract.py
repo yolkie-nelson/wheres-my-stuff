@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from datetime import date
-from typing import List, Union
+from typing import List, Union, Optional
 from psycopg_pool import ConnectionPool
 import os
 
@@ -45,10 +45,10 @@ class ContractQueries:
                         ContractOut(
                             id=record[0],
                             equipment_id=record[1],
-                            job_site_name=record[3],
-                            start_date=record[4],
-                            end_date=record[5],
-                            description=record[6],
+                            job_site_id=record[2],
+                            start_date=record[3],
+                            end_date=record[4],
+                            description=record[5],
                         )
                         for record in cur
                     ]
@@ -90,6 +90,73 @@ class ContractQueries:
         except Exception as e:
             print(e)
             return {"message": "Could not create contract"}
+
+    def get_one_contract(
+            self, id: int) -> Optional[ContractOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    result = cur.execute(
+                        """
+                        SELECT *
+                        WHERE id = %s
+                        """,
+                        [id]
+                    )
+                    record = result.fetchone()
+                    return ContractOut(
+                            id=record[0],
+                            equipment_id=record[1],
+                            job_site_id=record[2],
+                            start_date=record[3],
+                            end_date=record[4],
+                            description=record[5],
+                        )
+        except Exception:
+            return {
+                    "message": "Could not find this contract"
+                }
+
+    def update_contract(
+            self, id: int, contract: ContractIn
+            ) -> Union[ContractOut, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """
+                        UPDATE contract
+                        SET id = %s
+                        , equipment_id = %s
+                        , job_site_id = %s
+                        , sart_date = %s
+                        , end_date
+                        , description = %s
+                        WHERE id = %s
+                        """,
+                        [contract.id]
+                    )
+                    return self.contract_in_to_out(
+                        id, contract)
+        except Exception:
+            return {
+                    "message": "Could not update this contract"
+                }
+
+    def delete_equipment_type(self, id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """
+                        DELETE FROM contract
+                        WHERE id = %s
+                        """,
+                        [id]
+                    )
+                    return True
+        except Exception:
+            return False
 
     def contract_in_to_out(self, id: int, contract: ContractIn):
         old_data = contract.dict()
