@@ -28,7 +28,6 @@ def create_equipment_type(
     response: Response,
     queries: EquipmentTypeQueries = Depends()
 ):
-    response.status_code = 400
     return queries.create_equipment_type(equipment_type)
 
 

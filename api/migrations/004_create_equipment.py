@@ -5,7 +5,7 @@ steps = [
             equipment_id SERIAL PRIMARY KEY,
             model_name VARCHAR(255),
             description VARCHAR(255),
-            serial_number INT,
+            serial_number INT UNIQUE,
             storage_site_id INT,
             date_serviced DATE,
             photo VARCHAR(255),

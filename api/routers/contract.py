@@ -39,7 +39,7 @@ def get_one_contract(
 
 
 @router.put("/api/contracts/{id}", response_model=Union[ContractOut, Error])
-def update_storage_site(
+def update_contract(
     id: int,
     contract: ContractIn,
     queries: ContractQueries = Depends()
