@@ -1,8 +1,6 @@
 from pydantic import BaseModel
 from datetime import date
-from typing import Union, List
-from queries.equipment_type import EquipmentTypeOut
-from queries.storage_site import StorageSiteOut
+from typing import Union, List, Optional
 from psycopg_pool import ConnectionPool
 import os
 
@@ -12,25 +10,26 @@ pool = ConnectionPool(conninfo=os.environ.get('DATABASE_URL'))
 class Error(BaseModel):
     message: str
 
+
 class EquipmentIn(BaseModel):
-    equipment_type_id: int
     model_name: str
     description: str
     serial_number: int
     storage_site_id: int
     date_serviced: date
     photo: str
+    equipment_type_id: int
 
 
 class EquipmentOut(BaseModel):
     id: int
-    equipment_type_id: int
     model_name: str
     description: str
     serial_number: int
     storage_site_id: int
     date_serviced: date
     photo: str
+    equipment_type_id:int
 
 
 class EquipmentQueries:
@@ -42,25 +41,26 @@ class EquipmentQueries:
                         """
                         SELECT *
                         FROM equipment
-                        ORDER BY id;
+                        ORDER BY equipment_id;
                         """,
                     )
                     return [
                         EquipmentOut(
                             id=record[0],
-                            equipment_type=record[1],
-                            model_name=record[2],
-                            description=record[3],
-                            serial_number=record[4],
-                            storage_site=record[5],
-                            date_serviced=record[6],
-                            photo=record[7]
+                            model_name=record[1],
+                            description=record[2],
+                            serial_number=record[3],
+                            storage_site_id=record[4],
+                            date_serviced=record[5],
+                            photo=record[6],
+                            equipment_type_id=record[7]
                         )
                         for record in cur
                     ]
-        except Exception:
+        except Exception as e:
+            print(e)
             return {
-                "message": "Could not get equipment from this serial number"
+                "message": "Could not get equipment"
             }
 
     def create_equipment(self, equipment: EquipmentIn) -> EquipmentOut:
@@ -98,6 +98,89 @@ class EquipmentQueries:
                 return {
                     "message": "Could not create equipment type"
                 }
+
+    def get_one_equipment(self, serial_number:int) -> Optional[EquipmentOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    result = cur.execute(
+                        """
+                        SELECT equipment_id
+                            , model_name
+                            , description
+                            , serial_number
+                            , storage_site_id
+                            , date_serviced
+                            , photo
+                            , equipment_type_id
+                        FROM equipment
+                        WHERE serial_number = %s
+                        """,
+                        [serial_number]
+                    )
+                    record = result.fetchone()
+                    return EquipmentOut(
+                        id = record[0],
+                        model_name = record[1],
+                        description = record[2],
+                        serial_number = record[3],
+                        storage_site_id = record[4],
+                        date_serviced = record[5],
+                        photo = record[6],
+                        equipment_type_id = record[7]
+                    )
+        except Exception:
+            return {
+                    "message": "Could not find this equipment"
+                }
+
+    def update_equipment(self, serial_number: int, equipment: EquipmentIn) -> Union[EquipmentOut, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """
+                        UPDATE equipment
+                        SET model_name = %s
+                            , description = %s
+                            , serial_number = %s
+                            , storage_site_id = %s
+                            , date_serviced = %s
+                            , photo = %s
+                            , equipment_type_id = %s
+                        WHERE serial_number = %s
+                        """,
+                        [
+                            equipment.model_name,
+                            equipment.description,
+                            equipment.serial_number,
+                            equipment.storage_site_id,
+                            equipment.date_serviced,
+                            equipment.photo,
+                            equipment.equipment_type_id,
+                            serial_number
+                        ]
+                    )
+                    return self.equipment_in_to_out(serial_number, equipment)
+        except Exception:
+                return {
+                    "message": "Could not update this equipment"
+                }
+
+    def delete_equipment(self, serial_number: int) -> bool:
+        try:
+              with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                         """
+                        DELETE FROM equipment
+                        WHERE serial_number = %s
+                        """,
+                        [serial_number]
+                    )
+                    return True
+        except Exception:
+                return False
 
     def equipment_in_to_out(self, id: int, equipment: EquipmentIn):
         old_data = equipment.dict()

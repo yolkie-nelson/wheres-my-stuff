@@ -23,10 +23,8 @@ def get_storage_site(
 @router.post("/api/storages/", response_model=Union[StorageSiteOut, Error])
 def create_storage_site(
     storage_site: StorageSiteIn,
-    response: Response,
     queries: StorageSiteQueries = Depends()
 ):
-    #response.status_code = 400
     return queries.create_storage_site(storage_site)
 
 
