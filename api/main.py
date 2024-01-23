@@ -6,7 +6,8 @@ from routers import (
     accounts,
     equipment_type,
     equipment,
-    storage_site
+    storage_site,
+    job_site
 )
 
 
@@ -16,6 +17,7 @@ app.include_router(accounts.router, tags=['Account'])
 app.include_router(equipment_type.router, tags=['Equipment Type'])
 app.include_router(equipment.router, tags=['Equipment'])
 app.include_router(storage_site.router, tags=['Storage Site'])
+app.include_router(job_site.router, tags=['Job Site'])
 
 
 app.add_middleware(
