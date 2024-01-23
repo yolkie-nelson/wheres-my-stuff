@@ -1,6 +1,5 @@
 from fastapi import (
     APIRouter,
-    Response,
     Depends,
 )
 from queries.job_site import (
@@ -13,6 +12,7 @@ from typing import Union, List, Optional
 
 
 router = APIRouter()
+
 
 @router.get("/api/jobsites/", response_model=Union[List[JobSiteOut], Error])
 def get_job_site(

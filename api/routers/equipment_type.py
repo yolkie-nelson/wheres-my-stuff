@@ -14,6 +14,7 @@ from typing import Union, List, Optional
 
 router = APIRouter()
 
+
 @router.get("/api/type/", response_model=Union[List[EquipmentTypeOut], Error])
 def get_equipment_type(
     queries: EquipmentTypeQueries = Depends()
@@ -31,7 +32,10 @@ def create_equipment_type(
     return queries.create_equipment_type(equipment_type)
 
 
-@router.get("/api/type/{equipment_type_id}", response_model=Optional[EquipmentTypeOut])
+@router.get(
+    "/api/type/{equipment_type_id}",
+    response_model=Optional[EquipmentTypeOut]
+)
 def get_one_equipment_type(
     equipment_type_id: int,
     queries: EquipmentTypeQueries = Depends()
@@ -39,7 +43,10 @@ def get_one_equipment_type(
     return queries.get_one_equipment_type(equipment_type_id)
 
 
-@router.put("/api/type/{equipment_type_id}", response_model=Union[EquipmentTypeOut, Error])
+@router.put(
+        "/api/type/{equipment_type_id}",
+        response_model=Union[EquipmentTypeOut, Error]
+        )
 def update_equipment_type(
     equipment_type_id: int,
     equipment_type: EquipmentTypeIn,

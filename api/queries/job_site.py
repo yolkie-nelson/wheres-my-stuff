@@ -50,7 +50,7 @@ class JobSiteQueries:
                 "message": "Could not get Job Site"
             }
 
-    def create_job_site(self, job_site:JobSiteIn) -> JobSiteOut:
+    def create_job_site(self, job_site: JobSiteIn) -> JobSiteOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as cur:
@@ -60,9 +60,11 @@ class JobSiteQueries:
                         VALUES (%s, %s, %s)
                         RETURNING id, job_name, job_address, job_poc;
                         """,
-                        [job_site.job_name, job_site.job_address, job_site.job_poc]
+                        [
+                            job_site.job_name,
+                            job_site.job_address, job_site.job_poc]
                     )
-                    id= result.fetchone()[0]
+                    id = result.fetchone()[0]
                     return self.get_job_site_in_to_out(id, job_site)
         except Exception:
 
@@ -94,7 +96,8 @@ class JobSiteQueries:
                     "message": "Could not find this job site"
                 }
 
-    def update_job_site(self, id: int, job_site: JobSiteIn) -> Union[JobSiteOut, Error]:
+    def update_job_site(
+            self, id: int, job_site: JobSiteIn) -> Union[JobSiteOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as cur:
@@ -104,7 +107,8 @@ class JobSiteQueries:
                         SET job_name = %s, job_address = %s, job_poc = %s
                         WHERE id = %s
                         """,
-                        [job_site.job_name, job_site.job_address, job_site.job_poc, id]
+                        [job_site.job_name, job_site.job_address,
+                         job_site.job_poc, id]
                     )
                     return self.get_job_site_in_to_out(id, job_site)
         except Exception:

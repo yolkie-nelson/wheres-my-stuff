@@ -6,15 +6,19 @@ import os
 
 pool = ConnectionPool(conninfo=os.environ.get('DATABASE_URL'))
 
+
 class Error(BaseModel):
     message: str
+
 
 class EquipmentTypeIn(BaseModel):
     name: str
 
+
 class EquipmentTypeOut(BaseModel):
     id: int
     name: str
+
 
 class EquipmentTypeQueries:
     def get_equipment_type(self) -> Union[Error, List[EquipmentTypeOut]]:
@@ -36,11 +40,12 @@ class EquipmentTypeQueries:
                         for record in cur
                     ]
         except Exception:
-                    return {
-                        "message": "Could not get equipment type"
+            return {
+                    "message": "Could not get equipment type"
                     }
 
-    def create_equipment_type(self, equipment_type:EquipmentTypeIn) -> EquipmentTypeOut:
+    def create_equipment_type(
+              self, equipment_type: EquipmentTypeIn) -> EquipmentTypeOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as cur:
@@ -55,11 +60,12 @@ class EquipmentTypeQueries:
                     id = result.fetchone()[0]
                     return self.equipment_type_in_to_out(id, equipment_type)
         except Exception:
-                return {
+            return {
                     "message": "Could not create equipment type"
                 }
 
-    def get_one_equipment_type(self, equipment_type_id: int) -> Optional[EquipmentTypeOut]:
+    def get_one_equipment_type(
+            self, equipment_type_id: int) -> Optional[EquipmentTypeOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as cur:
@@ -78,11 +84,13 @@ class EquipmentTypeQueries:
                             name=record[1]
                         )
         except Exception:
-                return {
+            return {
                     "message": "Could not find this equipment type"
                 }
 
-    def update_equipment_type(self, equipment_type_id: int, equipment_type: EquipmentTypeIn) -> Union[EquipmentTypeOut, Error]:
+    def update_equipment_type(
+            self, equipment_type_id: int, equipment_type: EquipmentTypeIn
+            ) -> Union[EquipmentTypeOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as cur:
@@ -94,9 +102,10 @@ class EquipmentTypeQueries:
                         """,
                         [equipment_type.name, equipment_type_id]
                     )
-                    return self.equipment_type_in_to_out(equipment_type_id, equipment_type)
+                    return self.equipment_type_in_to_out(
+                        equipment_type_id, equipment_type)
         except Exception:
-                return {
+            return {
                     "message": "Could not update this equipment type"
                 }
 
@@ -113,8 +122,9 @@ class EquipmentTypeQueries:
                     )
                     return True
         except Exception:
-                return False
+            return False
 
-    def equipment_type_in_to_out(self, id: int, equipment_type: EquipmentTypeIn):
+    def equipment_type_in_to_out(
+            self, id: int, equipment_type: EquipmentTypeIn):
         old_data = equipment_type.dict()
         return EquipmentTypeOut(id=id, **old_data)
