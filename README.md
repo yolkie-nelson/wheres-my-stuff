@@ -163,22 +163,16 @@ Create Equipment (SEND THIS JSON BODY):
 Return Value of Creating an Equipment:
 ```
 {
-    "href": "/api/automobiles/1C3CC5FB2AN120174/",
+"equipment_type": {
+    "name": Landscape,
     "id": 1,
-    "color": "red",
-    "year": 2012,
-    "vin": "777",
-    "model": {
-        "href": "/api/models/1/",
-        "id": 1,
-        "name": "R8",
-        "picture_url": "image.yourpictureurl.com",
-        "manufacturer": {
-            "href": "/api/manufacturers/1/",
-            "id": 1,
-            "name": "Audi"
-        }
-    }
+},
+  "model_name": "Wheelbarrow",
+  "description": "20 gallon, black",
+  "serial_number": "194ghjl300",
+  "warehouse": 12,
+  "date_servied": 01:02:1993,
+  "photo": "http://img.url"
 }
 ```
 To get the details of a specific automobile, you can query by its VIN:
