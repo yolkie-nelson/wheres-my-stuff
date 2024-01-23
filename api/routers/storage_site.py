@@ -23,10 +23,8 @@ def get_storage_site(
 @router.post("/api/storages/", response_model=Union[StorageSiteOut, Error])
 def create_storage_site(
     storage_site: StorageSiteIn,
-    response: Response,
     queries: StorageSiteQueries = Depends()
 ):
-    #response.status_code = 400
     return queries.create_storage_site(storage_site)
 
 
@@ -47,7 +45,7 @@ def update_storage_site(
     return queries.update_storage_site(storage_site_id, storage_site)
 
 
-@router.delete("/api/storage/{storage_site_id}", response_model=bool)
+@router.delete("/api/storages/{storage_site_id}", response_model=bool)
 def delete_storage_site(
     storage_site_id: int,
     queries: StorageSiteQueries = Depends()
