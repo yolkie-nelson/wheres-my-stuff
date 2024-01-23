@@ -7,7 +7,9 @@ from routers import (
     equipment_type,
     equipment,
     storage_site,
-    job_site
+    job_site,
+    contract
+
 )
 
 
@@ -18,6 +20,7 @@ app.include_router(equipment_type.router, tags=['Equipment Type'])
 app.include_router(equipment.router, tags=['Equipment'])
 app.include_router(storage_site.router, tags=['Storage Site'])
 app.include_router(job_site.router, tags=['Job Site'])
+app.include_router(contract.router, tags=['Contract'])
 
 
 app.add_middleware(
