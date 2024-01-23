@@ -69,7 +69,12 @@ class ContractQueries:
                         description
                         )
                         VALUES (%s, %s, %s, %s, %s)
-                        RETURNING id, equipment_id, job_site_id, start_date, end_date, description
+                        RETURNING id,
+                        equipment_id,
+                        job_site_id,
+                        start_date,
+                        end_date,
+                        description
 ;
                         """,
                         [

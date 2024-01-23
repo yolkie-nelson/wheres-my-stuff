@@ -1,6 +1,6 @@
 steps = [
     [
-        ##Create the table
+        # Create the table
         """
         CREATE TABLE storage_site (
             id SERIAL PRIMARY KEY,
@@ -9,7 +9,7 @@ steps = [
             point_of_contact VARCHAR(255)
         )
         """,
-        ##Drop the table
+        # Drop the table
         """
         DROP TABLE storage_site;
         """

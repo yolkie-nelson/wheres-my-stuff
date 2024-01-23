@@ -5,7 +5,8 @@ from psycopg_pool import ConnectionPool
 import os
 
 
-pool = ConnectionPool(conninfo=os.environ.get('DATABASE_URL'))
+pool = ConnectionPool(conninfo=os.environ.get("DATABASE_URL"))
+
 
 class Error(BaseModel):
     message: str
@@ -29,7 +30,7 @@ class EquipmentOut(BaseModel):
     storage_site_id: int
     date_serviced: date
     photo: str
-    equipment_type_id:int
+    equipment_type_id: int
 
 
 class EquipmentQueries:
@@ -53,15 +54,13 @@ class EquipmentQueries:
                             storage_site_id=record[4],
                             date_serviced=record[5],
                             photo=record[6],
-                            equipment_type_id=record[7]
+                            equipment_type_id=record[7],
                         )
                         for record in cur
                     ]
         except Exception as e:
             print(e)
-            return {
-                "message": "Could not get equipment"
-            }
+            return {"message": "Could not get equipment"}
 
     def create_equipment(self, equipment: EquipmentIn) -> EquipmentOut:
         try:
@@ -89,17 +88,15 @@ class EquipmentQueries:
                             equipment.date_serviced,
                             equipment.photo,
                             equipment.equipment_type_id,
-                        ]
+                        ],
                     )
                     id = result.fetchone()[0]
                     return self.equipment_in_to_out(id, equipment)
         except Exception as e:
-                print(e)
-                return {
-                    "message": "Could not create equipment type"
-                }
+            print(e)
+            return {"message": "Could not create equipment type"}
 
-    def get_one_equipment(self, serial_number:int) -> Optional[EquipmentOut]:
+    def get_one_equipment(self, serial_number: int) -> Optional[EquipmentOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as cur:
@@ -116,25 +113,25 @@ class EquipmentQueries:
                         FROM equipment
                         WHERE serial_number = %s
                         """,
-                        [serial_number]
+                        [serial_number],
                     )
                     record = result.fetchone()
                     return EquipmentOut(
-                        id = record[0],
-                        model_name = record[1],
-                        description = record[2],
-                        serial_number = record[3],
-                        storage_site_id = record[4],
-                        date_serviced = record[5],
-                        photo = record[6],
-                        equipment_type_id = record[7]
+                        id=record[0],
+                        model_name=record[1],
+                        description=record[2],
+                        serial_number=record[3],
+                        storage_site_id=record[4],
+                        date_serviced=record[5],
+                        photo=record[6],
+                        equipment_type_id=record[7],
                     )
         except Exception:
-            return {
-                    "message": "Could not find this equipment"
-                }
+            return {"message": "Could not find this equipment"}
 
-    def update_equipment(self, serial_number: int, equipment: EquipmentIn) -> Union[EquipmentOut, Error]:
+    def update_equipment(
+        self, serial_number: int, equipment: EquipmentIn
+    ) -> Union[EquipmentOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as cur:
@@ -158,29 +155,27 @@ class EquipmentQueries:
                             equipment.date_serviced,
                             equipment.photo,
                             equipment.equipment_type_id,
-                            serial_number
-                        ]
+                            serial_number,
+                        ],
                     )
                     return self.equipment_in_to_out(serial_number, equipment)
         except Exception:
-                return {
-                    "message": "Could not update this equipment"
-                }
+            return {"message": "Could not update this equipment"}
 
     def delete_equipment(self, serial_number: int) -> bool:
         try:
-              with pool.connection() as conn:
+            with pool.connection() as conn:
                 with conn.cursor() as cur:
                     cur.execute(
-                         """
+                        """
                         DELETE FROM equipment
                         WHERE serial_number = %s
                         """,
-                        [serial_number]
+                        [serial_number],
                     )
                     return True
         except Exception:
-                return False
+            return False
 
     def equipment_in_to_out(self, id: int, equipment: EquipmentIn):
         old_data = equipment.dict()
