@@ -5,7 +5,7 @@ from psycopg_pool import ConnectionPool
 import os
 
 
-pool = ConnectionPool(conninfo=os.environ.get('DATABASE_URL'))
+pool = ConnectionPool(conninfo=os.environ.get("DATABASE_URL"))
 
 
 class Error(BaseModel):
@@ -13,7 +13,7 @@ class Error(BaseModel):
 
 
 class ContractIn(BaseModel):
-    equipment_serial: int
+    equipment_id: int
     job_site_id: int
     start_date: date
     end_date: date
@@ -22,7 +22,7 @@ class ContractIn(BaseModel):
 
 class ContractOut(BaseModel):
     id: int
-    equipment_serial: int
+    equipment_id: int
     job_site_id: int
     start_date: date
     end_date: date
@@ -44,18 +44,16 @@ class ContractQueries:
                     return [
                         ContractOut(
                             id=record[0],
-                            contract_serial=record[1],
+                            equipment_id=record[1],
                             job_site_name=record[3],
                             start_date=record[4],
                             end_date=record[5],
-                            description=record[6]
+                            description=record[6],
                         )
                         for record in cur
                     ]
         except Exception:
-            return {
-                "message": "could not get list of contracts"
-            }
+            return {"message": "could not get list of contracts"}
 
     def create_contract(self, contract: ContractIn) -> ContractOut:
         try:
@@ -64,29 +62,29 @@ class ContractQueries:
                     result = cur.execute(
                         """
                         INSERT INTO contract (
-                        equipment_serial,
+                        equipment_id,
                         job_site_id,
                         start_date,
                         end_date,
                         description
                         )
                         VALUES (%s, %s, %s, %s, %s)
-                        RETURNING contract;
+                        RETURNING id, equipment_id, job_site_id, start_date, end_date, description
+;
                         """,
                         [
-                            contract.equipment_serial,
+                            contract.equipment_id,
                             contract.job_site_id,
                             contract.start_date,
                             contract.end_date,
                             contract.description,
-                        ]
+                        ],
                     )
                     id = result.fetchone()[0]
                     return self.contract_in_to_out(id, contract)
-        except Exception:
-            return {
-                "message": "Could not create contract type"
-            }
+        except Exception as e:
+            print(e)
+            return {"message": "Could not create contract"}
 
     def contract_in_to_out(self, id: int, contract: ContractIn):
         old_data = contract.dict()

@@ -8,6 +8,7 @@ from queries.contract import (
     ContractIn,
     ContractQueries,
     Error
+
 )
 from typing import Union, List, Optional
 
