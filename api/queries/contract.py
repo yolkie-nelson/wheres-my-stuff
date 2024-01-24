@@ -99,6 +99,7 @@ class ContractQueries:
                     result = cur.execute(
                         """
                         SELECT *
+                        FROM contract
                         WHERE id = %s
                         """,
                         [id]
@@ -126,24 +127,31 @@ class ContractQueries:
                     cur.execute(
                         """
                         UPDATE contract
-                        SET id = %s
-                        , equipment_id = %s
+                        SET equipment_id = %s
                         , job_site_id = %s
-                        , sart_date = %s
-                        , end_date
+                        , start_date = %s
+                        , end_date = %s
                         , description = %s
                         WHERE id = %s
                         """,
-                        [contract.id]
+                        [
+                            contract.equipment_id,
+                            contract.job_site_id,
+                            contract.start_date,
+                            contract.end_date,
+                            contract.description,
+                            id,
+                        ]
                     )
                     return self.contract_in_to_out(
                         id, contract)
-        except Exception:
+        except Exception as e:
+            print(e)
             return {
                     "message": "Could not update this contract"
                 }
 
-    def delete_equipment_type(self, id: int) -> bool:
+    def delete_contract(self, id: int) -> bool:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as cur:
