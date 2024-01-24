@@ -4,13 +4,11 @@ from fastapi import (
     Response,
     Depends,
     HTTPException,
-    status
+    status,
 )
-from queries.accounts import AccountIn, AccountToken, AccountOut, AccountForm
+from queries.accounts import AccountIn, AccountToken, AccountForm
 from queries.accounts import AccountsQueries, DuplicateAccountError
 from authenticator import authenticator
-from typing import Optional
-
 
 router = APIRouter()
 
@@ -20,7 +18,7 @@ async def create_account(
     info: AccountIn,
     request: Request,
     response: Response,
-    queries: AccountsQueries = Depends()
+    queries: AccountsQueries = Depends(),
 ):
     hashed_password = authenticator.hash_password(info.password)
     try:
@@ -28,14 +26,14 @@ async def create_account(
     except DuplicateAccountError:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Cannot create an account with those credentials"
+            detail="Cannot create an account with those credentials",
         )
     form = AccountForm(username=info.username, password=info.password)
     token = await authenticator.login(response, request, form, queries)
     return AccountToken(account=account, **token.dict())
 
 
-@router.get('/token', response_model=AccountToken | None)
+@router.get("/token", response_model=AccountToken | None)
 async def get_token(
     request: Request,
     account: dict = Depends(authenticator.try_get_current_account_data),

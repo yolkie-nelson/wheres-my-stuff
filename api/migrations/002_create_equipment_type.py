@@ -2,16 +2,14 @@ steps = [
     [
         # Create the table
         """
-        CREATE TABLE accounts (
+        CREATE TABLE equipment_type (
             id SERIAL PRIMARY KEY,
-            username VARCHAR(100) NOT NULL,
-            hashed_password VARCHAR(1000) NOT NULL
+            name VARCHAR(100) NOT NULL
         )
         """,
         # Drop the table
         """
-        DROP TABLE accounts;
+        DROP TABLE equipment_type;
         """
     ]
 ]
- 
