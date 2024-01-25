@@ -1,6 +1,7 @@
-/* You should probably replace this with your own CSS */
 
-.App {
+
+
+/* .App {
     text-align: center;
 }
 
@@ -13,4 +14,10 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
+} */
+
+.Navbar {
+    display: flex;
+    flex-direction: row;
+    height: 150px;
 }
