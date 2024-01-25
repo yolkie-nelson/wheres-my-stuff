@@ -156,7 +156,7 @@ class EquipmentQueries:
                             equipment.photo,
                             equipment.equipment_type_id,
                             serial_number,
-                        ],
+                        ]
                     )
                     return self.equipment_in_to_out(serial_number, equipment)
         except Exception:
