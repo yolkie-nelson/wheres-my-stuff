@@ -13,3 +13,19 @@
 
 ### 12/19/23
 - Began equipment and equipment type queries and routers
+
+### 12/22/23
+- Completed Contract model's queries and routers.
+
+### 12/23/23
+- Completed entire backend!
+- Tested all endpoints in Swagger and all were successful!
+
+### 12/24/23
+- Began implementing unit tests
+
+### 12/25/23
+- Spun up Vite/React App
+- Started home page front end and Nav Bar
+
+

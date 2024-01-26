@@ -10,6 +10,7 @@ from queries.equipment_type import (
     Error
 )
 from typing import Union, List, Optional
+from authenticator import authenticator
 
 
 router = APIRouter()
@@ -17,7 +18,9 @@ router = APIRouter()
 
 @router.get("/api/types/", response_model=Union[List[EquipmentTypeOut], Error])
 def get_equipment_type(
-    queries: EquipmentTypeQueries = Depends()
+    queries: EquipmentTypeQueries = Depends(),
+    account_data: dict = Depends(
+        authenticator.get_current_account_data)
 ):
     return queries.get_equipment_type()
 
@@ -26,7 +29,9 @@ def get_equipment_type(
 def create_equipment_type(
     equipment_type: EquipmentTypeIn,
     response: Response,
-    queries: EquipmentTypeQueries = Depends()
+    queries: EquipmentTypeQueries = Depends(),
+    account_data: dict = Depends(
+        authenticator.get_current_account_data)
 ):
     return queries.create_equipment_type(equipment_type)
 
@@ -37,7 +42,9 @@ def create_equipment_type(
 )
 def get_one_equipment_type(
     equipment_type_id: int,
-    queries: EquipmentTypeQueries = Depends()
+    queries: EquipmentTypeQueries = Depends(),
+    account_data: dict = Depends(
+        authenticator.get_current_account_data)
 ) -> EquipmentTypeOut:
     return queries.get_one_equipment_type(equipment_type_id)
 
@@ -49,7 +56,9 @@ def get_one_equipment_type(
 def update_equipment_type(
     equipment_type_id: int,
     equipment_type: EquipmentTypeIn,
-    queries: EquipmentTypeQueries = Depends()
+    queries: EquipmentTypeQueries = Depends(),
+    account_data: dict = Depends(
+        authenticator.get_current_account_data)
 ) -> Union[EquipmentTypeOut, Error]:
     return queries.update_equipment_type(equipment_type_id, equipment_type)
 
@@ -57,6 +66,8 @@ def update_equipment_type(
 @router.delete("/api/types/{equipment_type_id}", response_model=bool)
 def delete_equipment_type(
     equipment_type_id: int,
-    queries: EquipmentTypeQueries = Depends()
+    queries: EquipmentTypeQueries = Depends(),
+    account_data: dict = Depends(
+        authenticator.get_current_account_data)
 ) -> bool:
     return queries.delete_equipment_type(equipment_type_id)
