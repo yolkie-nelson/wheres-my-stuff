@@ -10,13 +10,19 @@ client = TestClient(app)
 class MockContractQueries:
     def get_one_contract(self, id: int):
         return ContractOut(
-                id=id,
-                equipment_id=2,
-                job_site_id=2,
-                start_date="2024-01-26",
-                end_date="2024-01-26",
-                description="Dig a big hole"
-                )
+            id=id,
+            equipment_id=2,
+            job_site_id=2,
+            start_date="2024-01-26",
+            end_date="2024-01-26",
+            description="Dig a big hole",
+        )
+
+    def delete_contract(self, id: int) -> bool:
+        if id == 123:
+            return True
+        else:
+            return False
 
 
 def mock_get_current_account_data():
@@ -25,12 +31,12 @@ def mock_get_current_account_data():
 
 def test_get_contract():
     app.dependency_overrides[
-        authenticator.get_current_account_data] = mock_get_current_account_data
-    app.dependency_overrides[
-        ContractQueries] = MockContractQueries
+        authenticator.get_current_account_data
+    ] = mock_get_current_account_data
+    app.dependency_overrides[ContractQueries] = MockContractQueries
     id = 123
 
-    response = client.get(F"/api/contracts/{id}")
+    response = client.get(f"/api/contracts/{id}")
 
     assert response.status_code == 200
     contract = response.json()
@@ -41,4 +47,18 @@ def test_get_contract():
         "job_site_id": 2,
         "start_date": "2024-01-26",
         "end_date": "2024-01-26",
-        "description": "Dig a big hole"}
+        "description": "Dig a big hole",
+    }
+
+
+def test_delete_contract():
+    app.dependency_overrides[
+        authenticator.get_current_account_data
+    ] = mock_get_current_account_data
+    app.dependency_overrides[ContractQueries] = MockContractQueries
+    id_to_delete = 123
+
+    response = client.delete(f"/api/contracts/{id_to_delete}")
+
+    assert response.status_code == 200
+    assert response.json() is True
