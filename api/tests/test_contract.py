@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 from main import app
-from queries.contract import ContractQueries, ContractOut
+from queries.contract import ContractQueries, ContractOut, ContractIn
 from authenticator import authenticator
 
 
@@ -10,13 +10,23 @@ client = TestClient(app)
 class MockContractQueries:
     def get_one_contract(self, id: int):
         return ContractOut(
-                id=id,
-                equipment_id=2,
-                job_site_id=2,
-                start_date="2024-01-26",
-                end_date="2024-01-26",
-                description="Dig a big hole"
-                )
+            id=id,
+            equipment_id=2,
+            job_site_id=2,
+            start_date="2024-01-26",
+            end_date="2024-01-26",
+            description="Dig a big hole",
+        )
+
+    def create_contract(self, contract: ContractIn):
+        return ContractOut(
+            id=12,
+            equipment_id=contract.equipment_id,
+            job_site_id=contract.job_site_id,
+            start_date=contract.start_date,
+            end_date=contract.end_date,
+            description=contract.description,
+        )
 
 
 def mock_get_current_account_data():
@@ -25,12 +35,12 @@ def mock_get_current_account_data():
 
 def test_get_contract():
     app.dependency_overrides[
-        authenticator.get_current_account_data] = mock_get_current_account_data
-    app.dependency_overrides[
-        ContractQueries] = MockContractQueries
+        authenticator.get_current_account_data
+    ] = mock_get_current_account_data
+    app.dependency_overrides[ContractQueries] = MockContractQueries
     id = 123
 
-    response = client.get(F"/api/contracts/{id}")
+    response = client.get(f"/api/contracts/{id}")
 
     assert response.status_code == 200
     contract = response.json()
@@ -41,4 +51,39 @@ def test_get_contract():
         "job_site_id": 2,
         "start_date": "2024-01-26",
         "end_date": "2024-01-26",
-        "description": "Dig a big hole"}
+        "description": "Dig a big hole",
+    }
+
+
+def mock_update_current_account_data():
+    return {"id": 12, "username": "username", "password": "password"}
+
+
+def test_create_contract():
+    app.dependency_overrides[
+        authenticator.get_current_account_data
+    ] = mock_update_current_account_data
+    app.dependency_overrides[ContractQueries] = MockContractQueries
+
+    response = client.post(
+        "/api/contracts/",
+        json={
+            "equipment_id": "2",
+            "job_site_id": "2",
+            "start_date": "2024-01-26",
+            "end_date": "2024-01-26",
+            "description": "Dig a big hole",
+        },
+    )
+
+    assert response.status_code == 200
+    contract = response.json()
+    assert len(contract)
+    assert response.json() == {
+        "id": 12,
+        "equipment_id": 2,
+        "job_site_id": 2,
+        "start_date": "2024-01-26",
+        "end_date": "2024-01-26",
+        "description": "Dig a big hole",
+    }
