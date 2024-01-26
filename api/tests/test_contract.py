@@ -82,7 +82,6 @@ def test_get_contracts():
     app.dependency_overrides[
         ContractQueries] = MockContractQueries
 
-
     response = client.get("/api/contracts/")
 
     assert response.status_code == 200
