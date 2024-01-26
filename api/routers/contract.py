@@ -5,6 +5,7 @@ from fastapi import (
 )
 from queries.contract import ContractOut, ContractIn, ContractQueries, Error
 from typing import Union, List, Optional
+# from authenticator import authenticator
 
 router = APIRouter()
 

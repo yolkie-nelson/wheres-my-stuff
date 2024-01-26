@@ -11,6 +11,7 @@ from queries.equipment import (
 )
 
 from typing import Union, List, Optional
+from authenticator import authenticator
 
 
 router = APIRouter()
@@ -19,7 +20,9 @@ router = APIRouter()
 @router.get(
     "/api/equipments/", response_model=Union[List[EquipmentOut], Error]
 )
-def get_equipment(queries: EquipmentQueries = Depends()):
+def get_equipment(queries: EquipmentQueries = Depends(),
+                  account_data: dict = Depends(
+                      authenticator.get_current_account_data)):
     return queries.get_equipment()
 
 
