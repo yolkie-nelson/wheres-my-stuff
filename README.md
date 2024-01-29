@@ -145,7 +145,6 @@ Getting a list of accounts return value:
 | Create an Euipment Type | POST | http://localhost:8000/api/equipment_type/ |
 | Get a specific Equipment Type | GET | http://localhost:8000/api/equipment_type/id/ |
 | Delete a specific Equipment Type | DELETE | http://localhost:8000/api/equipment_type/id/ |
-​
 
 Create and update an Equipment Type (SEND THIS JSON BODY):
 ```
@@ -324,7 +323,7 @@ Return value of Listing all Contracts:
 | Job Site details | GET | http://localhost:8000/api/jobsite/id/ |
 | Create a job site | POST | http://localhost:8000/api/jobsite/ |
 | Delete a job site | DELETE | http://localhost:8000/api/jobsite/id/ |
-​
+
 
 To create a Job Site (SEND THIS JSON BODY):
 ```
