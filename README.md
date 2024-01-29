@@ -91,14 +91,17 @@ Access Endpoints through FastAPI (Swagger UI) and your browser
 ### Accounts:
 ​- The account owner is presumed to be the company renting out the equipment, and has access to data that logged out users do not. Authentication is accomplished via jwtdown, and an access token is stored as a cookie.
 ​
+
+
 | Action | Method | URL |
 | ----------- | ----------- | ----------- |
 | List Accounts | GET | http://localhost:8000/api/accounts/ |
 | Create an Account | POST | http://localhost:8000/api/accounts/ |
 | Get a specific Account | GET | http://localhost:8000/api/accounts/id/ |
-| Delete a specific manufacturer | DELETE | http://localhost:8000/api/accounts/id/ |
+| Delete a specific Account | DELETE | http://localhost:8000/api/accounts/id/ |
 ​
 ​
+
 JSON body to send data:
 ​
 Create and Update an account (SEND THIS JSON BODY):
@@ -323,6 +326,7 @@ Return value of Listing all Contracts:
 | Create a job site | POST | http://localhost:8000/api/jobsite/ |
 | Delete a job site | DELETE | http://localhost:8000/api/jobsite/id/ |
 ​
+
 ​
 To create a Job Site (SEND THIS JSON BODY):
 ```
