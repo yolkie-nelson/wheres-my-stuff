@@ -97,8 +97,8 @@ Access Endpoints through FastAPI (Swagger UI) and your browser
 | Create an Account | POST | http://localhost:8000/api/accounts/ |
 | Get a specific Account | GET | http://localhost:8000/api/accounts/id/ |
 | Delete a specific manufacturer | DELETE | http://localhost:8000/api/accounts/id/ |
-​
-​
+
+
 JSON body to send data:
 ​
 Create and Update an account (SEND THIS JSON BODY):
@@ -137,6 +137,7 @@ Getting a list of accounts return value:
 ​
 ### EquipmentType:
 - The equipment type is used to categorize the equipment items available for rental.
+
 ​
 | Action | Method | URL |
 | ----------- | ----------- | ----------- |
@@ -179,6 +180,7 @@ Getting a List of Equipment Types Return Value:
 ### Equipment:
 - The **'serial'** at the end of the detail urls represents the serial number for the specific equipment item you want to access. This is not an integer ID. This is a string value so you can use numbers and/or letters.
 ​
+
 | Action | Method | URL |
 | ----------- | ----------- | ----------- |
 | List equipment | GET | http://localhost:8000/api/equipment/ |
@@ -186,8 +188,7 @@ Getting a List of Equipment Types Return Value:
 | Get a specific equipment | GET | http://localhost:8000/api/equipment/serial/ |
 | Update a specific automobile | PUT | http://localhost:8000/api/equipment/serial/ |
 | Delete a specific automobile | DELETE | http://localhost:8000/api/equipment/serial/ |
-​
-​
+
 Create Equipment (SEND THIS JSON BODY):
 - You cannot make two equipment items with the same serial number
 ```
@@ -271,7 +272,7 @@ Getting a list of Equipment items Return Value:
 | Create a contract | POST | http://localhost:8000/api/contracts/ |
 | Show a specific contract | GET | http://localhost:8000/api/contracts/id/ |
 | Delete a specific contract | GET | http://localhost:8000/api/contracts/id/ |
-​
+
 To create a Contract (SEND THIS JSON BODY):
 ```
 {
@@ -324,7 +325,7 @@ Return value of Listing all Contracts:
 | Create a job site | POST | http://localhost:8000/api/jobsite/ |
 | Delete a job site | DELETE | http://localhost:8000/api/jobsite/id/ |
 ​
-​
+
 To create a Job Site (SEND THIS JSON BODY):
 ```
 {
@@ -361,6 +362,7 @@ List all Job Sites Return Value:
 ```
 ### Storage Site:
 - The storage site respresents the warehouse where a piece of equipment is stored when it is not actively rented.
+
 ​
 | Action | Method | URL |
 | ----------- | ----------- | ----------- |
