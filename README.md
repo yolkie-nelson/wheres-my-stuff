@@ -1,6 +1,6 @@
-#### Where's My Stuff?
+# Where's My Stuff?
 ​
-Where's My Stuff? is an application for managing and tracking the locations of equipment rentals.
+_Where's My Stuff?_ is an application for managing and tracking the locations of equipment rentals.
 ​
 Team:
 ​
@@ -16,7 +16,7 @@ Team:
 1. Fork this repository
 ​
 2. Clone the forked repository onto your local computer:
-git clone <<respository.url.here>>
+git clone <respository.url.here>
 ​
 3. Build and run the project using Docker with these commands:
 ```
@@ -26,11 +26,6 @@ docker-compose build
 docker-compose up
 ```
 - After running these commands, make sure all of your Docker containers are running
-​
-- View the project in the browser: http://localhost:5173/
-​```
-![Img](/images/WheresMyStuff.png)
-```
 
 ### Installing python dependencies locally
 
@@ -61,13 +56,21 @@ pip install -r requirements.txt
 Then make sure the venv is selected in VSCode by checking the lower right of the
 VSCode status bar
 
-### Installing python dependencies locally
+### NPM Installs
+**In order for our React App to function properly, make sure to run the following npm install commands**
 
-NPM installs
-- react
-- redux
-- jwtdown for react
+```
+npm install react
+npm install redux
+```
 ​
+
+**View the project in the browser: http://localhost:5173/**
+
+
+
+![Img](ghi/public/wheres_my_stuff-removebg-preview.png)
+
 ## Design
 ​
 Where's My Stuff is a streamlined equipment management app made up of these core objects:
@@ -83,7 +86,7 @@ Where's My Stuff is a streamlined equipment management app made up of these core
 It all begins by creating a user account. The user is able to login, where they have access to their record of equipment types and the corresponding equipment items. Their availability, location, and maintenance schedule are tracked.
 ​
 ## Accessing Endpoints to Send and View Data
-Access Endpoints through FastAPI and your browser
+Access Endpoints through FastAPI (Swagger UI) and your browser
 ​
 ### Accounts:
 ​- The account owner is presumed to be the company renting out the equipment, and has access to data that logged out users do not. Authentication is accomplished via jwtdown, and an access token is stored as a cookie.
@@ -109,7 +112,7 @@ Create and Update an account (SEND THIS JSON BODY):
 The return value of creating, viewing, updating a single account:
 ```
 {
-    "access_token": "string",
+    "access_token": "12345",
       "token_type": "Bearer,
       "account": {
         "id": 1,
@@ -121,7 +124,7 @@ Getting a list of accounts return value:
 ```
 [
     {
-      "access_token": "string",
+      "access_token": "12345",
       "token_type": "Bearer,
       "account": {
         "id": 1,
@@ -152,11 +155,9 @@ Return value of creating or updating an equipment type:
 - This returns the manufacturer's information as well
 ```
 {
-  "equipment type": {
+
     "id": 0,
     "name": "Landscape"
-  }
-
 }
 ```
 Getting a List of Equipment Types Return Value:
@@ -244,7 +245,7 @@ Getting a list of Equipment items Return Value:
         "description": "Black, 6 wheel",
         "serial_number": "194ghjl300",
         "storage_site_id": 12,
-        "date_servied": 01:02:1993,
+        "date_servied": "2024-01-24",
         "photo": "image.yourpictureurl.com",
         "equipment_type_id": 3
     },
@@ -255,13 +256,13 @@ Getting a list of Equipment items Return Value:
         "serial_number": 12345,
         "storage_site_id": 2,
         "date_serviced": "2024-01-24",
-        "photo": "string",
+        "photo": "image.yourpictureurl.com",
         "equipment_type_id": 2
     }
 ]
 ```
 ### Contracts:
-​- The contract is meant to represent a rental agreement between us and our client, and stores info about the location of the piece of equipment long with the date it will be there.
+​- The contract is meant to represent a rental agreement between us and our client, and stores info about the location of the piece of equipment along with the dates it will be on site.
 ​
 | Action | Method | URL |
 | ----------- | ----------- | ----------- |
@@ -275,9 +276,9 @@ To create a Contract (SEND THIS JSON BODY):
 {
   "equipment_id": 0,
   "job_site_id": 0,
-  "start_date": "2024-01-29",
+  "start_date": "2024-01-24",
   "end_date": "2024-01-29",
-  "description": "string"
+  "description": "Music Festival"
 }
 ```
 Return Value of Creating a Contract:
@@ -286,9 +287,9 @@ Return Value of Creating a Contract:
   "id": 0,
   "equipment_id": 0,
   "job_site_id": 0,
-  "start_date": "2024-01-29",
+  "start_date": "2024-01-24",
   "end_date": "2024-01-29",
-  "description": "string"
+  "description": "Music Festival"
 }
 ```
 Return value of Listing all Contracts:
@@ -298,17 +299,17 @@ Return value of Listing all Contracts:
             "id": 0,
             "equipment_id": 0,
             "job_site_id": 0,
-            "start_date": "2024-01-29",
+            "start_date": "2024-01-24",
             "end_date": "2024-01-29",
-            "description": "string"
+            "description": "Music Festival"
         },
         {
             "id": 0,
             "equipment_id": 0,
             "job_site_id": 0,
-            "start_date": "2024-01-29",
+            "start_date": "2024-01-24",
             "end_date": "2024-01-29",
-            "description": "string"
+            "description": "Music Festival"
         }
 ]
 ```
@@ -326,18 +327,18 @@ Return value of Listing all Contracts:
 To create a Job Site (SEND THIS JSON BODY):
 ```
 {
-    "job_name": "string",
-    "job_address": "string",
-    "job_poc": "string"
+    "job_name": "Fair Grounds Music Festival",
+    "job_address": "123 E Street",
+    "job_poc": "tom@tom.com"
 }
 ```
 Return Value of creating a Job Site:
 ```
 {
     "id": 0,
-    "job_name": "string",
-    "job_address": "string",
-    "job_poc": "string"
+    "job_name": "Fair Grounds Music Festival",
+    "job_address": "123 E Street",
+    "job_poc": "tom@tom.com"
 }
 ```
 List all Job Sites Return Value:
@@ -345,15 +346,15 @@ List all Job Sites Return Value:
 [
     {
         "id": 0,
-        "job_name": "string",
-        "job_address": "string",
-        "job_poc": "string"
+        "job_name": "Fair Grounds Music Festival",
+        "job_address": "123 E Street",
+        "job_poc": "tom@tom.com"
     },
     {
         "id": 0,
-        "job_name": "string",
-        "job_address": "string",
-        "job_poc": "string"
+        "job_name": "Commercial Landscaping Job",
+        "job_address": "456 H Street",
+        "job_poc": "sally@sally.com"
     }
 ]
 ```
@@ -372,39 +373,39 @@ List all Storage Sites Return Value:
 [
         {
             "id": 0,
-            "warehouse_number": 0,
-            "location_address": "string",
-            "point_of_contact": "string"
+            "warehouse_number": 12,
+            "location_address": "789 M Street",
+            "point_of_contact": "marry@marry.com"
         },
         {
             "id": 0,
-            "warehouse_number": 0,
-            "location_address": "string",
-            "point_of_contact": "string"
+            "warehouse_number": 4,
+            "location_address": "111 L Street",
+            "point_of_contact": "maya@maya.com"
         },
         {
             "id": 0,
-            "warehouse_number": 0,
-            "location_address": "string",
-            "point_of_contact": "string"
+            "warehouse_number": 9,
+            "location_address": "321 R Street",
+            "point_of_contact": "lewis@lewis.com"
         }
 ]
 ```
 Create a Storage Site (SEND THIS JSON BODY):
 ```
 {
-    "warehouse_number": 0,
-    "location_address": "string",
-    "point_of_contact": "string"
+    "warehouse_number": 1,
+    "location_address": "1010 G Street",
+    "point_of_contact": "tom@tom.com"
 }
 ```
 Return Value of Creating a new Storage Site:
 ```
 {
     "id": 0,
-    "warehouse_number": 0,
-    "location_address": "string",
-    "point_of_contact": "string"
+    "warehouse_number": 1,
+    "location_address": "1010 G Street",
+    "point_of_contact": "tom@tom.com"
 }
 ```
 Show all Storage Sites Return Value:
@@ -412,19 +413,21 @@ Show all Storage Sites Return Value:
 { "job_sites": [
     {
         "id": 0,
-        "warehouse_number": 0,
-        "location_address": "string",
-        "point_of_contact": "string"
+        "warehouse_number": 1,
+        "location_address": "1010 G Street",
+        "point_of_contact": "tom@tom.com"
     },
     {
-        "id": 0,
-        "warehouse_number": 0,
-        "location_address": "string",
-        "point_of_contact": "string"
+        "id": 1,
+        "warehouse_number": 2,
+        "location_address": "2020 9th St",
+        "point_of_contact": "cindy@cindy.com"
     }
   ]
 }
 ```
+
+## Given to us by Instructors
 ### Other files
 
 The following project files have been created as a minimal
