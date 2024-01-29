@@ -32,4 +32,4 @@
 - Implemented unit testing for get one contract!
 
 ### 12/26/23
-- Began implementation of React Authenticator
+- Began implementation of React Authenticator using jwtdown and Redux
