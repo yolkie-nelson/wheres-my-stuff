@@ -28,4 +28,8 @@
 - Spun up Vite/React App
 - Started home page front end and Nav Bar
 
+### 12/26/23
+- Implemented unit testing for get one contract!
 
+### 12/26/23
+- Began implementation of React Authenticator
