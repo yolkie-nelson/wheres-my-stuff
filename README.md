@@ -188,7 +188,7 @@ Getting a List of Equipment Types Return Value:
 | Get a specific equipment | GET | http://localhost:8000/api/equipment/serial/ |
 | Update a specific automobile | PUT | http://localhost:8000/api/equipment/serial/ |
 | Delete a specific automobile | DELETE | http://localhost:8000/api/equipment/serial/ |
-​
+
 
 ​
 Create Equipment (SEND THIS JSON BODY):
