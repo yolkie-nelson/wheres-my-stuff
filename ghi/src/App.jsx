@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import ErrorNotification from './ErrorNotification'
 import Nav from './Nav.jsx'
 import './App.css'
+import Sidenav from './sidenav'
 
 // All your environment variables in vite are in this object
 console.table(import.meta.env)
@@ -55,8 +56,13 @@ function App() {
 
     return (
         <div>
-            <ErrorNotification error={error} />
             <Nav />
+            <div className='main-section'>
+                <Sidenav />
+                <div className='w-screen'>
+                    <p>Hi</p>
+                </div>
+            </div>
         </div>
     )
 }

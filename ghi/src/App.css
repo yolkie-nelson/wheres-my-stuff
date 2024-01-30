@@ -56,3 +56,8 @@ div {
     text-align: right;
     font-size: 1.5rem;
 }
+
+.main-section{
+    display: flex;
+    flex-direction: row;
+}
