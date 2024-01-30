@@ -1,7 +1,10 @@
 import { Link, Outlet} from "react-router-dom";
+import { useGetTokenQuery } from "./app/apiSlice.js";
 
 
-function Nav() {
+const Nav = () => {
+    const { data: account } = useGetTokenQuery()
+    console.log("account", {account})
     return (
         <nav className="bg-gray-800">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -89,7 +92,7 @@ function Nav() {
         //         Hello world!
         //     </h1>
         //     <div>
-        //         <img classNameName="logo" src={"./public/wheres_my_stuff-removebg-preview.png"} />
+        //         {account && <img classNameName="logo" src={"./wheres_my_stuff-removebg-preview.png"} />}
         //     </div>
         //     <div>
         //         <div>
