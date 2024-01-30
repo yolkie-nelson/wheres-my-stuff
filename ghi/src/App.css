@@ -19,7 +19,7 @@
 .Navbar {
     display: flex;
     flex-direction: row;
-    height: 150px;
+    height: 200px;
 }
 
 nav {
@@ -45,4 +45,14 @@ div {
     color: white;
     font-size: 3rem;
     font-family: Rammetto
+}
+
+.app-name {
+    text-align: left;
+    font-size: 4rem;
+}
+
+.tag-line {
+    text-align: right;
+    font-size: 1.5rem;
 }

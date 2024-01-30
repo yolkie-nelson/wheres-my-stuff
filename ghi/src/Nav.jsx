@@ -6,31 +6,20 @@ const Nav = () => {
     const { data: account } = useGetTokenQuery()
     return (
         <nav className="bg-gray-800">
-            {/* <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8"> */}
-
-                <div className="flex pl-10 flex-1 items-center justify-start sm:items-stretch sm:justify-start">
-                    <div className="flex flex-shrink-0 items-center">
-                        <img
-                            className="h-48"
+                <div class=" nav-bar-font grid grid-rows-5 grid-cols-12 gap-1 w-full items-center justify-start sm:items-stretch sm:justify-start">
+                    <div class="row-span-5 col-start-1 col-span-1 ..."><img
+                            className="h-40"
                             src="./public/wheres_my_stuff-removebg-preview.png"
                             alt="Where's My Stuff Logo"
-                        />
-                    </div>
-                    <div className="nav-bar-font pr-10 pl-5 hidden sm:ml-6 sm:block">
-                        Where's My Stuff?
-                    </div>
+                        /> </div>
+                    <div className="col-start 2 col-span-6 app-name row-span-3  ..."> Where's My Stuff? </div>
+                    <div className="tag-line col-span-2 row-start-4 col-start-4 ..."> Not where I left it</div>
+                    <div className="flex justify-end pr-10 space-x-4 col-start-10 row-start-3"> <a href="#" className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</a></div>
+                    <div className="flex justify-end pr-10 space-x-4 col-start-11 row-start-3"> <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">About</a> </div>
+                    <div className="flex justify-end pr-10 space-x-4 col-start-12 row-start-3"> <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Login</a> </div>
                 </div>
-                <div className="flex justify-end pr-10 space-x-4">
-
-                    <a href="#" className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Home</a>
-                    <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">About</a>
-                    <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Login</a>
-                </div>
-
-
                 {/* <!--
                         Dropdown menu, show/hide based on menu state.
-
                         Entering: "transition ease-out duration-100"
                         From: "transform opacity-0 scale-95"
                         To: "transform opacity-100 scale-100"
