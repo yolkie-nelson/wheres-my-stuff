@@ -12,7 +12,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: calc(10px + 2vmin);
+    font-size: calc(10px + 2vmin);`
     color: white;
 } */
 
@@ -20,4 +20,29 @@
     display: flex;
     flex-direction: row;
     height: 150px;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    height: 10rem;
+}
+
+div {
+    border: 1px solid red;
+}
+
+.custom-container-nav {
+    width: 50rem
+}
+
+@font-face {
+    font-family: 'Rammetto';
+    src: url('/public/fonts/Rammetto_One/RammettoOne-regular.ttf');
+}
+
+.nav-bar-font {
+    color: white;
+    font-size: 3rem;
+    font-family: Rammetto
 }
