@@ -13,7 +13,7 @@ from authenticator import authenticator
 router = APIRouter()
 
 
-@router.post("/api/accounts/", response_model=AccountToken)
+@router.post("/api/accounts", response_model=AccountToken)
 async def create_account(
     info: AccountIn,
     request: Request,

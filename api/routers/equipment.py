@@ -18,7 +18,7 @@ router = APIRouter()
 
 
 @router.get(
-    "/api/equipments/", response_model=Union[List[EquipmentOut], Error]
+    "/api/equipment", response_model=Union[List[EquipmentOut], Error]
 )
 def get_equipment(queries: EquipmentQueries = Depends(),
                   account_data: dict = Depends(
@@ -26,7 +26,7 @@ def get_equipment(queries: EquipmentQueries = Depends(),
     return queries.get_equipment()
 
 
-@router.post("/api/equipments/", response_model=Union[EquipmentOut, Error])
+@router.post("/api/equipment", response_model=Union[EquipmentOut, Error])
 def create_equipment(
     equipment: EquipmentIn,
     queries: EquipmentQueries = Depends(),
@@ -37,7 +37,7 @@ def create_equipment(
 
 
 @router.get(
-    "/api/equipments/{serial_number}", response_model=Optional[EquipmentOut]
+    "/api/equipment/{serial_number}", response_model=Optional[EquipmentOut]
 )
 def get_one_equipment(
     serial_number: int, queries: EquipmentQueries = Depends(),
@@ -48,7 +48,7 @@ def get_one_equipment(
 
 
 @router.put(
-    "/api/equipments/{serial_number}",
+    "/api/equipment/{serial_number}",
     response_model=Union[EquipmentOut, Error],
 )
 def update_equipment(
@@ -61,7 +61,7 @@ def update_equipment(
     return queries.update_equipment(serial_number, equipment)
 
 
-@router.delete("/api/equipments/{serial_number}", response_model=bool)
+@router.delete("/api/equipment/{serial_number}", response_model=bool)
 def delete_equipment(
     serial_number: int, queries: EquipmentQueries = Depends(),
     account_data: dict = Depends(

@@ -11,14 +11,14 @@ from authenticator import authenticator
 router = APIRouter()
 
 
-@router.get("/api/contracts/", response_model=Union[List[ContractOut], Error])
+@router.get("/api/contracts", response_model=Union[List[ContractOut], Error])
 def get_contract(queries: ContractQueries = Depends(),
                  account_data: dict = Depends(
                     authenticator.get_current_account_data)):
     return queries.get_contract()
 
 
-@router.post("/api/contracts/", response_model=Union[ContractOut, Error])
+@router.post("/api/contracts", response_model=Union[ContractOut, Error])
 def create_contract(
     contract: ContractIn,
     response: Response,
