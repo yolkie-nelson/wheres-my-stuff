@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import ErrorNotification from './ErrorNotification'
 import Nav from './Nav.jsx'
 import './App.css'
-import Sidenav from './sidenav'
+import Sidenav from './Sidenav.jsx'
+import { useGetTokenQuery } from "./app/apiSlice.js";
 
 // All your environment variables in vite are in this object
 console.table(import.meta.env)
@@ -25,6 +26,8 @@ if (!API_HOST) {
  * @returns {React.ReactNode}
  */
 function App() {
+    const { data: account } = useGetTokenQuery()
+    console.log({account})
     // Replace this App component with your own.
     /** @type {[LaunchInfo | undefined, (info: LaunchInfo) => void]} */
     const [launchInfo, setLaunchInfo] = useState()
@@ -58,7 +61,7 @@ function App() {
         <div>
             <Nav />
             <div className='main-section'>
-                <Sidenav />
+                {account && <Sidenav />}
                 <div className='w-screen'>
                     <p>Hi</p>
                 </div>
