@@ -15,12 +15,12 @@
     font-size: calc(10px + 2vmin);`
     color: white;
 } */
-
+/*
 .Navbar {
     display: flex;
     flex-direction: row;
     height: 200px;
-}
+} */
 
 nav {
     display: flex;
@@ -28,9 +28,9 @@ nav {
     height: 10rem;
 }
 
-div {
+/* div {
     border: 1px solid red;
-}
+} */
 
 .custom-container-nav {
     width: 50rem
@@ -38,23 +38,23 @@ div {
 
 @font-face {
     font-family: 'Rammetto';
-    src: url('/public/fonts/Rammetto_One/RammettoOne-regular.ttf');
+    src: url('public/fonts/Rammetto_One/RammettoOne-Regular.ttf');
 }
 
 .nav-bar-font {
     color: white;
-    font-size: 3rem;
+    /* font-size: 3rem; */
     font-family: Rammetto
 }
 
 .app-name {
     text-align: left;
-    font-size: 4rem;
+
 }
 
 .tag-line {
-    text-align: right;
-    font-size: 1.5rem;
+    text-align: left;
+
 }
 
 .main-section{
