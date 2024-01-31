@@ -6,8 +6,8 @@ const Nav = () => {
     const { data: account } = useGetTokenQuery()
     return (
         <><nav className="bg-gray-800">
-            <div class=" nav-bar-font grid grid-rows-5 grid-cols-12 gap-1 w-full items-center justify-start sm:items-stretch sm:justify-start">
-                <div class="row-span-5 col-start-1 col-span-1 ..."><img
+            <div className=" nav-bar-font grid grid-rows-5 grid-cols-12 gap-1 w-full items-center justify-start sm:items-stretch sm:justify-start">
+                <div className="row-span-5 col-start-1 col-span-1 ..."><img
                     className="h-40"
                     src="./public/wheres_my_stuff-removebg-preview.png"
                     alt="Where's My Stuff Logo" /> </div>
