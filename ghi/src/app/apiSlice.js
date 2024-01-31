@@ -24,7 +24,7 @@ export const WMSApi = createApi({
         }),
         createAccount: builder.mutation ({
             query: data => ({
-                url: "/api/accounts/",
+                url: "/api/accounts",
                 body: data,
                 method: "post"
             }),
