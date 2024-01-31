@@ -139,6 +139,108 @@ export const WMSApi = createApi({
                 credentials: "include"
             })
         }),
+        createStoragesite: builder.mutation({
+            query: data => ({
+                url: 'api/storages',
+                body: data,
+                method: 'post',
+                credentials: "include"
+            }),
+            invalidatesTags: ['Storagesite']
+        }),
+        getOneStoragesite: builder.query({
+            query:storage_site_id => ({
+                url: `api/storages/${storage_site_id}`,
+                method: 'get',
+                credentials: "include"
+            }),
+            invalidatesTags: ['Storagesite']
+        }),
+        updateStoragesite: builder.mutation({
+            query:(storage_site_id, data) => ({
+                url: `api/storages/${storage_site_id}`,
+                body: data,
+                method: 'put',
+                credentials: "include"
+            }),
+            invalidatesTags: ['Storagesite']
+        }),
+        deleteStoragesite: builder.mutation({
+            query: storage_site_id => ({
+                url: `api/storages/${storage_site_id}`,
+                method: 'delete',
+                credentials: "include"
+            }),
+            invalidatesTags: ['Storagesite']
+        }),
+        createJobsite: builder.mutation({
+            query: data => ({
+                url: 'api/jobsites',
+                body: data,
+                method: 'post',
+                credentials: "include"
+            }),
+            invalidatesTags: ['Jobsites']
+        }),
+        getOneJobsite: builder.query({
+            query:id => ({
+                url: `api/jobsites/${id}`,
+                method: 'get',
+                credentials: "include"
+            }),
+            invalidatesTags: ['Jobsites']
+        }),
+        updateJobsite: builder.mutation({
+            query:(id, data) => ({
+                url: `api/jobsites/${id}`,
+                body: data,
+                method: 'put',
+                credentials: "include"
+            }),
+            invalidatesTags: ['Jobsites']
+        }),
+        deleteJobsite: builder.mutation({
+            query: id => ({
+                url: `api/jobsites/${id}`,
+                method: 'delete',
+                credentials: "include"
+            }),
+            invalidatesTags: ['Jobsites']
+        }),
+        createContract: builder.mutation({
+            query: data => ({
+                url: 'api/contracts',
+                body: data,
+                method: 'post',
+                credentials: "include"
+            }),
+            invalidatesTags: ['Contract']
+        }),
+        getOneContract: builder.query({
+            query:id => ({
+                url: `api/contracts/${id}`,
+                method: 'get',
+                credentials: "include"
+            }),
+            invalidatesTags: ['Contract']
+        }),
+        updateContract: builder.mutation({
+            query:(id, data) => ({
+                url: `api/contracts/${id}`,
+                body: data,
+                method: 'put',
+                credentials: "include"
+            }),
+            invalidatesTags: ['Contract']
+        }),
+        deleteJContract: builder.mutation({
+            query: id => ({
+                url: `api/contracts/${id}`,
+                method: 'delete',
+                credentials: "include"
+            }),
+            invalidatesTags: ['Contract']
+        }),
 
     })
 })
@@ -157,5 +259,22 @@ export const {
     useCreateEquipmentMutation,
     useGetOneEquipmentQuery,
     useUpdateEquipmentMutation,
-    useDeleteEquipmentMutation
+    useDeleteEquipmentMutation,
+    useGetEquipmentQuery,
+    useGetContractQuery,
+    useGetEquipmentTypeQuery,
+    useGetJobSiteQuery,
+    useGetStorageSiteQuery,
+    useCreateStoragesiteMutation,
+    useGetOneStoragesiteQuery,
+    useUpdateStoragesiteMutation,
+    useDeleteStoragesiteMutation,
+    useCreateJobsiteMutation,
+    useGetOneJobsiteQuery,
+    useUpdateJobsiteMutation,
+    useDeleteJobsiteMutation,
+    useCreateContractMutation,
+    useGetOneContractQuery,
+    useUpdateContractMutation,
+    useDeleteJContractMutation
 } = WMSApi;

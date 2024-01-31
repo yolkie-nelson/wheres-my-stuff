@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import ErrorNotification from './ErrorNotification'
 import Nav from './Nav.jsx'
 import './App.css'
-import Sidenav from './Sidenav.jsx'
+import Sidenav from './Sidenav'
 import { useGetTokenQuery } from "./app/apiSlice.js";
 import LandingPage from './LandingPage'
 
