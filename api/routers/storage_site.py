@@ -15,7 +15,7 @@ router = APIRouter()
 
 
 @router.get(
-    "/api/storages/", response_model=Union[List[StorageSiteOut], Error]
+    "/api/storagesites/", response_model=Union[List[StorageSiteOut], Error]
 )
 def get_storage_site(queries: StorageSiteQueries = Depends(),
                      account_data: dict = Depends(
@@ -23,7 +23,7 @@ def get_storage_site(queries: StorageSiteQueries = Depends(),
     return queries.get_storage_site()
 
 
-@router.post("/api/storages/", response_model=Union[StorageSiteOut, Error])
+@router.post("/api/storagesites/", response_model=Union[StorageSiteOut, Error])
 def create_storage_site(
     storage_site: StorageSiteIn, queries: StorageSiteQueries = Depends(),
     account_data: dict = Depends(
@@ -33,7 +33,7 @@ def create_storage_site(
 
 
 @router.get(
-    "/api/storages/{storage_site_id}", response_model=Optional[StorageSiteOut]
+    "/api/storagessites/{storage_site_id}", response_model=Optional[StorageSiteOut]
 )
 def get_one_storage_site(
     storage_site_id: int, queries: StorageSiteQueries = Depends(),
@@ -44,7 +44,7 @@ def get_one_storage_site(
 
 
 @router.put(
-    "/api/storages/{storage_site_id}",
+    "/api/storagesites/{storage_site_id}",
     response_model=Union[StorageSiteOut, Error],
 )
 def update_storage_site(
@@ -57,7 +57,7 @@ def update_storage_site(
     return queries.update_storage_site(storage_site_id, storage_site)
 
 
-@router.delete("/api/storages/{storage_site_id}", response_model=bool)
+@router.delete("/api/storagesites/{storage_site_id}", response_model=bool)
 def delete_storage_site(
     storage_site_id: int, queries: StorageSiteQueries = Depends(),
     account_data: dict = Depends(
