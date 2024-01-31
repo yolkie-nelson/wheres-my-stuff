@@ -12,16 +12,7 @@ from routers import (
 
 )
 
-
 app = FastAPI()
-app.include_router(authenticator.router, tags=['Auth'])
-app.include_router(accounts.router, tags=['Account'])
-app.include_router(equipment_type.router, tags=['Equipment Type'])
-app.include_router(equipment.router, tags=['Equipment'])
-app.include_router(storage_site.router, tags=['Storage Site'])
-app.include_router(job_site.router, tags=['Job Site'])
-app.include_router(contract.router, tags=['Contract'])
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -34,14 +25,10 @@ app.add_middleware(
 )
 
 
-@app.get("/api/launch-details")
-def launch_details():
-    return {
-        "launch_details": {
-            "module": 3,
-            "week": 17,
-            "day": 5,
-            "hour": 19,
-            "min": "00"
-        }
-    }
+app.include_router(authenticator.router, tags=['Auth'])
+app.include_router(accounts.router, tags=['Account'])
+app.include_router(equipment_type.router, tags=['Equipment Type'])
+app.include_router(equipment.router, tags=['Equipment'])
+app.include_router(storage_site.router, tags=['Storage Site'])
+app.include_router(job_site.router, tags=['Job Site'])
+app.include_router(contract.router, tags=['Contract'])
