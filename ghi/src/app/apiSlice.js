@@ -9,7 +9,10 @@ export const WMSApi = createApi({
     tagTypes: [
         "Token",
         "EquipmentType",
-        "Equipment"
+        "Equipment",
+        "Storagesite",
+        "Contract",
+        "Jobsites"
     ],
     endpoints: builder => ({
         getToken: builder.query ({
@@ -125,19 +128,22 @@ export const WMSApi = createApi({
             query: () => ({
                 url: "/api/storagesites",
                 credentials: "include"
-            })
+            }),
+            providesTags: ["Storagesite"]
         }),
         getJobSite: builder.query ({
             query: () => ({
                 url: "/api/jobsites",
                 credentials: "include"
-            })
+            }),
+            providesTags: ["Jobsites"]
         }),
         getContract: builder.query ({
             query: () => ({
                 url: "/api/contracts",
                 credentials: "include"
-            })
+            }),
+            providesTags: ["Contract"]
         }),
         createStoragesite: builder.mutation({
             query: data => ({
@@ -260,9 +266,7 @@ export const {
     useGetOneEquipmentQuery,
     useUpdateEquipmentMutation,
     useDeleteEquipmentMutation,
-    useGetEquipmentQuery,
     useGetContractQuery,
-    useGetEquipmentTypeQuery,
     useGetJobSiteQuery,
     useGetStorageSiteQuery,
     useCreateStoragesiteMutation,
