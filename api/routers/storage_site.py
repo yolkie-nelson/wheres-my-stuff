@@ -15,7 +15,7 @@ router = APIRouter()
 
 
 @router.get(
-    "/api/storagesites/", response_model=Union[List[StorageSiteOut], Error]
+    "/api/storagesites", response_model=Union[List[StorageSiteOut], Error]
 )
 def get_storage_site(queries: StorageSiteQueries = Depends(),
                      account_data: dict = Depends(
@@ -23,7 +23,7 @@ def get_storage_site(queries: StorageSiteQueries = Depends(),
     return queries.get_storage_site()
 
 
-@router.post("/api/storagesites/", response_model=Union[StorageSiteOut, Error])
+@router.post("/api/storagesites", response_model=Union[StorageSiteOut, Error])
 def create_storage_site(
     storage_site: StorageSiteIn, queries: StorageSiteQueries = Depends(),
     account_data: dict = Depends(

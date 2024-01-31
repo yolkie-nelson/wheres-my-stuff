@@ -16,7 +16,7 @@ from authenticator import authenticator
 router = APIRouter()
 
 
-@router.get("/api/types/", response_model=Union[List[EquipmentTypeOut], Error])
+@router.get("/api/types", response_model=Union[List[EquipmentTypeOut], Error])
 def get_equipment_type(
     queries: EquipmentTypeQueries = Depends(),
     account_data: dict = Depends(
@@ -25,7 +25,7 @@ def get_equipment_type(
     return queries.get_equipment_type()
 
 
-@router.post("/api/types/", response_model=Union[EquipmentTypeOut, Error])
+@router.post("/api/types", response_model=Union[EquipmentTypeOut, Error])
 def create_equipment_type(
     equipment_type: EquipmentTypeIn,
     response: Response,
