@@ -6,6 +6,7 @@ import Nav from './Nav.jsx'
 import './App.css'
 import Sidenav from './Sidenav.jsx'
 import { useGetTokenQuery } from "./app/apiSlice.js";
+import LandingPage from './LandingPage'
 
 // All your environment variables in vite are in this object
 console.table(import.meta.env)
@@ -63,7 +64,7 @@ function App() {
             <div className='main-section'>
                 {account && <Sidenav />}
                 <div className='w-screen'>
-                    <p>Hi</p>
+                    <LandingPage />
                 </div>
             </div>
         </div>
