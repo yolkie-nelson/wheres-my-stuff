@@ -45,3 +45,14 @@
 - Once again, battled Redux! Our API host was not set properly, and we fixed it by updating our .env and our yaml file
 - Edited all enpoints to get rid of trailing /'s
 - Built the EquipmentList component
+
+### 01/31/24
+- Started the EquipmentDetail page
+- Implemented Routers in our App.jsx
+
+### 02/01/24
+- Fixed Routers in App.jsx, ran into an issue with useParams. It wasn't pulling the serial number for equipment properly from the path and it turns out it was because I was trying to import it from react instead of react-router-dom
+- Ran into a catestrophic Git moment because we were all working on the same branch and had to reconcile consolidating everything
+- In the future, we all need to create a branch off of main, and we only ever pull from main
+
+
