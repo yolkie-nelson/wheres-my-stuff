@@ -22,7 +22,7 @@ const Nav = () => {
                     </div>
                     <div className=" whitespace-nowrap text-teal pl-9 col-span-3 row-start-4 col-start-3 xl:text-2xl invisible md:visible">
                         {' '}
-                        Not where I left it
+                        You will never ask that question again!
                     </div>
                     <div className=" justify-end pr-10 space-x-4 col-start-10 row-start-4 hidden sm:inline-block">
                         {' '}
