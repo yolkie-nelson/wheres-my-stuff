@@ -41,7 +41,7 @@ function App() {
                 {account && <Sidenav />}
                 <div className='w-screen'>
                     <LandingPage />
-                    <EquipmentList />
+                    {/* <EquipmentList /> */}
                 </div>
             </div>
         </div>
