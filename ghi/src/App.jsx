@@ -4,11 +4,12 @@ import { useState, useEffect } from 'react'
 import ErrorNotification from './ErrorNotification'
 import Nav from './Nav.jsx'
 import './App.css'
-import Sidenav from './sidenav'
+import Sidenav from './Sidenav'
 import { useGetTokenQuery } from "./app/apiSlice.js";
 import LandingPage from './LandingPage'
 import EquipmentList from './EquipmentList'
 import SplashPage from './SplashPage'
+import CreateAccount from './CreateAccount'
 
 // All your environment variables in vite are in this object
 console.table(import.meta.env)
@@ -41,7 +42,9 @@ function App() {
             <div className='main-section'>
                 {account && <Sidenav />}
                 <div className='w-screen'>
-                    <SplashPage />
+                    "hi"
+                    {/* <SplashPage />
+                    /* <CreateAccount />
                     {/* <LandingPage />
                     <EquipmentList /> */}
                 </div>

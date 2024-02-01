@@ -1,9 +1,10 @@
 import { Link, Outlet} from "react-router-dom";
-import { useGetTokenQuery } from "./app/apiSlice.js";
+import { useGetTokenQuery, useLogoutMutation} from "./app/apiSlice.js";
 import './App.css'
 
 const Nav = () => {
     const { data: account } = useGetTokenQuery()
+    const [logout] = useLogoutMutation()
     return (
         <>
             <nav className="bg-gray-800">
@@ -41,7 +42,7 @@ const Nav = () => {
                             About
                         </a>{' '}
                     </div>
-                    <div className="justify-end pr-10 space-x-4 col-start-12 row-start-4 hidden sm:inline-block">
+                    {!account && <div className="justify-end pr-10 space-x-4 col-start-12 row-start-4 hidden sm:inline-block">
                         {' '}
                         <a
                             href="#"
@@ -49,7 +50,13 @@ const Nav = () => {
                         >
                             Login
                         </a>{' '}
-                    </div>
+                    </div>}
+                    {account && (
+                        <button
+                            onClick={logout}
+                            className="justify-end pr-10 space-x-4 col-start-12 row-start-4 hidden sm:inline-block text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-[.7rem] xl:text-sm">
+                            Logout
+                        </button>)}
                 </div>
                 {/* <!--
             Dropdown menu, show/hide based on menu state.
@@ -94,15 +101,6 @@ const Nav = () => {
                     </div>
                 </div>
             </nav>
-            {/* <div className="flex h-screen">
-                <nav className="bg-gray-800 text-white p-4 h-full">
-                    <ul className="h-full space-y-2">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Settings</a></li>
-                    </ul>
-                </nav>
-        </div></>  */}
         </>
     )
 }
