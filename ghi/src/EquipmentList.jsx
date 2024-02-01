@@ -39,7 +39,7 @@ const EquipmentList = () => {
                         <th className="py-2 px-4 border-b">Model Name</th>
                         <th className="py-2 px-4 border-b">Description</th>
                         <th className="py-2 px-4 border-b">Serial Number</th>
-                        <th className="py-2 px-4 border-b">Storage Site ID</th>
+                        <th className="py-2 px-4 border-b">Warehouse</th>
                         <th className="py-2 px-4 border-b">Date Serviced</th>
                         <th className="py-2 px-4 border-b">Equipment Type</th>
                     </tr>
