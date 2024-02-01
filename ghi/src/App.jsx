@@ -5,9 +5,10 @@ import ErrorNotification from './ErrorNotification'
 import Nav from './Nav.jsx'
 import './App.css'
 import Sidenav from './Sidenav'
-import { useGetTokenQuery } from "./app/apiSlice.js";
+import { useGetTokenQuery } from './app/apiSlice.js'
 import LandingPage from './LandingPage'
 import EquipmentList from './EquipmentList'
+import JobSiteList from './JobSiteList'
 
 // All your environment variables in vite are in this object
 console.table(import.meta.env)
@@ -29,7 +30,7 @@ if (!API_HOST) {
  */
 function App() {
     const { data: account } = useGetTokenQuery()
-    console.log({account})
+    console.log({ account })
     // Replace this App component with your own.
     /** @type {[LaunchInfo | undefined, (info: LaunchInfo) => void]} */
     const [launchInfo, setLaunchInfo] = useState()
@@ -37,11 +38,12 @@ function App() {
     return (
         <div>
             <Nav />
-            <div className='main-section'>
+            <div className="main-section">
                 {account && <Sidenav />}
-                <div className='w-screen'>
+                <div className="w-screen">
                     <LandingPage />
                     <EquipmentList />
+                    <JobSiteList />
                 </div>
             </div>
         </div>
