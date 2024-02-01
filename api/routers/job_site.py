@@ -34,7 +34,7 @@ def create_job_site(
     return queries.create_job_site(job_site)
 
 
-@router.get("/api/jobsites/{id}", response_model=Optional[JobSiteOut])
+@router.get("/api/jobsites/{job_site_id}", response_model=Optional[JobSiteOut])
 def get_one_job_site(
     id: int,
     queries: JobSiteQueries = Depends(),
@@ -44,7 +44,7 @@ def get_one_job_site(
     return queries.get_one_job_site(id)
 
 
-@router.put("/api/jobsites/{id}", response_model=Union[JobSiteOut, Error])
+@router.put("/api/jobsites/{job_site_id}", response_model=Union[JobSiteOut, Error])
 def update_job_site(
     id: int,
     job_site: JobSiteIn,
@@ -55,7 +55,7 @@ def update_job_site(
     return queries.update_job_site(id, job_site)
 
 
-@router.delete("/api/jobsites/{id}", response_model=bool)
+@router.delete("/api/jobsites/{job_site_id}", response_model=bool)
 def delete_job_site(
     id: int,
     queries: JobSiteQueries = Depends(),

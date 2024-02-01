@@ -73,5 +73,9 @@ Started working on Unit testing knowledge, also starting looking into tailwind. 
 
  ## 1/30/2024
 
- Picked up where we left off yesterday, trying to solve errors. Peace is driving, was able to finish it!
- taking turns working on the front end, Nav bar.
+ Picked up where we left off yesterday, trying to solve errors. trying to use redux is a little difficult, we seem to have the correct logic, we see a dictionary but the data is null. typing that enpoint shows there is data in the dictionary. Peace is driving, was able to finish it!
+ taking turns working on the front end, Nav bar. I did side nav bar. Peace and I split up endpoints, I am doing get one, post, put and delete endpoints for storage site, contract, and job site.
+
+ ## 1/31/2024
+
+Peace and I finished the endpoints and merged. We had a error with the account showing the information in the console but the localhost not rendering the way it is suppose to. Ended up making an adjustment in the yml and the env file. everyone restarted their containers. Looks like logs were being kept differently in the containers giving different results. I started working on the splash and login page as well as the create account page.
