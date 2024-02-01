@@ -8,6 +8,8 @@ import Sidenav from './Sidenav'
 import { useGetTokenQuery } from "./app/apiSlice.js";
 import LandingPage from './LandingPage'
 import EquipmentList from './EquipmentList'
+import EquipmentDetail from './EquipmentDetail'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 // All your environment variables in vite are in this object
 console.table(import.meta.env)
@@ -35,16 +37,21 @@ function App() {
     const [launchInfo, setLaunchInfo] = useState()
     const [error, setError] = useState(null)
     return (
-        <div>
-            <Nav />
-            <div className='main-section'>
-                {account && <Sidenav />}
-                <div className='w-screen'>
-                    <LandingPage />
-                    <EquipmentList />
+        <BrowserRouter>
+            <div>
+                <Nav />
+                <div className='main-section'>
+                    {account && <Sidenav />}
+                    <div className='w-screen'>
+                        <Routes>
+                            <Route path="/" element={<LandingPage />} />
+                            <Route path="/equipment" element={<EquipmentList />} />
+                            <Route path="/equipment/:equipmentSerial" element={<EquipmentDetail />} />
+                        </Routes>
+                    </div>
                 </div>
             </div>
-        </div>
+        </BrowserRouter>
     )
 }
 

@@ -102,15 +102,15 @@ export const WMSApi = createApi({
             invalidatesTags: ["Equipment"]
         }),
         getOneEquipment: builder.query ({
-            query: id => ({
-                url: `/api/equipment/${id}`,
+            query: serial_number => ({
+                url: `/api/equipment/${serial_number}`,
                 credentials: "include"
             }),
             invalidatesTags: ["Equipment"]
         }),
         updateEquipment: builder.mutation ({
-            query: (id, data) => ({
-                url: `/api/equipment/${id}`,
+            query: (serial_number, data) => ({
+                url: `/api/equipment/${serial_number}`,
                 credentials: "include",
                 body: data,
                 method: "put"
@@ -118,8 +118,8 @@ export const WMSApi = createApi({
             invalidatesTags: ["Equipment"]
         }),
         deleteEquipment: builder.mutation ({
-            query: id => ({
-                url: `/api/equipment/${id}`,
+            query: serial_number => ({
+                url: `/api/equipment/${serial_number}`,
                 credentials: "include"
             }),
             invalidatesTags: ["Equipment"]
@@ -156,7 +156,7 @@ export const WMSApi = createApi({
         }),
         getOneStoragesite: builder.query({
             query:storage_site_id => ({
-                url: `api/storages/${storage_site_id}`,
+                url: `api/storagesites/${storage_site_id}`,
                 method: 'get',
                 credentials: "include"
             }),
