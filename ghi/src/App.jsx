@@ -9,6 +9,7 @@ import { useGetTokenQuery } from './app/apiSlice.js'
 import LandingPage from './LandingPage'
 import EquipmentList from './EquipmentList'
 import JobSiteList from './JobSiteList'
+import CreateJobSiteForm from './CreateJobSiteForm'
 
 // All your environment variables in vite are in this object
 console.table(import.meta.env)
@@ -44,6 +45,7 @@ function App() {
                     <LandingPage />
                     <EquipmentList />
                     <JobSiteList />
+                    <CreateJobSiteForm />
                 </div>
             </div>
         </div>
