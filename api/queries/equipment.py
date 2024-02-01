@@ -94,7 +94,7 @@ class EquipmentQueries:
                     return self.equipment_in_to_out(id, equipment)
         except Exception as e:
             print(e)
-            return {"message": "Could not create equipment type"}
+            return {"message": "Could not create equipment"}
 
     def get_one_equipment(self, serial_number: int) -> Optional[EquipmentOut]:
         try:
