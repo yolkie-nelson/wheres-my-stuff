@@ -1,0 +1,55 @@
+section {
+    display: flex;
+    flex-direction: row;
+}
+
+.doughnut-chart-section {
+    width: 30vw;
+    background-color: #00202A;
+    margin: 1em 2vw 1em 2vw;
+    border-radius: 1em;
+}
+
+.doughnut-chart {
+    width: 10em;
+    height: 10em;
+
+}
+
+.outer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10em;
+    font-weight: 10em;
+    border-radius: 50%;
+    /* box-shadow: 1em 1em 1em 1em rgba(0,0,0,0.15); */
+}
+
+.inner {
+    height:9em;
+    width: 9em;
+    /* margin: .45em 1em 1em .38em; */
+    border-radius: 50%;
+    border: 1px solid red;
+}
+
+svg {
+    position: absolute;
+    top: 11.5rem;
+}
+
+circle {
+    fill: none;
+    stroke: cornflowerblue;
+    stroke-width: .5em;
+    stroke-dasharray: 472;
+    stroke-dashoffset: 472;
+    animation: anim 2s linear forwards;
+}
+
+@keyframes anim {
+    100%{
+        stroke-dashoffset: 0;
+    }
+}
