@@ -55,7 +55,7 @@ export const WMSApi = createApi({
         }),
         createEquipmentType: builder.mutation ({
             query: data => ({
-                url: "/api/types",
+                url: "/api/types/create",
                 credentials: "include",
                 body: data,
                 method: "post"
@@ -94,7 +94,7 @@ export const WMSApi = createApi({
         }),
         createEquipment: builder.mutation ({
             query: data => ({
-                url: "/api/equipment",
+                url: "/api/equipment/create",
                 credentials: "include",
                 body: data,
                 method: "post"
@@ -133,7 +133,7 @@ export const WMSApi = createApi({
         }),
         createStorageSite: builder.mutation({
             query: data => ({
-                url: 'api/storagesites',
+                url: 'api/storagesites/create',
                 credentials: "include",
                 body: data,
                 method: 'post'
@@ -215,7 +215,7 @@ export const WMSApi = createApi({
         }),
         createJobsite: builder.mutation({
             query: data => ({
-                url: 'api/jobsites',
+                url: 'api/jobsites/create',
                 body: data,
                 method: 'post',
                 credentials: "include"
@@ -256,7 +256,7 @@ export const WMSApi = createApi({
         }),
         createContract: builder.mutation({
             query: data => ({
-                url: 'api/contracts',
+                url: 'api/contracts/create',
                 body: data,
                 method: 'post',
                 credentials: "include"

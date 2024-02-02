@@ -18,7 +18,7 @@ def get_contract(queries: ContractQueries = Depends(),
     return queries.get_contract()
 
 
-@router.post("/api/contracts", response_model=Union[ContractOut, Error])
+@router.post("/api/contracts/create", response_model=Union[ContractOut, Error])
 def create_contract(
     contract: ContractIn,
     response: Response,

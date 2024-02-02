@@ -51,6 +51,9 @@ function App() {
                             <Route path="/" element={<LandingPage />} />
                             <Route path="/equipment" element={<EquipmentList />} />
                             <Route path="/equipment/:equipmentSerial" element={<EquipmentDetail />} />
+                            <Route path="/jobsites" element={<JobSiteList />} />
+                            <Route path="/jobsites/create" element={<CreateJobSiteForm />} />
+                            <Route path="/accounts" element={<CreateAccount />} />
                         </Routes>
                     </div>
                 </div>

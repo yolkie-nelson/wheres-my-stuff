@@ -24,7 +24,7 @@ def get_job_site(
     return queries.get_job_site()
 
 
-@router.post("/api/jobsites", response_model=Union[JobSiteOut, Error])
+@router.post("/api/jobsites/create", response_model=Union[JobSiteOut, Error])
 def create_job_site(
     job_site: JobSiteIn,
     queries: JobSiteQueries = Depends(),

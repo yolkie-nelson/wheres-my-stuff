@@ -25,7 +25,7 @@ def get_equipment_type(
     return queries.get_equipment_type()
 
 
-@router.post("/api/types", response_model=Union[EquipmentTypeOut, Error])
+@router.post("/api/types/create", response_model=Union[EquipmentTypeOut, Error])
 def create_equipment_type(
     equipment_type: EquipmentTypeIn,
     response: Response,
