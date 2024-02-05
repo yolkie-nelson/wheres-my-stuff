@@ -3,13 +3,21 @@ from typing import List, Union, Optional
 from psycopg_pool import ConnectionPool
 import os
 pool = ConnectionPool(conninfo=os.environ.get("DATABASE_URL"))
+
+
 class Error(BaseModel):
     message: str
+
+
 class EquipmentTypeIn(BaseModel):
     name: str
+
+
 class EquipmentTypeOut(BaseModel):
     id: int
     name: str
+
+
 class EquipmentTypeQueries:
     def get_equipment_type(self) -> Union[Error, List[EquipmentTypeOut]]:
         try:
@@ -28,6 +36,7 @@ class EquipmentTypeQueries:
                     ]
         except Exception:
             return {"message": "Could not get equipment type"}
+
     def create_equipment_type(
         self, equipment_type: EquipmentTypeIn
     ) -> EquipmentTypeOut:
@@ -46,6 +55,7 @@ class EquipmentTypeQueries:
                     return self.equipment_type_in_to_out(id, equipment_type)
         except Exception:
             return {"message": "Could not create equipment type"}
+
     def get_one_equipment_type(
         self, equipment_type_id: int
     ) -> Optional[EquipmentTypeOut]:
@@ -65,6 +75,7 @@ class EquipmentTypeQueries:
                     return EquipmentTypeOut(id=record[0], name=record[1])
         except Exception:
             return {"message": "Could not find this equipment type"}
+
     def update_equipment_type(
         self, equipment_type_id: int, equipment_type: EquipmentTypeIn
     ) -> Union[EquipmentTypeOut, Error]:
@@ -84,6 +95,7 @@ class EquipmentTypeQueries:
                     )
         except Exception:
             return {"message": "Could not update this equipment type"}
+
     def delete_equipment_type(self, equipment_type_id: int) -> bool:
         try:
             with pool.connection() as conn:
@@ -98,6 +110,7 @@ class EquipmentTypeQueries:
                     return True
         except Exception:
             return False
+        
     def equipment_type_in_to_out(
         self, id: int, equipment_type: EquipmentTypeIn
     ):
