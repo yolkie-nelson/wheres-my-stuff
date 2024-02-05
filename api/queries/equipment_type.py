@@ -110,7 +110,7 @@ class EquipmentTypeQueries:
                     return True
         except Exception:
             return False
-        
+
     def equipment_type_in_to_out(
         self, id: int, equipment_type: EquipmentTypeIn
     ):
