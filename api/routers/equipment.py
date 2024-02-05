@@ -26,7 +26,8 @@ def get_equipment(queries: EquipmentQueries = Depends(),
     return queries.get_equipment()
 
 
-@router.post("/api/equipment/create", response_model=Union[EquipmentOut, Error])
+@router.post("/api/equipment", response_model=Union[
+    EquipmentOut, Error])
 def create_equipment(
     equipment: EquipmentIn,
     queries: EquipmentQueries = Depends(),

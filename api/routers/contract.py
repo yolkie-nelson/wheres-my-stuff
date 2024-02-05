@@ -29,7 +29,8 @@ def create_contract(
     return queries.create_contract(contract)
 
 
-@router.get("/api/contracts/{contract_id}", response_model=Optional[ContractOut])
+@router.get("/api/contracts/{contract_id}", response_model=Optional[
+    ContractOut])
 def get_one_contract(
     id: int, queries: ContractQueries = Depends(),
     account_data: dict = Depends(
@@ -38,7 +39,8 @@ def get_one_contract(
     return queries.get_one_contract(id)
 
 
-@router.put("/api/contracts/{contract_id}", response_model=Union[ContractOut, Error])
+@router.put("/api/contracts/{contract_id}", response_model=Union[
+    ContractOut, Error])
 def update_contract(
     id: int, contract: ContractIn, queries: ContractQueries = Depends(),
     account_data: dict = Depends(

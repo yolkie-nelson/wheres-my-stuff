@@ -23,7 +23,8 @@ def get_storage_site(queries: StorageSiteQueries = Depends(),
     return queries.get_storage_site()
 
 
-@router.post("/api/storagesites/create", response_model=Union[StorageSiteOut, Error])
+@router.post("/api/storagesites", response_model=Union[
+    StorageSiteOut, Error])
 def create_storage_site(
     storage_site: StorageSiteIn, queries: StorageSiteQueries = Depends(),
     account_data: dict = Depends(
@@ -33,7 +34,8 @@ def create_storage_site(
 
 
 @router.get(
-    "/api/storagessites/{storage_site_id}", response_model=Optional[StorageSiteOut]
+    "/api/storagessites/{storage_site_id}", response_model=Optional[
+        StorageSiteOut]
 )
 def get_one_storage_site(
     storage_site_id: int, queries: StorageSiteQueries = Depends(),
