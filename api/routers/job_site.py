@@ -58,9 +58,9 @@ def update_job_site(
 
 @router.delete("/api/jobsites/{job_site_id}", response_model=bool)
 def delete_job_site(
-    id: int,
+    job_site_id: int,
     queries: JobSiteQueries = Depends(),
     account_data: dict = Depends(
         authenticator.get_current_account_data)
 ) -> bool:
-    return queries.delete_job_site(id)
+    return queries.delete_job_site(job_site_id)
