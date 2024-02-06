@@ -27,7 +27,7 @@ const Nav = () => {
                     <div className=" justify-end pr-10 space-x-4 col-start-10 row-start-4 hidden sm:inline-block">
                         {' '}
                         <a
-                            href="#"
+                            href="/"
                             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 md: text-[.7rem] xl:text-sm "
                         >
                             Home
@@ -45,7 +45,7 @@ const Nav = () => {
                     {!account && <div className="justify-end pr-10 space-x-4 col-start-12 row-start-4 hidden sm:inline-block">
                         {' '}
                         <a
-                            href="#"
+                            href="/token"
                             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-[.7rem] xl:text-sm "
                         >
                             Login
