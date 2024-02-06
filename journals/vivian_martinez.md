@@ -79,3 +79,11 @@ Started working on Unit testing knowledge, also starting looking into tailwind. 
  ## 1/31/2024
 
 Peace and I finished the endpoints and merged. We had a error with the account showing the information in the console but the localhost not rendering the way it is suppose to. Ended up making an adjustment in the yml and the env file. everyone restarted their containers. Looks like logs were being kept differently in the containers giving different results. I started working on the splash and login page as well as the create account page.
+
+ ## 2/1/2024
+
+The morning started trying to push and pull each others work from the previous day but ran into a lot of rebasing issues. What ended up happening is making throw away branches to help merged to main. It did take most of the day. At the end of the day I helped can adjust the endpoints for post request. Ken added my routes to the app.jsx
+
+## 2/3/2021
+
+It is a Saturday and I am working on Logging in, while following along some videos in learn. I did start by changing the endpoint for login mutation to be a form because the route is not in a JSON body. I did run into an error that I am having trouble solving. That is my blocker for the day.

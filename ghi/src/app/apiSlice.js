@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { data } from 'autoprefixer';
+// import { data } from 'autoprefixer';
+// import { info } from 'console';
 
 export const WMSApi = createApi({
     reducerPath: 'WMSApi',
@@ -31,11 +32,18 @@ export const WMSApi = createApi({
             invalidatesTags: ["Token"]
         }),
         login: builder.mutation ({
-            query: () => ({
-                url: "/token",
-                body: data,
-                method: "post"
-            }),
+            query: (info) => {
+                const formData = new FormData();
+                formData.append('username', info.username)
+                formData.append('password', info.password)
+
+                return {
+                    url: '/token',
+                    method: 'post',
+                    body: formData,
+                    credentials: "include"
+                }
+            },
             invalidatesTags: ["Token"]
         }),
         logout: builder.mutation ({

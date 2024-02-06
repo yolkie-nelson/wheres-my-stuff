@@ -14,6 +14,7 @@ import EquipmentDetail from './EquipmentDetail'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import JobSiteList from './JobSiteList'
 import CreateJobSiteForm from './CreateJobSiteForm'
+import Login from './Login'
 import CreateEquipmentForm from './CreateEquipmentForm'
 import CreateStorageSiteForm from './CreateStorageSiteForm'
 
@@ -37,7 +38,7 @@ if (!API_HOST) {
  */
 function App() {
     const { data: account } = useGetTokenQuery()
-    console.log({ account })
+    // console.log({ account })
     // Replace this App component with your own.
     /** @type {[LaunchInfo | undefined, (info: LaunchInfo) => void]} */
     const [launchInfo, setLaunchInfo] = useState()
@@ -50,13 +51,16 @@ function App() {
                     {account && <Sidenav />}
                     <div className='w-screen'>
                         <Routes>
-                            <Route path="/" element={<LandingPage />} />
+                           {account && <Route path="/" element={<LandingPage />} />}
                             <Route path="/equipment" element={<EquipmentList />} />
                             {account && <Route path="/equipment/create" element={<CreateEquipmentForm />} /> }
                             <Route path="/equipment/:equipmentSerial" element={<EquipmentDetail />} />
                             <Route path="/jobsites" element={<JobSiteList />} />
                             {account && <Route path="/jobsites/create" element={<CreateJobSiteForm />} /> }
-                            <Route path="/accounts" element={<CreateAccount />} />
+                            {!account && <Route path="/api/accounts" element={<CreateAccount />} />}
+                            {!account && <Route path="/token" element={<Login />} />}
+                            {!account && <Route path="/" element={<SplashPage />} />}
+
                             {account && <Route path="/storagesites/create" element={<CreateStorageSiteForm />} /> }
                         </Routes>
                     </div>

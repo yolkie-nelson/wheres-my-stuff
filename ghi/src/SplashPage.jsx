@@ -12,7 +12,7 @@ const SplashPage = () => {
                         streamline operations, reduce costs, and improve overall business performance!
                     </p>
                 </div>
-                <button className="bg-blue-500 text-white py-2 px-4 rounded">Create Account</button>
+                <a href='/api/accounts' className="bg-blue-500 text-white py-2 px-4 rounded">Create Account</a>
 
             </div>
         </div>
