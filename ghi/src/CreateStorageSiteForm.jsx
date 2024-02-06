@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import { useCreateStoragesiteMutation } from './app/apiSlice'
-import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 const CreateStorageSiteForm = () => {
     const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const [formData, setFormData] = useState({
+        const [formData, setFormData] = useState({
         warehouse_number: '',
         location_address: '',
         point_of_contact: '',
@@ -22,9 +20,9 @@ const CreateStorageSiteForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            await dispatch(createStorageSite(formData)).unwrap()
+            await (createStorageSite(formData))
             // Check if the action was successfully dispatched
-            navigate('/storagesites') // Navigate to the desired route
+             // Navigate to the desired route
         } catch (err) {
             console.error('Failed to create storage site:', err)
         }
