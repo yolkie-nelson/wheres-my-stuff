@@ -15,6 +15,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import JobSiteList from './JobSiteList'
 import CreateJobSiteForm from './CreateJobSiteForm'
 import CreateEquipmentForm from './CreateEquipmentForm'
+import CreateStorageSiteForm from './CreateStorageSiteForm'
 
 // All your environment variables in vite are in this object
 console.table(import.meta.env)
@@ -56,6 +57,7 @@ function App() {
                             <Route path="/jobsites" element={<JobSiteList />} />
                             {account && <Route path="/jobsites/create" element={<CreateJobSiteForm />} /> }
                             <Route path="/accounts" element={<CreateAccount />} />
+                            {account && <Route path="/storagesites/create" element={<CreateStorageSiteForm />} /> }
                         </Routes>
                     </div>
                 </div>

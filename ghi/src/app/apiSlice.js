@@ -181,7 +181,7 @@ export const WMSApi = createApi({
         }),
         createStoragesite: builder.mutation({
             query: data => ({
-                url: 'api/storages',
+                url: 'api/storagesites',
                 body: data,
                 method: 'post',
                 credentials: "include"
