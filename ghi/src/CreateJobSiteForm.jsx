@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { useCreateJobsiteMutation } from './app/apiSlice' // Import the create job site mutation
+import { useCreateJobsiteMutation } from './app/apiSlice'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const CreateJobSiteForm = () => {
-    const dispatch = useDispatch()
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         job_name: '',
         job_address: '',
@@ -14,16 +16,18 @@ const CreateJobSiteForm = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-    const [createJobSite, { isLoading, isError }] = useCreateJobsiteMutation() // Hook for creating job site
+    const [createJobSite, { isLoading, isError }] = useCreateJobsiteMutation()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
             await dispatch(createJobSite(formData)).unwrap()
+
             // Want to redirect to the jobsitelist here
         } catch (err) {
             console.error('Failed to create job site:', err)
         }
+        navigate('/jobsites')
     }
 
     return (
