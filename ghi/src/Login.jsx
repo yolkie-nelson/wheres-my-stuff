@@ -7,8 +7,7 @@ const Login = () => {
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ errorMessage, setErrorMessage ] = useState('');
-
-    const [login, loginStatus] = useLoginMutation();
+    const [ login, loginStatus, isLoading ] = useLoginMutation();
 
     useEffect(() => {
         if (loginStatus.isSuccess) navigate('/');
@@ -24,6 +23,7 @@ const Login = () => {
             password
         });
     }
+    if (isLoading) return <div>Loading...</div>
     return(
          <div className="container mx-auto mt-8 p-8 bg-white max-w-md rounded shadow-md">
             <h1 className="text-2xl font-bold mb-6">Login</h1>

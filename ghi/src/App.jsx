@@ -57,7 +57,7 @@ function App() {
                             <Route path="/equipment/:equipmentSerial" element={<EquipmentDetail />} />
                             <Route path="/jobsites" element={<JobSiteList />} />
                             {account && <Route path="/jobsites/create" element={<CreateJobSiteForm />} /> }
-                            {!account && <Route path="/api/accounts" element={<CreateAccount />} />}
+                            {!account && <Route path="/accounts" element={<CreateAccount />} />}
                             {!account && <Route path="/token" element={<Login />} />}
                             {!account && <Route path="/" element={<SplashPage />} />}
 
