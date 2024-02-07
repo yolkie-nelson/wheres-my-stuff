@@ -55,4 +55,9 @@
 - Ran into a catestrophic Git moment because we were all working on the same branch and had to reconcile consolidating everything
 - In the future, we all need to create a branch off of main, and we only ever pull from main
 
+### 02/02/24
+- Today we continued working on components but then were sidetracked due to misuse of Git. We spent most of our time coding today simply trying to merge all of our code to main, and making sure everyone had up to date code and the website was working. Thomas helped us through but it took a LONG time.
 
+### 02/05/24
+- Pair programmed with Peace to create function to check availability of equipent
+- This turned out to be more complicated than anticipated. We have our equipment model, and a contract model which references a piece of equipment by its ID, and has a start and end date for the contract. We set the 
