@@ -51,16 +51,15 @@ function App() {
                     {account && <Sidenav />}
                     <div className='w-screen'>
                         <Routes>
-                           {account && <Route path="/" element={<LandingPage />} />}
+                            {account && <Route path="/" element={<LandingPage />} />}
                             <Route path="/equipment" element={<EquipmentList />} />
                             {account && <Route path="/equipment/create" element={<CreateEquipmentForm />} /> }
                             <Route path="/equipment/:equipmentSerial" element={<EquipmentDetail />} />
-                            <Route path="/jobsites" element={<JobSiteList />} />
+                            {account && <Route path="/jobsites" element={<JobSiteList />} /> }
                             {account && <Route path="/jobsites/create" element={<CreateJobSiteForm />} /> }
                             {!account && <Route path="/accounts" element={<CreateAccount />} />}
                             {!account && <Route path="/token" element={<Login />} />}
                             {!account && <Route path="/" element={<SplashPage />} />}
-
                             {account && <Route path="/storagesites/create" element={<CreateStorageSiteForm />} /> }
                         </Routes>
                     </div>

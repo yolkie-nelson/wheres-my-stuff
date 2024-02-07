@@ -29,6 +29,7 @@ services:
             CORS_HOST: http://localhost:5173
             DATABASE_URL: postgresql://user:${postgres_password}@postgres/postgres-data
             SIGNING_KEY: ${SIGNING_KEY}
+
         build:
             context: api
             dockerfile: Dockerfile.dev
@@ -49,3 +50,4 @@ services:
             - "5173:5173"
         environment:
             - VITE_API_HOST=${VITE_API_HOST}
+            - VITE_GOOGLE_API_KEY=${VITE_GOOGLE_API_KEY}

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 
+const VITE_GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY
+console.log('api', VITE_GOOGLE_API_KEY)
+
 const JobSiteMap = ({ jobSites, google }) => {
     const [markers, setMarkers] = useState([])
     const [loading, setLoading] = useState(false)
@@ -14,8 +17,9 @@ const JobSiteMap = ({ jobSites, google }) => {
                     const response = await fetch(
                         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
                             jobSite.formatted_address
-                        )}&key=AIzaSyAaWLBIJ28YsfKzWHGcDGPOD9ZOgqrTOAM`
+                        )}&key=${VITE_GOOGLE_API_KEY}`
                     )
+                    console.log('reponse', response)
                     if (!response.ok) {
                         throw new Error('Failed to fetch geocoding data')
                     }
@@ -73,75 +77,5 @@ const JobSiteMap = ({ jobSites, google }) => {
 }
 
 export default GoogleApiWrapper({
-    apiKey: 'AIzaSyAaWLBIJ28YsfKzWHGcDGPOD9ZOgqrTOAM',
+    apiKey: VITE_GOOGLE_API_KEY,
 })(JobSiteMap)
-
-// import React, { useEffect, useState } from 'react'
-// import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
-
-// const JobSiteMap = ({ address, google }) => {
-//     const [coords, setCoords] = useState({ lat: null, lng: null })
-//     const [loading, setLoading] = useState(false)
-
-//     useEffect(() => {
-//         let isMounted = true
-//         const fetchGeocodingData = async () => {
-//             setLoading(true)
-//             try {
-//                 const response = await fetch(
-//                     `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-//                         address
-//                     )}&key=AIzaSyAaWLBIJ28YsfKzWHGcDGPOD9ZOgqrTOAM`
-//                 )
-//                 if (!response.ok) {
-//                     throw new Error('Failed to fetch geocoding data')
-//                 }
-//                 const data = await response.json()
-//                 if (data.results && data.results.length > 0) {
-//                     const { lat, lng } = data.results[0].geometry.location
-//                     if (isMounted) {
-//                         setCoords({ lat, lng })
-//                     }
-//                 } else {
-//                     throw new Error('No geocoding results found')
-//                 }
-//             } catch (error) {
-//                 console.error('Error fetching geocoding data:', error)
-//             } finally {
-//                 setLoading(false)
-//             }
-//         }
-
-//         if (address) {
-//             fetchGeocodingData()
-//         }
-
-//         return () => {
-//             isMounted = false
-//         }
-//     }, [address])
-
-//     return (
-//         <div style={{ height: '1px', width: '1px' }}>
-//             {loading ? (
-//                 <div>Loading...</div>
-//             ) : (
-//                 <Map
-//                     google={google}
-//                     zoom={13}
-//                     initialCenter={
-//                         coords.lat && coords.lng
-//                             ? coords
-//                             : { lat: 32.6, lng: -84.8 }
-//                     }
-//                 >
-//                     {coords.lat && coords.lng && <Marker position={coords} />}
-//                 </Map>
-//             )}
-//         </div>
-//     )
-// }
-
-// export default GoogleApiWrapper({
-//     apiKey: 'AIzaSyAaWLBIJ28YsfKzWHGcDGPOD9ZOgqrTOAM',
-// })(JobSiteMap)

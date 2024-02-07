@@ -45,7 +45,7 @@ const JobSiteList = () => {
     }
 
     return (
-        <div className="container mt-8 p-8 max-w-md rounded shadow-md">
+        <div className="container mt-8 p-8 max-w-xl rounded shadow-md">
             <h1 className="text-2xl font-bold mb-6">Job Site List</h1>
             {showSuccess && (
                 <div
@@ -56,12 +56,14 @@ const JobSiteList = () => {
                     <p>The job site has been successfully deleted.</p>
                 </div>
             )}
-            <div className="flex">
+            <div className="flex ">
                 <ul className="flex-1 mr-4">
                     {jobSites.map((jobSite) => (
                         <li key={jobSite.id} className="mb-4">
                             <div className="border border-gray-300 rounded-md p-4">
-                                <h1 className="text-xl font-bold text-center">{jobSite.id}</h1>
+                                <h1 className="text-xl font-bold text-center">
+                                    {jobSite.id}
+                                </h1>
                                 <h2 className="text-xl font-semibold mb-2">
                                     Job Name: {jobSite.job_name}
                                 </h2>
@@ -81,17 +83,17 @@ const JobSiteList = () => {
                         </li>
                     ))}
                 </ul>
-                <div className="flex-1">
+                <div>
                     <JobSiteMap
                         jobSites={jobSites.map((jobSite) => ({
                             id: jobSite.id,
-                            formatted_address: jobSite.job_address, // Assuming job_address is the formatted address
+                            formatted_address: jobSite.job_address,
                         }))}
                     />
                 </div>
             </div>
             {showConfirmation && (
-                <div className="fixed z-10 inset-0 overflow-y-auto">
+                <div className="z-10 inset-0 ">
                     <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                         <div
                             className="fixed inset-0 transition-opacity"
