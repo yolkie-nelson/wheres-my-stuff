@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useGetJobSiteQuery, useDeleteJobsiteMutation } from './app/apiSlice'
 import './App.css'
+import JobSiteMap from './JobSiteMap'
 
 const JobSiteList = () => {
     const [deleteJobsite] = useDeleteJobsiteMutation()
@@ -55,29 +56,40 @@ const JobSiteList = () => {
                     <p>The job site has been successfully deleted.</p>
                 </div>
             )}
-            <ul>
-                {jobSites.map((jobSite) => (
-                    <li key={jobSite.id} className="mb-4">
-                        <div className="border border-gray-300 rounded-md p-4">
-                            <h2 className="text-xl font-semibold mb-2">
-                                Job Name: {jobSite.job_name}
-                            </h2>
-                            <p className="text-gray-600">
-                                Address: {jobSite.job_address}
-                            </p>
-                            <p className="text-gray-600">
-                                Point of Contact: {jobSite.job_poc}
-                            </p>
-                            <button
-                                onClick={() => handleDelete(jobSite.id)}
-                                className="w-full bg-dark-orange text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:shadow-outline-blue"
-                            >
-                                Delete Job Site
-                            </button>
-                        </div>
-                    </li>
-                ))}
-            </ul>
+            <div className="flex">
+                <ul className="flex-1 mr-4">
+                    {jobSites.map((jobSite) => (
+                        <li key={jobSite.id} className="mb-4">
+                            <div className="border border-gray-300 rounded-md p-4">
+                                <h1 className="text-xl font-bold text-center">{jobSite.id}</h1>
+                                <h2 className="text-xl font-semibold mb-2">
+                                    Job Name: {jobSite.job_name}
+                                </h2>
+                                <p className="text-gray-600">
+                                    Address: {jobSite.job_address}
+                                </p>
+                                <p className="text-gray-600">
+                                    Point of Contact: {jobSite.job_poc}
+                                </p>
+                                <button
+                                    onClick={() => handleDelete(jobSite.id)}
+                                    className="w-full bg-dark-orange text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:shadow-outline-blue"
+                                >
+                                    Delete Job Site
+                                </button>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+                <div className="flex-1">
+                    <JobSiteMap
+                        jobSites={jobSites.map((jobSite) => ({
+                            id: jobSite.id,
+                            formatted_address: jobSite.job_address, // Assuming job_address is the formatted address
+                        }))}
+                    />
+                </div>
+            </div>
             {showConfirmation && (
                 <div className="fixed z-10 inset-0 overflow-y-auto">
                     <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -137,4 +149,3 @@ const JobSiteList = () => {
 }
 
 export default JobSiteList
-
