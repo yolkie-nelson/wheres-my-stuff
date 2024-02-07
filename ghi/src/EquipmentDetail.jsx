@@ -11,7 +11,6 @@ const EquipmentDetail = () => {
     const { data: contractList, isLoading: contractIsLoading } = useGetContractQuery();
     const { data: jobSiteList, isLoading: jobIsLoading } = useGetJobSiteQuery();
     const [showConfirmation, setShowConfirmation] = useState(false);
-    // const [deletedEquipment, setDeletedEquipment] = useState(0);
     const [deleteEquipment] = useDeleteEquipmentMutation();
     const [showSuccess, setShowSuccess] = useState(false);
     const navigate = useNavigate();
@@ -48,15 +47,6 @@ const EquipmentDetail = () => {
         setShowConfirmation(false);
         setShowSuccess(true);
         navigate("/equipment");
-
-            // .then(() => {
-            //     setShowConfirmation(false);
-            //     setShowSuccess(true);
-            // })
-            // .catch((error => {
-            //     console.error("Error deleting equipment:", error);
-            // }))
-
     }
 
     const isAvailable = () => {
@@ -199,10 +189,10 @@ const EquipmentDetail = () => {
                                     </div>
                                 </div>
                             )}
-                            <EditEquipmentModal isOpen={showEditModal} onClose={() => setShowEditModal(false)} equipmentDetail={equipmentDetail} />
                         </div>
                     </div>
                 </div>
+                <EditEquipmentModal isOpen={showEditModal} onClose={() => setShowEditModal(false)} equipmentDetail={equipmentDetail} />
                 <div className="w-2/3 pt-8 pl-32">
                     <div className="m-10">
                         <h1 className="custom-header">Rental History</h1>
@@ -236,6 +226,7 @@ const EquipmentDetail = () => {
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     )
