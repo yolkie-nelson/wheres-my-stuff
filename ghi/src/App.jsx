@@ -11,12 +11,13 @@ import EquipmentList from './EquipmentList'
 import SplashPage from './SplashPage'
 import CreateAccount from './CreateAccount'
 import EquipmentDetail from './EquipmentDetail'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import JobSiteList from './JobSiteList'
 import CreateJobSiteForm from './CreateJobSiteForm'
 import Login from './Login'
 import CreateEquipmentForm from './CreateEquipmentForm'
 import CreateStorageSiteForm from './CreateStorageSiteForm'
+import CreateEquipmentTypeForm from './CreateEquipmentTypeForm'
 
 // All your environment variables in vite are in this object
 console.table(import.meta.env)
