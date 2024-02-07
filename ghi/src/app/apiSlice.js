@@ -1,6 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-// import { data } from 'autoprefixer';
-// import { info } from 'console';
 
 export const WMSApi = createApi({
     reducerPath: 'WMSApi',
