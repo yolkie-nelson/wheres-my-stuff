@@ -11,7 +11,7 @@ import EquipmentList from './EquipmentList'
 import SplashPage from './SplashPage'
 import CreateAccount from './CreateAccount'
 import EquipmentDetail from './EquipmentDetail'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import JobSiteList from './JobSiteList'
 import CreateJobSiteForm from './CreateJobSiteForm'
 import Login from './Login'
@@ -57,12 +57,12 @@ function App() {
                             {account && <Route path="/equipment/create" element={<CreateEquipmentForm />} /> }
                             <Route path="/equipment/:equipmentSerial" element={<EquipmentDetail />} />
                             <Route path="/jobsites" element={<JobSiteList />} />
-                            {account && <Route path="/jobsites/create" element={<CreateJobSiteForm />} /> }
-                            {account && <Route path="/types/create" element={<CreateEquipmentTypeForm/>} /> }
+                            <Route path="/jobsites/create" element={account ? <CreateJobSiteForm /> : <Login /> } />
+                            <Route path="/types/create" element={account ? <CreateEquipmentTypeForm/> : <Login />} />
                             {!account && <Route path="/accounts" element={<CreateAccount />} />}
                             {!account && <Route path="/token" element={<Login />} />}
                             {!account && <Route path="/" element={<SplashPage />} />}
-                            {account && <Route path="/storagesites/create" element={<CreateStorageSiteForm />} /> }
+                            <Route path="/storagesites/create" element={account ? <CreateStorageSiteForm /> : <Login /> } />
                         </Routes>
                     </div>
                 </div>
