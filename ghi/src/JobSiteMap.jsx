@@ -53,7 +53,11 @@ const JobSiteMap = ({ jobSites, google }) => {
                 <Map
                     google={google}
                     zoom={10}
-                    initialCenter={{ lat: 32.51356, lng: -84.94176 }}
+                    initialCenter={{
+                        lat: 32.51800490638247,
+                        lng: -84.93937291055167,
+                    }}
+                    style={{ height: '50rem', width: '50%' }}
                 >
                     {markers.map((marker) => (
                         <Marker
