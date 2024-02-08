@@ -41,13 +41,14 @@ function App() {
                             {account && <Route path="/" element={<LandingPage />} />}
                             {account && <Route path="/equipment" element={<EquipmentList />} />}
                             {account && <Route path="/equipment/:equipmentSerial" element={<EquipmentDetail />} />}
+                            <Route path="/types/create" element={account ? <CreateEquipmentTypeForm /> : <Login />} />
                             <Route path="/equipment/create" element={account ? <CreateEquipmentForm /> : <Login />} />
                             {account && <Route path="/jobsites" element={<JobSiteList />} /> }
                             <Route path="/jobsites/create"element={account ? <CreateJobSiteForm /> : <Login />} />
                             {!account && <Route path="/accounts" element={<CreateAccount />} />}
                             {!account && <Route path="/token" element={<Login />} />}
                             {!account && <Route path="/" element={<SplashPage />} />}
-                            {!account && <Route path="/about" element={<About />} />}
+                            <Route path="/about" element={<About />} />
                             <Route path="/storagesites/create" element={account ? <CreateStorageSiteForm /> : <Login />} />
                             <Route path="/contracts/create" element={account ? <CreateContractForm /> : <Login />} />
                         </Routes>
