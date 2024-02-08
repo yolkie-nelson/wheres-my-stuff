@@ -56,12 +56,17 @@ pip install -r requirements.txt
 Then make sure the venv is selected in VSCode by checking the lower right of the
 VSCode status bar
 
-### NPM Installs
-**In order for our React App to function properly, make sure to run the following npm install commands**
+### Creating your .env directory
+**Create a .env file in your root directory**
+In order for the application to function properly, the .env file must be created in the root directory of your project. This file is included in .gitignore due to the sensitive nature of its contents. You must include your own passwords, API keys and signing keys.
 
 ```
-npm install react
-npm install redux
+postgres_password={your password goes here}
+REACT_APP_API_HOST=http://localhost:8000
+SIGNING_KEY={your signing key goes here}
+VITE_API_HOST=http://localhost:8000
+VITE_GOOGLE_API_KEY={your google api key goes here}
+
 ```
 ​
 
@@ -83,13 +88,13 @@ Where's My Stuff is a streamlined equipment management app made up of these core
 ​
 ## Integration
 ​
-It all begins by creating a user account. The user is able to login, where they have access to their record of equipment types and the corresponding equipment items. Their availability, location, and maintenance schedule are tracked.
+It all begins by creating a user account. The user is able to login, where they have access to their record of equipment types and the corresponding equipment items. Their availability, current job site location, and storage location are tracked. We can also see a comprehensive rental history of each piece of equipment.
 ​
 ## Accessing Endpoints to Send and View Data
 Access Endpoints through FastAPI (Swagger UI) and your browser
 ​
 ### Accounts:
-​- The account owner is presumed to be the company renting out the equipment, and has access to data that logged out users do not. Authentication is accomplished via jwtdown, and an access token is stored as a cookie.
+​- The account owner is presumed to be the company renting out the equipment, and has access to data that logged out users do not. Authentication is accomplished via jwtdown, and an access token is stored as a cookie in the browser.
 ​
 | Action | Method | URL |
 | ----------- | ----------- | ----------- |
@@ -428,36 +433,6 @@ Show all Storage Sites Return Value:
   ]
 }
 ```
-
-## Given to us by Instructors
-### Other files
-
-The following project files have been created as a minimal
-starting point. Please follow the guidance for each one for
-a most successful project.
-
--   `docker-compose.yaml`: there isn't much in here, just a
-    **really** simple UI and FastAPI service. Add services
-    (like a database) to this file as you did with previous
-    projects in module #2.
--   `.gitlab-ci.yml`: This is your "ci/cd" file where you will
-    configure automated unit tests, code quality checks, and
-    the building and deployment of your production system.
-    Currently, all it does is deploy an "under construction"
-    page to your production UI on GitLab and a sample backend
-    to CapRover. We will learn much more about this file.
--   `.gitignore`: This is a file that prevents unwanted files
-    from getting added to your repository, files like
-    `pyc` files, `__pycache__`, etc. We've set it up so that
-    it has a good default configuration for Python projects.
--   `.env.sample`: This file is a template to copy when
-    creating environment variables for your team. Create a
-    copy called `.env` and put your own passwords in here
-    without fear of it being committed to git (see `.env`
-    listed in `.gitignore`). You can also put team related
-    environment variables in here, things like api and signing
-    keys that shouldn't be committed; these should be
-    duplicated in your deployed environments.
 
 ## How to complete the initial deploy
 
