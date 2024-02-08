@@ -21,7 +21,7 @@ import CreateEquipmentTypeForm from './CreateEquipmentTypeForm'
 import CreateContractForm from './CreateContractForm'
 
 // All your environment variables in vite are in this object
-console.table(import.meta.env)
+
 
 // When using environment variables, you should do a check to see if
 // they are defined or not and throw an appropriate error message
@@ -55,15 +55,15 @@ function App() {
                         <Routes>
                             {account && <Route path="/" element={<LandingPage />} />}
                             <Route path="/equipment" element={<EquipmentList />} />
-                            {account && <Route path="/equipment/create" element={<CreateEquipmentForm />} /> }
+                            <Route path="/equipment/create" element={account ? <CreateEquipmentForm /> : <Login />} />
                             <Route path="/equipment/:equipmentSerial" element={<EquipmentDetail />} />
                             {account && <Route path="/jobsites" element={<JobSiteList />} /> }
-                            {account && <Route path="/jobsites/create" element={<CreateJobSiteForm />} /> }
+                            <Route path="/jobsites/create"element={account ? <CreateJobSiteForm /> : <Login />} />
                             {!account && <Route path="/accounts" element={<CreateAccount />} />}
                             {!account && <Route path="/token" element={<Login />} />}
                             {!account && <Route path="/" element={<SplashPage />} />}
-                            {account && <Route path="/storagesites/create" element={<CreateStorageSiteForm />} /> }
-                            {account && <Route path="/contracts/create" element={<CreateContractForm />} /> }
+                            <Route path="/storagesites/create" element={account ? <CreateStorageSiteForm /> : <Login />} />
+                            <Route path="/contracts/create" element={account ? <CreateContractForm /> : <Login />} />
                         </Routes>
                     </div>
                 </div>
