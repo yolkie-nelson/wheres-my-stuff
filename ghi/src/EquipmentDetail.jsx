@@ -93,7 +93,7 @@ const EquipmentDetail = () => {
                         role="alert"
                     >
                         <p className="font-bold">Success!</p>
-                        <p>The job site has been successfully deleted.</p>
+                        <p>The equipment has been successfully deleted.</p>
                     </div>
                 )}
                 <div className="flex flex-row w-m1/3 mx-auto m-20 p-4 bg-white rounded-lg shadow-lg min-w-[38rem]">
@@ -197,7 +197,7 @@ const EquipmentDetail = () => {
                 <EditEquipmentModal isOpen={showEditModal} onClose={() => setShowEditModal(false)} equipmentDetail={equipmentDetail} />
                 <div className="w-2/3 pt-8 pl-32">
                     <div className="m-10">
-                        <h1 className="custom-header">Rental History</h1>
+                        <h1 className="custom-header rammetto">Rental History</h1>
                     </div>
                     <table className="rental-table">
                         <thead>
