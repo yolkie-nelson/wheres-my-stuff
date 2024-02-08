@@ -58,30 +58,32 @@ const JobSiteList = () => {
             )}
             <div className="flex ">
                 <ul className="flex-1 mr-4">
-                    {jobSites.map((jobSite) => (
-                        <li key={jobSite.id} className="mb-4">
-                            <div className="border border-gray-300 rounded-md p-4">
-                                <h1 className="text-xl font-bold text-center">
-                                    {jobSite.id}
-                                </h1>
-                                <h2 className="text-xl font-semibold mb-2">
-                                    Job Name: {jobSite.job_name}
-                                </h2>
-                                <p className="text-gray-600">
-                                    Address: {jobSite.job_address}
-                                </p>
-                                <p className="text-gray-600">
-                                    Point of Contact: {jobSite.job_poc}
-                                </p>
-                                <button
-                                    onClick={() => handleDelete(jobSite.id)}
-                                    className="w-full bg-dark-orange text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:shadow-outline-blue"
-                                >
-                                    Delete Job Site
-                                </button>
-                            </div>
-                        </li>
-                    ))}
+                    <div className="max-h-[48rem] overflow-y-scroll">
+                        {jobSites.map((jobSite) => (
+                            <li key={jobSite.id} className="mb-4">
+                                <div className="border border-gray-300 rounded-md p-4">
+                                    <h1 className="text-xl font-bold text-center">
+                                        {jobSite.id}
+                                    </h1>
+                                    <h2 className="text-xl font-semibold mb-2">
+                                        Job Name: {jobSite.job_name}
+                                    </h2>
+                                    <p className="text-gray-600">
+                                        Address: {jobSite.job_address}
+                                    </p>
+                                    <p className="text-gray-600">
+                                        Point of Contact: {jobSite.job_poc}
+                                    </p>
+                                    <button
+                                        onClick={() => handleDelete(jobSite.id)}
+                                        className="w-full bg-dark-orange text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:shadow-outline-blue"
+                                    >
+                                        Delete Job Site
+                                    </button>
+                                </div>
+                            </li>
+                        ))}
+                    </div>
                 </ul>
                 <div>
                     <JobSiteMap
