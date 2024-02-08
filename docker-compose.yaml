@@ -42,7 +42,7 @@ services:
             - pg-admin
     ghi:
         image: node:lts-bullseye
-        command: /bin/bash run.sh
+        command: sh -c "npm install --force && /bin/bash run.sh"
         working_dir: /app
         volumes:
             - ./ghi:/app
