@@ -60,4 +60,5 @@ nav {
 .main-section{
     display: flex;
     flex-direction: row;
+    background-color: #f3efef;
 }

@@ -236,7 +236,7 @@ export const WMSApi = createApi({
                 method: 'get',
                 credentials: "include"
             }),
-            invalidatesTags: ['Jobsites']
+            providesTags: ['Jobsites']
         }),
         updateJobsite: builder.mutation({
             query:(jobSiteId, data) => ({

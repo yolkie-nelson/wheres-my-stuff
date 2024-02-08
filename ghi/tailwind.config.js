@@ -4,8 +4,8 @@ export default {
     theme: {
         extend: {
             colors: {
-                teal: '#00C1C3',
-                orange: '#FEB439',
+                'teal': '#00C1C3',
+                'orange': '#FEB439',
                 'dark-blue': '#00202A',
                 'off-white': '#FEEEC7',
                 'dark-orange': '#E44D0A',
