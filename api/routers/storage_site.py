@@ -34,7 +34,7 @@ def create_storage_site(
 
 
 @router.get(
-    "/api/storagessites/{storage_site_id}", response_model=Optional[
+    "/api/storagesites/{storage_site_id}", response_model=Optional[
         StorageSiteOut]
 )
 def get_one_storage_site(

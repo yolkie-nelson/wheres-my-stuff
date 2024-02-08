@@ -115,10 +115,10 @@ export const WMSApi = createApi({
             providesTags: ["Equipment"]
         }),
         updateEquipment: builder.mutation ({
-            query: (serial_number, data) => ({
-                url: `/api/equipment/${serial_number}`,
+            query: obj => ({
+                url: `/api/equipment/${obj.serial_number}`,
                 credentials: "include",
-                body: data,
+                body: obj.data,
                 method: "put"
             }),
             invalidatesTags: ["Equipment"]
@@ -126,7 +126,8 @@ export const WMSApi = createApi({
         deleteEquipment: builder.mutation ({
             query: serial_number => ({
                 url: `/api/equipment/${serial_number}`,
-                credentials: "include"
+                credentials: "include",
+                method: 'delete'
             }),
             invalidatesTags: ["Equipment"]
         }),
@@ -184,40 +185,6 @@ export const WMSApi = createApi({
                 credentials: "include"
             }),
             providesTags: ["Contract"]
-        }),
-        createStoragesite: builder.mutation({
-            query: data => ({
-                url: 'api/storagesites',
-                body: data,
-                method: 'post',
-                credentials: "include"
-            }),
-            invalidatesTags: ['Storagesite']
-        }),
-        getOneStoragesite: builder.query({
-            query:storage_site_id => ({
-                url: `api/storagesites/${storage_site_id}`,
-                method: 'get',
-                credentials: "include"
-            }),
-            invalidatesTags: ['Storagesite']
-        }),
-        updateStoragesite: builder.mutation({
-            query:(storage_site_id, data) => ({
-                url: `api/storages/${storage_site_id}`,
-                body: data,
-                method: 'put',
-                credentials: "include"
-            }),
-            invalidatesTags: ['Storagesite']
-        }),
-        deleteStoragesite: builder.mutation({
-            query: storage_site_id => ({
-                url: `api/storages/${storage_site_id}`,
-                method: 'delete',
-                credentials: "include"
-            }),
-            invalidatesTags: ['Storagesite']
         }),
         createJobsite: builder.mutation({
             query: data => ({
@@ -314,10 +281,10 @@ export const {
     useUpdateEquipmentMutation,
     useDeleteEquipmentMutation,
     useGetStorageSiteQuery,
-    useCreateStoragesiteMutation,
-    useGetOneStoragesiteQuery,
-    useUpdateStoragesiteMutation,
-    useDeleteStoragesiteMutation,
+    useCreateStorageSiteMutation,
+    useGetOneStorageSiteQuery,
+    useUpdateStorageSiteMutation,
+    useDeleteStorageSiteMutation,
     useGetJobSiteQuery,
     useCreateJobsiteMutation,
     useGetOneJobsiteQuery,

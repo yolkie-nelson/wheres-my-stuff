@@ -7,7 +7,7 @@ const EquipmentList = () => {
     const { data: equipmentTypes, isLoading: equipmentTypesLoading } = useGetEquipmentTypeQuery();
     const { data: storageSites, isLoading: storageSitesLoading } = useGetStorageSiteQuery();
     const [searchQuery, setSearchQuery] = useState('');
-    console.log(equipmentTypes)
+    const [selectedType, setSelectedType] = useState(null);
 
     if (equipmentLoading || equipmentTypesLoading || storageSitesLoading) {
         return (
@@ -20,12 +20,27 @@ const EquipmentList = () => {
     }
 
     const filteredEquipment = equipmentList?.filter((equipment) =>
-        equipment.model_name.toLowerCase().includes(searchQuery.toLowerCase())
+        (equipment.model_name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        (!selectedType || equipment.equipment_type_id === selectedType))
     ) || [];
 
     return (
         <div className="w-screen p-4">
             <h1 className="text-2xl font-bold mb-4">Equipment List</h1>
+            <div className="flex items-center mb-4">
+                <label htmlFor="typeFilter" className="mr-2">Filter by Type:</label>
+                <select
+                    id="typeFilter"
+                    className="border p-2"
+                    value={selectedType || ''}
+                    onChange={(e) => setSelectedType(e.target.value ? parseInt(e.target.value) : null)}
+                >
+                    <option value="">All Types</option>
+                    {equipmentTypes.map((type) => (
+                        <option key={type.id} value={type.id}>{type.name}</option>
+                    ))}
+                </select>
+            </div>
             <input
                 type="text"
                 placeholder="Search equipment..."
