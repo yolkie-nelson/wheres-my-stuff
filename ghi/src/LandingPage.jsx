@@ -1,5 +1,6 @@
 import { useGetContractQuery, useGetEquipmentQuery, useGetEquipmentTypeQuery, useGetJobSiteQuery, useGetOneJobsiteQuery } from "./app/apiSlice"
 import { useState, useEffect } from "react"
+import JobSiteMap from './JobSiteMap'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -25,10 +26,12 @@ ChartJS.register(
 );
 
 const LandingPage = () => {
-    const { data: equipment } = useGetEquipmentQuery()
-    const { data: contracts} = useGetContractQuery()
-    const { data: equipmentTypes } = useGetEquipmentTypeQuery()
-    const { data: jobsites } = useGetJobSiteQuery()
+    const { data: equipment, isLoading: equipmentLoading } = useGetEquipmentQuery()
+    const { data: contracts, isLoading: contractsLoading} = useGetContractQuery()
+    const { data: equipmentTypes, isLoading: equipmentTypesLoading } = useGetEquipmentTypeQuery()
+    const { data: jobsites, isLoading: jobsitesLoading } = useGetJobSiteQuery()
+
+
     const getTodayDate = () => {
         const today = new Date();
         const year = today.getFullYear();
@@ -40,6 +43,15 @@ const LandingPage = () => {
     const handleEquipmentTypeChange = (event) => {
         setSelectedEquipmentType(event.target.value);
     };
+    if (equipmentLoading || contractsLoading || equipmentTypesLoading || jobsitesLoading) {
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <p>Loading...</p>
+                </header>
+            </div>
+        )
+    }
     const graphTitle = () => {
         if (selectedEquipmentType) {
             const selectedType = equipmentTypes.filter(type => type["id"] == selectedEquipmentType);
@@ -62,8 +74,8 @@ const LandingPage = () => {
                         }
                     })
                     const extractIdDictionary = (arrayOfDictionaries) => {
-                        return arrayOfDictionaries.reduce((acc, dict) => {
-                            acc[dict.id] = "id";
+                        return arrayOfDictionaries?.reduce((acc, dict) => {
+                            acc[dict?.id] = "id";
                             return acc;
                         }, {});
                     }
@@ -79,8 +91,8 @@ const LandingPage = () => {
                             contractDict[jobName[0]["job_name"]] = 1
                         }
                     }
-                    const selectedType = equipment.filter(equipment => equipment["equipment_type_id"] == selectedEquipmentType);
-                    totalItems = selectedType.length
+                    const selectedType = equipment?.filter(equipment => equipment["equipment_type_id"] == selectedEquipmentType);
+                    totalItems = selectedType?.length
                 }
                 else {
                     rentedItems++
@@ -105,11 +117,6 @@ const LandingPage = () => {
     const contractBarGraph = (contract) => {
         return (200 * (contract/Object.keys(contractData()[0]).length)).toFixed(1)
     }
-    console.log(Object.keys(contractData()[0]).length === 0)
-
-
-
-
     const graphStroke = () => {
         if (contractData()[1] == {}) {
             return 0
@@ -215,10 +222,12 @@ const LandingPage = () => {
 
 
     return(
-        <section className="pt-10">
+        <section className=" flex flex-col">
+            <div className="font-bold pl-5 py-5 text-3xl">Dashboard</div>
+            <div className="flex">
             <div className="ml-5">
-                <div>
-                    <select onChange={handleEquipmentTypeChange}>
+                <div className="pr-5">
+                    <select className="mb-4 py-4 px-5 w-full align-middle rounded-full text-xl" onChange={handleEquipmentTypeChange}>
                         <option value="">Total Inventory</option>
                         {equipmentTypes &&
                                 equipmentTypes.map((type) => (
@@ -229,15 +238,24 @@ const LandingPage = () => {
                         )}
                     </select>
                 </div>
-                <div className="line-graph bg-white mr-5 pt-4 pb-10 px-5 rounded-xl shadow-lg">
+                <div className="bg-white mr-5 h-[17rem] pt-4 px-5 rounded-xl mb-5 shadow-lg">
+                    <JobSiteMap
+                        className="google-map"
+                        jobSites={jobsites?.map((jobSite) => ({
+                            id: jobSite.id,
+                            formatted_address: jobSite.job_address,
+                        }))}
+                    />
+                </div>
+                <div className="line-graph bg-white mr-5 py-7 px-4 rounded-xl shadow-lg">
                     <Line
                         data={{
                             labels: months,
                             datasets: [
                                 {
                                 data: equipmentFrequency(),
-                                borderColor: 'rgb(255, 99, 132)',
-                                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                                borderColor: '#00868F',
+                                backgroundColor: '#00868F',
                                 tension: 0.3,
                                 pointRadius: 4
                                 },
@@ -364,9 +382,7 @@ const LandingPage = () => {
                     </div>
                 </div>
             </div>
-
-
-
+            </div>
 
 
         </section>

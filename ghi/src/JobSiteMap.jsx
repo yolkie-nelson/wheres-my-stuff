@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
+import { useLocation } from "react-router-dom";
 
 const VITE_GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY
 
 
 const JobSiteMap = ({ jobSites, google }) => {
+    let location = useLocation();
     const [markers, setMarkers] = useState([])
     const [loading, setLoading] = useState(false)
 
@@ -19,7 +21,7 @@ const JobSiteMap = ({ jobSites, google }) => {
                             jobSite.formatted_address
                         )}&key=${VITE_GOOGLE_API_KEY}`
                     )
-                    
+
                     if (!response.ok) {
                         throw new Error('Failed to fetch geocoding data')
                     }
@@ -55,13 +57,14 @@ const JobSiteMap = ({ jobSites, google }) => {
                 <div>Loading...</div>
             ) : (
                 <Map
+                    className={location.pathname == "/" ? "small-map" : "big-map"}
                     google={google}
                     zoom={4.5}
                     initialCenter={{
                         lat: 39.829575,
                         lng: -99.861435,
                     }}
-                    style={{ height: '50rem', width: '50%' }}
+                    style={location.pathname == "/" ? { height: '15rem', width: '35rem' } : { height: '50rem', width: '50%' }}
                 >
                     {markers.map((marker) => (
                         <Marker
