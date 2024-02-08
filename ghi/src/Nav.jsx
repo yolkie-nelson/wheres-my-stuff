@@ -22,7 +22,7 @@ const Nav = () => {
                     </div>
                     <div className=" whitespace-nowrap text-teal pl-9 col-span-3 row-start-4 col-start-3 xl:text-2xl invisible md:visible">
                         {' '}
-                        You will never ask that question again!
+                        You'll never ask that question again!
                     </div>
                     <div className=" justify-end pr-10 space-x-4 col-start-10 row-start-4 hidden sm:inline-block">
                         {' '}
@@ -36,7 +36,7 @@ const Nav = () => {
                     <div className="justify-end pr-10 space-x-4 col-start-11 row-start-4 hidden sm:inline-block ">
                         {' '}
                         <a
-                            href="#"
+                            href="/about"
                             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-[.7rem] xl:text-sm "
                         >
                             About
