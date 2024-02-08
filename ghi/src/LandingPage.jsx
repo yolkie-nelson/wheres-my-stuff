@@ -12,6 +12,7 @@ import {
 } from "chart.js"
 import { Line } from 'react-chartjs-2';
 import "./static/LandingPage.css"
+import { current } from "@reduxjs/toolkit";
 
 ChartJS.register(
   CategoryScale,
@@ -35,7 +36,6 @@ const LandingPage = () => {
         const day = String(today.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
     };
-    const [unavailable, setUnavailable] = useState(0);
     const [selectedEquipmentType, setSelectedEquipmentType] = useState(null)
     const handleEquipmentTypeChange = (event) => {
         setSelectedEquipmentType(event.target.value);
@@ -46,10 +46,9 @@ const LandingPage = () => {
             return selectedType[0]["name"]
         }
         else {
-            return "Total Inventory";
+            return "Total";
         }
     }
-
     const contractData = () => {
         const contractDict = {}
         let rentedItems = 0
@@ -57,7 +56,19 @@ const LandingPage = () => {
         contracts?.map(contract => {
             if (contract["start_date"] <= getTodayDate() && contract["end_date"] >= getTodayDate()) {
                 if (selectedEquipmentType) {
-                    if (contract["equipment_id"] == selectedEquipmentType) {
+                    const selectedEquipment = equipment?.filter(equipment => {
+                        if (equipment["equipment_type_id"] == parseInt(selectedEquipmentType)) {
+                            return equipment
+                        }
+                    })
+                    const extractIdDictionary = (arrayOfDictionaries) => {
+                        return arrayOfDictionaries.reduce((acc, dict) => {
+                            acc[dict.id] = "id";
+                            return acc;
+                        }, {});
+                    }
+                    if (contract["equipment_id"] in extractIdDictionary(selectedEquipment)) {
+                        // console.log(contract)
                         rentedItems++
                         const jobId = contract["job_site_id"]
                         const jobName = jobsites?.filter(jobsite => jobsite["id"] == jobId)
@@ -73,7 +84,7 @@ const LandingPage = () => {
                 }
                 else {
                     rentedItems++
-                    totalItems = equipment.length
+                    totalItems = equipment?.length
                     const jobId = contract["job_site_id"]
                     const jobName = jobsites?.filter(jobsite => jobsite["id"] == jobId)
                     if (jobName[0]["job_name"] in contractDict){
@@ -85,15 +96,27 @@ const LandingPage = () => {
                 }
             }
         })
-        const rented = ((rentedItems / totalItems) * 100).toFixed(1);
-        return [contractDict, rented]
+        let rented = ((rentedItems / totalItems) * 100).toFixed(1);
+        if (rented == "NaN"){
+            rented = (0).toFixed(1)
+        }
+        return [contractDict, rented, rentedItems, totalItems]
     }
     const contractBarGraph = (contract) => {
         return (200 * (contract/Object.keys(contractData()[0]).length)).toFixed(1)
     }
+    console.log(Object.keys(contractData()[0]).length === 0)
+
+
+
+
     const graphStroke = () => {
-        const offset = 687 - (687 * contractData()[1]) / 100;
-        return offset
+        if (contractData()[1] == {}) {
+            return 0
+        }
+        else{
+            return 687 - (687 * contractData()[1]) / 100
+        }
     }
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     const getDaysInMonth = (month) => {
@@ -135,28 +158,55 @@ const LandingPage = () => {
         return dates
     }
     const equipmentFrequency = () => {
-        const pastContracts = contracts?.map(contract => {
-            if (contract["start_date"] <= getTodayDate()) {
-                return contract
+        let pastContracts = null
+        if (selectedEquipmentType) {
+            const selectedEquipment = equipment?.filter(equipment => {
+                if (equipment["equipment_type_id"] == parseInt(selectedEquipmentType)) {
+                    return equipment
+                }
+            })
+            const extractIdDictionary = (arrayOfDictionaries) => {
+                return arrayOfDictionaries.reduce((acc, dict) => {
+                    acc[dict.id] = "id";
+                    return acc;
+                }, {});
             }
-        })
+            const selectedContracts = contracts?.filter(contract => {
+                if (contract["equipment_id"] in extractIdDictionary(selectedEquipment)) {
+                    return contract
+                }
+            })
+            pastContracts = selectedContracts?.map(contract => {
+                if (contract["start_date"] <= getTodayDate()) {
+                    return contract
+                }
+            })
+        }
+        else {
+            pastContracts = contracts?.map(contract => {
+                if (contract["start_date"] <= getTodayDate()) {
+                    return contract
+                }
+            })
+        }
+        const months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
         const frequency = {}
-        pastContracts?.map(pastContract => {
-            const month = pastContract["start_date"].slice(5,7)
-            if (month in frequency){
-                frequency[month]++
-            }
-            else {
-                frequency[month] = 1
+        months?.map(month => {
+            const currentMonth = getTodayDate()?.slice(5,7)
+            if (month <= currentMonth){
+                frequency[month] = 0
             }
         })
-        const keyValueArray = Object.entries(frequency)
-        keyValueArray.sort((a, b) => parseInt(a[0]) - parseInt(b[0]))
-        const sortedDictionary = Object.fromEntries(keyValueArray)
-        // console.log(sortedDictionary)
-
+        pastContracts?.map(pastContract => {
+            const month = pastContract["start_date"]?.slice(5,7)
+            frequency[month]++
+        })
+        return Object.values(frequency)
     }
-    equipmentFrequency()
+
+
+
+
 
 
 
@@ -166,8 +216,6 @@ const LandingPage = () => {
 
     return(
         <section className="pt-10">
-
-
             <div className="ml-5">
                 <div>
                     <select onChange={handleEquipmentTypeChange}>
@@ -187,8 +235,7 @@ const LandingPage = () => {
                             labels: months,
                             datasets: [
                                 {
-                                label: 'Dataset 1',
-                                data: [12, 34, 56, 102, 98, 46],
+                                data: equipmentFrequency(),
                                 borderColor: 'rgb(255, 99, 132)',
                                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
                                 tension: 0.3,
@@ -196,13 +243,15 @@ const LandingPage = () => {
                                 },
                             ],
                         }}
-
                         options = {{
                             responsive: true,
                             plugins: {
                                 title: {
                                 display: true,
                                 text: 'Equipment Rental Frequency Trends Over Time',
+                                },
+                                legend: {
+                                display: false,
                                 },
                             },
                             scales: {
@@ -231,7 +280,7 @@ const LandingPage = () => {
             </div>
             <div className="mr-5">
                 <div className="doughnut-chart-section bg-white pt-4 pb-10 px-5 max-w-sm rounded-xl shadow-lg">
-                    <div className="text-2xl font-semibold pb-5">{graphTitle()}</div>
+                    <div className="text-2xl font-semibold pb-5">{graphTitle()} Inventory</div>
                     <div>
                         <div className="doughnut-chart pl-8">
                             <div className="outer">
@@ -246,21 +295,34 @@ const LandingPage = () => {
 
                         </svg>
                     </div>
-                    <div className="bg-slate-100 flex justify-center py-5 rounded-md">{unavailable} Items Rented</div>
+                    <div className="bg-slate-100 text-lg text-center font-semibold py-3 mx-5 rounded-md">
+                        {contractData()[2]} out of {contractData()[3]}
+                        <div className="text-xs font-normal">Items Currently Rented</div>
+                    </div>
                 </div>
                 <div className="contract-chart bg-white mt-5 px-5 pt-4 pb-10 rounded-xl max-w-sm shadow-lg font-semibold">
-                    <div className="pb-4 text-2xl">Current Contracts</div>
-                    {Object.entries(contractData()[0]).map((contract, index) => (
-                        <div className="flex items-center" key={index}>
-                            <div className="text-xs font-normal w-48 pb-2">{contract[0]}</div>
-                            <div className="flex">
-                                <svg className="h-10 pr-4" width="200">
-                                    <rect x="10" y="10" width={contractBarGraph(contract[1])} height="20"/>
-                                </svg>
-                                {contract[1]}
+                    <div className="pb-4 text-2xl">Active Contracts</div>
+                        <div>
+                            {Object.keys(contractData()[0]).length > 0 ? (
+                            // Render the JSX if the dictionary is not empty
+                            <div>
+                                {Object.entries(contractData()[0]).map((contract, index) => (
+                                <div className="flex items-center" key={index}>
+                                    <div className="text-xs font-normal w-48 pb-2">{contract[0]}</div>
+                                    <div className="flex">
+                                    <svg className="h-10 pr-4" width="200">
+                                        <rect x="10" y="10" width={contractBarGraph(contract[1])} height="20"/>
+                                    </svg>
+                                    {contract[1]}
+                                    </div>
+                                </div>
+                                ))}
                             </div>
+                            ) : (
+                            // Render something else if the dictionary is empty
+                            <div className="bg-slate-100 text-lg text-center font-semibold py-3 mx-5 text-slate-400 rounded-md">No data available</div>
+                            )}
                         </div>
-                    ))}
                 </div>
             </div>
             <div className="gantt-chart bg-white pt-4 rounded-xl shadow-lg font-semibold">
