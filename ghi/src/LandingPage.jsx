@@ -183,14 +183,14 @@ const LandingPage = () => {
                     return contract
                 }
             })
-            pastContracts = selectedContracts?.map(contract => {
+            pastContracts = selectedContracts?.filter(contract => {
                 if (contract["start_date"] <= getTodayDate()) {
                     return contract
                 }
             })
         }
         else {
-            pastContracts = contracts?.map(contract => {
+            pastContracts = contracts?.filter(contract => {
                 if (contract["start_date"] <= getTodayDate()) {
                     return contract
                 }
@@ -204,8 +204,9 @@ const LandingPage = () => {
                 frequency[month] = 0
             }
         })
+        console.log(contracts)
         pastContracts?.map(pastContract => {
-            const month = pastContract["start_date"]?.slice(5,7)
+            const month = pastContract["start_date"].slice(5,7)
             frequency[month]++
         })
         return Object.values(frequency)
