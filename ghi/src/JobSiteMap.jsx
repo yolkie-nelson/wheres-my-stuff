@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 
 const VITE_GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY
-console.log('api', VITE_GOOGLE_API_KEY)
+
 
 const JobSiteMap = ({ jobSites, google }) => {
     const [markers, setMarkers] = useState([])
@@ -19,7 +19,7 @@ const JobSiteMap = ({ jobSites, google }) => {
                             jobSite.formatted_address
                         )}&key=${VITE_GOOGLE_API_KEY}`
                     )
-                    console.log('reponse', response)
+                    
                     if (!response.ok) {
                         throw new Error('Failed to fetch geocoding data')
                     }
