@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useUpdateEquipmentMutation, useGetStorageSiteQuery, useGetEquipmentTypeQuery } from './app/apiSlice';
 import { useNavigate } from 'react-router-dom';
 
-const EditEquipmentForm = ({ equipmentDetail }) => {
+const EditEquipmentForm = ({ equipmentDetail, onClose }) => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         model_name: equipmentDetail.model_name,
@@ -28,7 +28,8 @@ const EditEquipmentForm = ({ equipmentDetail }) => {
                 data: formData
             }
             await updateEquipment(object);
-            console.log("serial", equipmentDetail.serial_number, "data", formData)
+            console.log("serial", equipmentDetail.serial_number, "data", formData);
+            onClose();
             navigate(`/equipment/${equipmentDetail.serial_number}`);
         } catch (err) {
             console.error('Failed to update equipment:', err);
