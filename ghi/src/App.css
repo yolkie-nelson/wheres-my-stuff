@@ -37,7 +37,7 @@ nav {
 }
 
 @font-face {
-    font-family: 'Rammetto';
+    font-family: 'rammetto';
     src: url('./fonts/Rammetto_One/RammettoOne-Regular.ttf');
 }
 
@@ -127,7 +127,7 @@ input {
 
 .custom-header {
     font-size: 3rem;
-    font-family: "Rametto";
+    font-family: "rametto";
 }
 
 .edit-button {
