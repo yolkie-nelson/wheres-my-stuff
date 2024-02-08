@@ -38,7 +38,7 @@ nav {
 
 @font-face {
     font-family: 'Rammetto';
-    src: url('public/fonts/Rammetto_One/RammettoOne-Regular.ttf');
+    src: url('./fonts/Rammetto_One/RammettoOne-Regular.ttf');
 }
 
 .nav-bar-font {
