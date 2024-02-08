@@ -15,6 +15,7 @@ import EquipmentDetail from './EquipmentDetail'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import JobSiteList from './JobSiteList'
 import CreateJobSiteForm from './CreateJobSiteForm'
+import StorageSiteList from './StorageSiteList'
 import Login from './Login'
 import CreateEquipmentForm from './CreateEquipmentForm'
 import CreateStorageSiteForm from './CreateStorageSiteForm'
@@ -49,6 +50,7 @@ function App() {
                             {!account && <Route path="/token" element={<Login />} />}
                             {!account && <Route path="/" element={<SplashPage />} />}
                             <Route path="/about" element={<About />} />
+                            <Route path="/storagesites" element={account ? <StorageSiteList /> : <Login />} />
                             <Route path="/storagesites/create" element={account ? <CreateStorageSiteForm /> : <Login />} />
                             <Route path="/contracts/create" element={account ? <CreateContractForm /> : <Login />} />
                         </Routes>
