@@ -1,0 +1,2 @@
+equipment_id,model_name,description,serial_number,storage_site_id,date_serviced,photo,equipment_type_id
+2,test,test,123,1,2024-02-08,test.png,1
