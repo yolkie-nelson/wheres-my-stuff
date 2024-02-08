@@ -57,7 +57,7 @@ const CreateContractForm = () => {
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label htmlFor="equipment_id" className="block text-gray-600 text-sm font-semibold mb-2">
-                        Equipment ID
+                        Equipment
                     </label>
                     <select
                         id="equipment_id"
@@ -66,7 +66,7 @@ const CreateContractForm = () => {
                         value={formData.equipment_id}
                         onChange={handleChange}
                     >
-                        <option value="">Select Equipment ID</option>
+                        <option value="">Select Equipment</option>
                         {equipment &&
                             equipment.map((equip) => (
                                 <option key={equip.id} value={equip.id}>
@@ -77,7 +77,7 @@ const CreateContractForm = () => {
                 </div>
                 <div className="mb-4">
                     <label htmlFor="job_site_id" className="block text-gray-600 text-sm font-semibold mb-2">
-                        Job Site ID
+                        Job Site
                     </label>
                     <select
                         id="job_site_id"
@@ -86,7 +86,7 @@ const CreateContractForm = () => {
                         value={formData.job_site_id}
                         onChange={handleChange}
                     >
-                        <option value="">Select Job Site ID</option>
+                        <option value="">Select Job Site</option>
                         {jobSites &&
                             jobSites.map((site) => (
                                 <option key={site.id} value={site.id}>
@@ -146,5 +146,3 @@ const CreateContractForm = () => {
 }
 
 export default CreateContractForm
-
-
