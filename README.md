@@ -58,6 +58,7 @@ VSCode status bar
 
 ### Creating your .env directory
 **Create a .env file in your root directory**
+
 In order for the application to function properly, the .env file must be created in the root directory of your project. This file is included in .gitignore due to the sensitive nature of its contents. You must include your own passwords, API keys and signing keys.
 
 ```
