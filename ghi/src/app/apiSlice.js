@@ -117,10 +117,10 @@ export const WMSApi = createApi({
             providesTags: ["Equipment"]
         }),
         updateEquipment: builder.mutation ({
-            query: (serial_number, data) => ({
-                url: `/api/equipment/${serial_number}`,
+            query: obj => ({
+                url: `/api/equipment/${obj.serial_number}`,
                 credentials: "include",
-                body: data,
+                body: obj.data,
                 method: "put"
             }),
             invalidatesTags: ["Equipment"]

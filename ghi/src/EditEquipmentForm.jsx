@@ -3,14 +3,15 @@ import { useUpdateEquipmentMutation, useGetStorageSiteQuery, useGetEquipmentType
 import { useNavigate } from 'react-router-dom';
 
 const EditEquipmentForm = ({ equipmentDetail }) => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         model_name: equipmentDetail.model_name,
         description: equipmentDetail.description,
+        serial_number: equipmentDetail.serial_number,
         storage_site_id: equipmentDetail.storage_site_id,
         date_serviced: equipmentDetail.date_serviced,
         photo: equipmentDetail.photo,
-        equipment_type_id: equipmentDetail.equipment_type_id,
+        equipment_type_id: equipmentDetail.equipment_type_id
     });
 
     const handleChange = (event) => {
@@ -22,9 +23,13 @@ const EditEquipmentForm = ({ equipmentDetail }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await updateEquipment(equipmentDetail.serial_number, formData);
+            const object = {
+                serial_number: equipmentDetail.serial_number,
+                data: formData
+            }
+            await updateEquipment(object);
             console.log("serial", equipmentDetail.serial_number, "data", formData)
-            // navigate('/equipment/${serial_number}');
+            navigate(`/equipment/${equipmentDetail.serial_number}`);
         } catch (err) {
             console.error('Failed to update equipment:', err);
         }
