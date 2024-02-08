@@ -57,13 +57,12 @@ function App() {
                             <Route path="/equipment" element={<EquipmentList />} />
                             {account && <Route path="/equipment/create" element={<CreateEquipmentForm />} /> }
                             <Route path="/equipment/:equipmentSerial" element={<EquipmentDetail />} />
-                            <Route path="/jobsites" element={<JobSiteList />} />
-                            <Route path="/jobsites/create" element={account ? <CreateJobSiteForm /> : <Login /> } />
-                            <Route path="/types/create" element={account ? <CreateEquipmentTypeForm/> : <Login />} />
+                            {account && <Route path="/jobsites" element={<JobSiteList />} /> }
+                            {account && <Route path="/jobsites/create" element={<CreateJobSiteForm />} /> }
                             {!account && <Route path="/accounts" element={<CreateAccount />} />}
                             {!account && <Route path="/token" element={<Login />} />}
                             {!account && <Route path="/" element={<SplashPage />} />}
-                            <Route path="/storagesites/create" element={account ? <CreateStorageSiteForm /> : <Login /> } />
+                            {account && <Route path="/storagesites/create" element={<CreateStorageSiteForm />} /> }
                             {account && <Route path="/contracts/create" element={<CreateContractForm />} /> }
                         </Routes>
                     </div>
