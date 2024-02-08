@@ -56,10 +56,10 @@ const JobSiteMap = ({ jobSites, google }) => {
             ) : (
                 <Map
                     google={google}
-                    zoom={10}
+                    zoom={4.5}
                     initialCenter={{
-                        lat: 32.51800490638247,
-                        lng: -84.93937291055167,
+                        lat: 39.829575,
+                        lng: -99.861435,
                     }}
                     style={{ height: '50rem', width: '50%' }}
                 >
