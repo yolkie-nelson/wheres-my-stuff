@@ -18,6 +18,7 @@ import Login from './Login'
 import CreateEquipmentForm from './CreateEquipmentForm'
 import CreateStorageSiteForm from './CreateStorageSiteForm'
 import CreateEquipmentTypeForm from './CreateEquipmentTypeForm'
+import CreateContractForm from './CreateContractForm'
 
 // All your environment variables in vite are in this object
 console.table(import.meta.env)
@@ -62,6 +63,7 @@ function App() {
                             {!account && <Route path="/token" element={<Login />} />}
                             {!account && <Route path="/" element={<SplashPage />} />}
                             {account && <Route path="/storagesites/create" element={<CreateStorageSiteForm />} /> }
+                            {account && <Route path="/contracts/create" element={<CreateContractForm />} /> }
                         </Routes>
                     </div>
                 </div>

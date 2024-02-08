@@ -55,4 +55,18 @@
 - Ran into a catestrophic Git moment because we were all working on the same branch and had to reconcile consolidating everything
 - In the future, we all need to create a branch off of main, and we only ever pull from main
 
+### 02/02/24
+- Today we continued working on components but then were sidetracked due to misuse of Git. We spent most of our time coding today simply trying to merge all of our code to main, and making sure everyone had up to date code and the website was working. Thomas helped us through but it took a LONG time.
 
+### 02/05/24
+- Pair programmed with Peace to create function to check availability of equipent
+- This turned out to be more complicated than anticipated. We have our equipment model, and a contract model which references a piece of equipment by its ID, and has a start and end date for the contract. We set an input start and end date which can be set by the user, but defaults to today's date so that when you first navigate to the page, it shows Available if it is available today, and Unavailable if its not. Once the inputs are changed, this updates. \
+
+### 02/06/24
+- All CSS and styling today. I worked to format the equipment detail table and card, and in the process discovered a little bit of an issue with out availability function and table data! Fixed that as well. Got the Delete button working on the equipment detail card.
+
+### 02/07/24
+- It was a wild ride today. I created a Modal which pops up when you click the edit button on the equipment detail card. We ran into a ton of issues with submitting the form. The data appeared to be formatted correctly for our API slice but we were getting a 422 error. Eventually we discovered that mutation api sclices can only take ONE argument, while we were trying to pass in both the serial number to identify the piece of equipment AND the data for the form body. Instead, we just passed in a single object, the body, to the api slice and found the serial number within that in order to identify the equipment. Now I need to get my modal to properly close!
+
+### 02/08/24
+- Today was getting my equipment detail modal to close properly when the form is submitted, and finalizing the styling on the equipment list page.

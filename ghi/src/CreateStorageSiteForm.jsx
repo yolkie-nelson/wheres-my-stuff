@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useCreateStoragesiteMutation } from './app/apiSlice'
+import { useCreateStorageSiteMutation } from './app/apiSlice'
 import { useNavigate } from 'react-router-dom'
 
 const CreateStorageSiteForm = () => {
@@ -15,7 +15,7 @@ const CreateStorageSiteForm = () => {
     }
 
     const [createStorageSite, { isLoading, isError }] =
-        useCreateStoragesiteMutation()
+        useCreateStorageSiteMutation()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
