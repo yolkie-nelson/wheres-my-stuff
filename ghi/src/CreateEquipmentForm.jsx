@@ -37,7 +37,7 @@ const CreateEquipmentForm = () => {
             console.error('Failed to create equipment:', err)
         }
     }
-
+    if (isLoading) return <div>Loading...</div>
     return (
         <div className="container mx-auto mt-8 p-8 bg-white max-w-md rounded shadow-md">
             <h1 className="text-2xl font-bold mb-6">Create Equipment</h1>
