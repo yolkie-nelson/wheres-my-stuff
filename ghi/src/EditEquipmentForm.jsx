@@ -1,46 +1,46 @@
-import React, { useState } from 'react'
-import {
-    useCreateEquipmentMutation,
-    useGetStorageSiteQuery,
-    useGetEquipmentTypeQuery,
-} from './app/apiSlice'
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react';
+import { useUpdateEquipmentMutation, useGetStorageSiteQuery, useGetEquipmentTypeQuery } from './app/apiSlice';
+import { useNavigate } from 'react-router-dom';
 
-const CreateEquipmentForm = () => {
-    const navigate = useNavigate()
+const EditEquipmentForm = ({ equipmentDetail }) => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        model_name: '',
-        description: '',
-        serial_number: '',
-        storage_site_id: '',
-        date_serviced: '',
-        photo: '',
-        equipment_type_id: '',
-    })
+        model_name: equipmentDetail.model_name,
+        description: equipmentDetail.description,
+        serial_number: equipmentDetail.serial_number,
+        storage_site_id: equipmentDetail.storage_site_id,
+        date_serviced: equipmentDetail.date_serviced,
+        photo: equipmentDetail.photo,
+        equipment_type_id: equipmentDetail.equipment_type_id
+    });
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-    }
+    const handleChange = (event) => {
+        setFormData({ ...formData, [event.target.name]: event.target.value });
+    };
 
-    const { data: storageSites } = useGetStorageSiteQuery()
-    const { data: equipmentTypes } = useGetEquipmentTypeQuery()
+    const [updateEquipment] = useUpdateEquipmentMutation();
 
-    const [createEquipment, { isLoading, isError }] =
-        useCreateEquipmentMutation()
-
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+    const handleSubmit = async (event) => {
+        event.preventDefault();
         try {
-            await createEquipment(formData).unwrap()
-            navigate('/equipment')
+            const object = {
+                serial_number: equipmentDetail.serial_number,
+                data: formData
+            }
+            await updateEquipment(object);
+            console.log("serial", equipmentDetail.serial_number, "data", formData)
+            navigate(`/equipment/${equipmentDetail.serial_number}`);
         } catch (err) {
-            console.error('Failed to create equipment:', err)
+            console.error('Failed to update equipment:', err);
         }
-    }
-    if (isLoading) return <div>Loading...</div>
+    };
+
+    const { data: storageSites } = useGetStorageSiteQuery();
+    const { data: equipmentTypes } = useGetEquipmentTypeQuery();
+
     return (
         <div className="container mx-auto mt-8 p-8 bg-white max-w-md rounded shadow-md">
-            <h1 className="text-2xl font-bold mb-6">Create Equipment</h1>
+            <h1 className="text-2xl font-bold mb-6">Update Equipment</h1>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label
@@ -71,22 +71,6 @@ const CreateEquipmentForm = () => {
                         name="description"
                         className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
                         value={formData.description}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="mb-4">
-                    <label
-                        htmlFor="serial_number"
-                        className="block text-gray-600 text-sm font-semibold mb-2"
-                    >
-                        Serial Number
-                    </label>
-                    <input
-                        type="text"
-                        id="serial_number"
-                        name="serial_number"
-                        className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-                        value={formData.serial_number}
                         onChange={handleChange}
                     />
                 </div>
@@ -172,11 +156,11 @@ const CreateEquipmentForm = () => {
                     type="submit"
                     className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue"
                 >
-                    Create Equipment
+                    Update Equipment
                 </button>
             </form>
         </div>
-    )
-}
+    );
+};
 
-export default CreateEquipmentForm
+export default EditEquipmentForm;

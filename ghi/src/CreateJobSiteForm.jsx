@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import { useCreateJobsiteMutation } from './app/apiSlice'
-import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 const CreateJobSiteForm = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const [formData, setFormData] = useState({
+        const [formData, setFormData] = useState({
         job_name: '',
         job_address: '',
         job_poc: '',
@@ -21,7 +19,7 @@ const CreateJobSiteForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            await dispatch(createJobSite(formData)).unwrap()
+            await (createJobSite(formData))
 
             // Want to redirect to the jobsitelist here
         } catch (err) {
