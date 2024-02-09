@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from typing import List, Union, Optional
 from psycopg_pool import ConnectionPool
 import os
-
+from fastapi import HTTPException
 
 pool = ConnectionPool(conninfo=os.environ.get('DATABASE_URL'))
 
@@ -129,7 +129,9 @@ class JobSiteQueries:
                     )
                     return True
         except Exception:
-            return False
+            raise HTTPException(
+                status_code=422, detail="Failed to delete, Contract assigned?"
+            )
 
     def get_job_site_in_to_out(self, id: int, job_site: JobSiteIn):
         old_data = job_site.dict()

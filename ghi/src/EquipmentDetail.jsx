@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useGetOneEquipmentQuery, useGetContractQuery, useGetOneStorageSiteQuery, useGetJobSiteQuery, useDeleteEquipmentMutation } from './app/apiSlice.js';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useGetOneEquipmentQuery, useGetContractQuery, useGetJobSiteQuery, useDeleteEquipmentMutation } from './app/apiSlice.js';
 import './App.css';
-import { data } from 'browserslist';
 import EditEquipmentModal from './EditEquipmentModal.jsx';
 
 const EquipmentDetail = () => {
     const { equipmentSerial } = useParams();
-    const { data: equipmentDetail, isLoading: equipmentIsLoading } = useGetOneEquipmentQuery(equipmentSerial);
+    const { data: equipmentDetail } = useGetOneEquipmentQuery(equipmentSerial);
     const { data: contractList, isLoading: contractIsLoading } = useGetContractQuery();
-    const { data: jobSiteList, isLoading: jobIsLoading } = useGetJobSiteQuery();
+    const { data: jobSiteList} = useGetJobSiteQuery();
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [deleteEquipment] = useDeleteEquipmentMutation();
     const [showSuccess, setShowSuccess] = useState(false);
@@ -60,8 +59,6 @@ const EquipmentDetail = () => {
             const contract = contractList[i];
             const contractStartDate = getDate(new Date(contract.start_date));
             const contractEndDate = getDate(new Date(contract.end_date));
-
-            console.log("start:", inputStartDate, "end:", inputEndDate)
             if ((inputStartDate < inputEndDate) && (inputStartDate > contractEndDate || inputEndDate < contractStartDate)) {
                 return true;
             }

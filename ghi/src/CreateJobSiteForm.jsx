@@ -37,20 +37,24 @@ const CreateJobSiteForm = ({ google }) => {
     }
 
     const validateAddress = async (address) => {
-        const geocoder = new google.maps.Geocoder()
-        geocoder.geocode({ address: address }, (results, status) => {
-            if (status === 'OK' && results[0]) {
-                const formattedAddresses = results.map(
-                    (result) => result.formatted_address
-                )
-                setFormattedAddresses(formattedAddresses)
-            } else {
-                console.error(
-                    'Geocode was not successful for the following reason:',
-                    status
-                )
-            }
-        })
+        try {
+            const geocoder = new google.maps.Geocoder()
+            geocoder.geocode({ address: address }, (results, status) => {
+                if (status === 'OK' && results[0]) {
+                    const formattedAddresses = results.map(
+                        (result) => result.formatted_address
+                    )
+                    setFormattedAddresses(formattedAddresses)
+                } else {
+                    console.error(
+                        'Geocode was not successful for the following reason:',
+                        status
+                    )
+                }
+            })
+        } catch (error) {
+            console.error('Error occurred while geocoding:', error)
+        }
     }
 
     const handleAddressSelect = (selectedAddress) => {

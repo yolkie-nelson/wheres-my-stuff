@@ -1,4 +1,4 @@
-import { Link, Outlet} from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import { useGetTokenQuery, useLogoutMutation} from "./app/apiSlice.js";
 import './App.css'
 
@@ -26,30 +26,33 @@ const Nav = () => {
                     </div>
                     <div className=" justify-end pr-10 space-x-4 col-start-10 row-start-4 hidden sm:inline-block">
                         {' '}
-                        <a
-                            href="/"
+                        <NavLink
+                            to="/"
+                            aria-current="page"
                             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 md: text-[.7rem] xl:text-sm "
                         >
                             Home
-                        </a>
+                        </NavLink>
                     </div>
                     <div className="justify-end pr-10 space-x-4 col-start-11 row-start-4 hidden sm:inline-block ">
                         {' '}
-                        <a
-                            href="/about"
+                        <NavLink
+                            to="/about"
+                            aria-current="page"
                             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-[.7rem] xl:text-sm "
                         >
                             About
-                        </a>{' '}
+                        </NavLink>{' '}
                     </div>
                     {!account && <div className="justify-end pr-10 space-x-4 col-start-12 row-start-4 hidden sm:inline-block">
                         {' '}
-                        <a
-                            href="/token"
+                        <NavLink
+                            to="/token"
+                            aria-current="page"
                             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-[.7rem] xl:text-sm "
                         >
                             Login
-                        </a>{' '}
+                        </NavLink>{' '}
                     </div>}
                     {account && (
                         <button
@@ -58,46 +61,27 @@ const Nav = () => {
                             Logout
                         </button>)}
                 </div>
-                {/* <!--
-            Dropdown menu, show/hide based on menu state.
-            Entering: "transition ease-out duration-100"
-            From: "transform opacity-0 scale-95"
-            To: "transform opacity-100 scale-100"
-            Leaving: "transition ease-in duration-75"
-            From: "transform opacity-100 scale-100"
-            To: "transform opacity-0 scale-95"
-        --> */}
-                {/* <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
-            <!-- Active: "bg-gray-100", Not Active: "" -->
-            <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-0">Your Profile</a>
-            <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-1">Settings</a>
-            <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-2">Sign out</a>
-        </div> */}
-                {/* </div> */}
-
-                {/* <!-- Mobile menu, show/hide based on menu state. --> */}
                 <div className="sm:hidden" id="mobile-menu">
                     <div className="space-y-1 px-2 pb-3 pt-2">
-                        {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
-                        <a
-                            href="#"
+                        <NavLink
+                            to="#"
                             className="text-gray-300 hover:bg-gray-700 text-white block rounded-md px-3 py-2 text-base font-medium"
                             aria-current="page"
                         >
                             About
-                        </a>
-                        <a
-                            href="#"
+                        </NavLink>
+                        <NavLink
+                            to="#"
                             className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
                         >
                             Home
-                        </a>
-                        <a
-                            href="#"
+                        </NavLink>
+                        <NavLink
+                            to="#"
                             className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
                         >
                             Login
-                        </a>
+                        </NavLink>
                     </div>
                 </div>
             </nav>

@@ -1,5 +1,5 @@
 import { useGetContractQuery, useGetEquipmentQuery, useGetEquipmentTypeQuery, useGetJobSiteQuery, useGetOneJobsiteQuery } from "./app/apiSlice"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import JobSiteMap from './JobSiteMap'
 import {
   Chart as ChartJS,
@@ -13,7 +13,6 @@ import {
 } from "chart.js"
 import { Line } from 'react-chartjs-2';
 import "./static/LandingPage.css"
-import { current } from "@reduxjs/toolkit";
 import { CSVLink } from "react-csv";
 
 ChartJS.register(
@@ -31,8 +30,8 @@ const LandingPage = () => {
     const { data: contracts, isLoading: contractsLoading} = useGetContractQuery()
     const { data: equipmentTypes, isLoading: equipmentTypesLoading } = useGetEquipmentTypeQuery()
     const { data: jobsites, isLoading: jobsitesLoading } = useGetJobSiteQuery()
-
-
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const [selectedEquipmentType, setSelectedEquipmentType] = useState(null)
     const getTodayDate = () => {
         const today = new Date();
         const year = today.getFullYear();
@@ -40,7 +39,7 @@ const LandingPage = () => {
         const day = String(today.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
     };
-    const [selectedEquipmentType, setSelectedEquipmentType] = useState(null)
+
     const handleEquipmentTypeChange = (event) => {
         setSelectedEquipmentType(event.target.value);
     };
@@ -205,24 +204,23 @@ const LandingPage = () => {
                 frequency[month] = 0
             }
         })
-        console.log(contracts)
         pastContracts?.map(pastContract => {
             const month = pastContract["start_date"].slice(5,7)
             frequency[month]++
         })
         return Object.values(frequency)
     }
+    const handleMoveLeft = () => {
+        if (scrollPosition > -1780){
+            setScrollPosition(Math.min(scrollPosition - 100, 0))
+        }
+    };
+    const handleMoveRight = () => {
+        if (scrollPosition < 0){
+            setScrollPosition(scrollPosition + 100)
+        }
 
-
-
-
-
-
-
-
-
-
-
+    };
     return(
         <section className=" flex flex-col">
             <div className=" flex font-bold pl-5 py-5 text-3xl">Dashboard
@@ -347,7 +345,7 @@ const LandingPage = () => {
                         <div className="text-xs font-normal">Items Currently Rented</div>
                     </div>
                 </div>
-                <div className="contract-chart bg-white mt-5 px-5 pt-4 pb-10 rounded-xl max-w-sm shadow-lg font-semibold">
+                <div className="contract-chart bg-white mt-5 px-5 pt-4 pb-10 rounded-xl h-[14.5em] max-h-[14.5em] max-w-sm shadow-lg font-semibold">
                     <div className="pb-4 text-2xl">Active Contracts</div>
                         <div>
                             {Object.keys(contractData()[0]).length > 0 ? (
@@ -371,13 +369,14 @@ const LandingPage = () => {
                 </div>
             </div>
             <div className="gantt-chart bg-white pt-4 rounded-xl shadow-lg font-semibold">
-                <div className="absolute text-2xl">
-                    <div className="pb-4 pl-4">Contracts Gantt Chart</div>
+                <div className="text-2xl z-10 absolute w-full">
+                    <div className="pl-4 flex flex-row">Contracts Gantt Chart <div className="pl-56"><button className="bg-teal px-5 rounded-full text-white" onClick={handleMoveRight}>←</button> <button className="bg-teal px-5 rounded-full text-white" onClick={handleMoveLeft}>→</button></div></div>
                     <div className="h-8 w-52 bg-white"></div>
-                    <div className="bg-teal text-lg w-48 text-white pr-32 pl-2 ml-4 py-2 rounded-md">Contracts</div>
+                    <div className="bg-teal text-lg w-48 text-white pr-24 pl-2 ml-4 py-2 rounded-md">Job Sites</div>
+                    <div className="h-14 w-52 bg-white"></div>
                 </div>
-                <div className=" pt-12">
-                    <div className="flex">
+                <div className="pt-16">
+                    <div className="section flex" style={{ transform: `translateX(${scrollPosition}px)`}}>
                         <div className="gantt-spacer"></div>
                         <div className="months">
                             {months.map((month, index) => (
@@ -389,15 +388,14 @@ const LandingPage = () => {
                     </div>
                     <div className="gnatt-svg">
                         {Object.entries(ganttBar()).map(([jobName, dates], index) => (
-                            <div className="border-b-2 flex" key={index}>
-                                <div className="contract-name flex text-white text-xs font-normal bg-white">
+                            <div className="contract-name border-b-2 flex" key={index}>
+                                <div className="w-[212px] pl-4 sticky left-0 flex z-20 text-xs font-normal bg-white">
                                     {jobName}
-                                    <div className="contract-name2 absolute  bg-white pl-4 text-black">{jobName}</div>
                                 </div>
-                                <div className="bars">
+                                <div style={{ transform: `translateX(${scrollPosition}px)`}}>
                                     {dates.map((date, idx) => (
-                                        <div className="" key={idx}>
-                                            <svg className="h-5">
+                                        <div key={idx}>
+                                            <svg className="bars h-5">
                                                 <rect x={daysIntoYear(date[0])*6} width={(daysIntoYear(date[1])*6) - (daysIntoYear(date[0])*6)} height="15"/>
                                             </svg>
                                         </div>

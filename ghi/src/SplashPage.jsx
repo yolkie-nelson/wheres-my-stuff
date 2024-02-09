@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const SplashPage = () => {
     return (
         <div className="container mx-auto flex flex-col items-center justify-center pt-20">
@@ -18,7 +19,7 @@ const SplashPage = () => {
                             Take control of your inventory management today. Sign up for an account and start tracking your equipment efficiently.
                         </p>
                     </div>
-                    <a href='/accounts' className="bg-blue-500 text-white py-2 px-4 rounded">Create Account</a>
+                    <Link to='/accounts' className="bg-blue-500 text-white py-2 px-4 rounded">Create Account</Link>
                 </div>
             </div>
         </div>

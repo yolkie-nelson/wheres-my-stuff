@@ -17,6 +17,7 @@ import CreateEquipmentForm from './CreateEquipmentForm'
 import CreateStorageSiteForm from './CreateStorageSiteForm'
 import CreateEquipmentTypeForm from './CreateEquipmentTypeForm'
 import CreateContractForm from './CreateContractForm'
+import ContractList from './ContractList'
 
 
 const API_HOST = import.meta.env.VITE_API_HOST
@@ -49,6 +50,7 @@ function App() {
                             <Route path="/storagesites" element={account ? <StorageSiteList /> : <Login />} />
                             <Route path="/storagesites/create" element={account ? <CreateStorageSiteForm /> : <Login />} />
                             <Route path="/contracts/create" element={account ? <CreateContractForm /> : <Login />} />
+                            <Route path="/contracts" element={account ? <ContractList /> : <Login />} />
                         </Routes>
                     </div>
                 </div>

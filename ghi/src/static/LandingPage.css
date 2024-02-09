@@ -70,7 +70,9 @@ rect {
 
 .gantt-chart {
     overflow: auto;
+    min-width: 40rem;
     width: 40rem;
+    min-height: 36.5em;
 
 }
 
@@ -79,40 +81,34 @@ rect {
 }
 
 .months {
-
     min-height: 36em;
     display: flex;
-
 }
 
 .month {
-   /* width: calc(100% / 12); */
    text-align: center;
    height: 36rem;
 }
 
 .gnatt-svg{
-    /* padding-left: 13.25em; */
     margin-top: -30em;
+
 }
 
 .contract-name {
-    width: 212px;
-    max-width: 212;
+    width: 2409px;
 }
 
 .contract-name2 {
     width: 212px;
-    max-width: 212;
-    height: 100%;
-    max-height: 36.5em;
-}
-
-.bars {
-    /* padding-left: 13.25em; */
+    max-width: 212px;
 }
 
 .y-axis {
     min-height: 36em;
     margin-top: 15.1em;
+}
+
+.bars {
+    width: 1500px;
 }

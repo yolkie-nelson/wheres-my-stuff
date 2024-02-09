@@ -31,7 +31,7 @@ const CreateEquipmentForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            await createEquipment(formData).unwrap()
+            await createEquipment(formData)
             navigate('/equipment')
         } catch (err) {
             console.error('Failed to create equipment:', err)

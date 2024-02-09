@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 
 const VITE_GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY
 
-
 const JobSiteMap = ({ jobSites, google }) => {
     let location = useLocation();
     const [markers, setMarkers] = useState([])
