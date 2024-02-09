@@ -46,7 +46,7 @@ const StorageSiteList = () => {
     }
 
     return (
-        <div className=" flex pl-20">
+        <div className=" flex pl-20 pt-10">
             <div className="flex-1 mr-4 container bg-white mt-8 p-8 max-w-xl px-10 rounded shadow-md">
                 <h1 className="text-2xl font-bold mb-6">Warehouse List</h1>
                 {showSuccess && (

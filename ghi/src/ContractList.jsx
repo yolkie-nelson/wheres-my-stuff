@@ -55,8 +55,8 @@ const ContractList = () => {
     });
 
     return (
-        <div className=" flex">
-            <div className="flex-1 mr-4 container mt-8 p-8 max-w-xl px-20 rounded shadow-md">
+        <div className="flex pl-20 pt-10">
+            <div className="flex-1 mr-4 bg-white container mt-8 p-8 max-w-xl px-20 rounded shadow-md">
                 <h1 className="text-2xl font-bold mb-6">Contract List</h1>
                 {showSuccess && (
                     <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
@@ -72,30 +72,35 @@ const ContractList = () => {
                         return (
                             <li key={contract.id} className="mb-4">
                                 <div className="border border-gray-300 bg-white rounded-md p-4">
-                                    <div className="p-4">
+                                    <div className="pt-4 pl-4">
                                         <h1 className="text-l font-semibold mb-2">Equipment:</h1>
                                         {matchingEquipment.map((equipment) => (
                                             <div key={equipment.id}>
-                                                <p className="text-gray-600 pt-6">Name: {equipment.model_name}</p>
+                                                <p className="text-gray-600">Name: {equipment.model_name}</p>
                                                 <p className="text-gray-600 pb-4">Serial Number: {equipment.serial_number}</p>
                                             </div>
                                         ))}
                                     </div>
                                     {matchingJobSite.map((jobSite) => (
-                                    <div key={jobSite.id}>
-                                        <h2 className="text-xl font-semibold mb-2">Job Site: {jobSite.name}</h2>
-                                        <p className="text-gray-600 py-4">Address: {jobSite.job_address}</p>
+                                    <div key={jobSite.id} className="p-4">
+                                        <h2 className="text-l font-semibold mb-2">Job Site: {jobSite.name}</h2>
+                                        <p className="text-gray-600">Address: {jobSite.job_address}</p>
                                         <p className="text-gray-600 pb-4">Point of Contact: {jobSite.job_poc}</p>
                                     </div>
                                     ))}
-                                    <p className="text-gray-600 pt-6">Start Date: {contract.start_date}</p>
-                                    <p className="text-gray-600 pb-4">End Date: {contract.end_date}</p>
-                                    <button
-                                        onClick={() => handleDelete(contract.id)}
-                                        className="max-w-[15rem] bg-dark-orange text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:shadow-outline-blue"
-                                    >
-                                        Delete Contract
-                                    </button>
+                                    <div className="pl-4">
+                                        <h2 className="text-l font-semibold mb-2">Contract Dates:</h2>
+                                        <p className="text-gray-600">Start Date: {contract.start_date}</p>
+                                        <p className="text-gray-600 pb-4">End Date: {contract.end_date}</p>
+                                    </div>
+                                    <div className="pl-4 pt-4">
+                                        <button
+                                            onClick={() => handleDelete(contract.id)}
+                                            className="max-w-[15rem] bg-dark-orange text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:shadow-outline-blue"
+                                        >
+                                            Delete Contract
+                                        </button>
+                                    </div>
                                 </div>
                             </li>
                         );

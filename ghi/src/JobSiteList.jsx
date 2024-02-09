@@ -45,7 +45,7 @@ const JobSiteList = () => {
     }
 
     return (
-        <div className="flex pl-20">
+        <div className="flex pl-20 pt-10">
             <div className="flex-1 mr-4 container bg-white mt-8 p-8 max-w-xl px-10 rounded shadow-md">
                 <h1 className="text-2xl pl-10 font-bold mb-6">Job Site List</h1>
                 {showSuccess && (
@@ -58,7 +58,7 @@ const JobSiteList = () => {
                 </div>
                 )}
                 <ul>
-                    <div className="max-h-[48rem] overflow-y-scroll">
+                    <div className="max-h-[42rem] overflow-y-scroll">
                     {jobSites.map((jobSite) => (
                         <li key={jobSite.id} className="mb-4">
                             <div className="border border-gray-300 bg-white rounded-md p-4">
