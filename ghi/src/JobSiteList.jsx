@@ -45,56 +45,48 @@ const JobSiteList = () => {
     }
 
     return (
-        <div className="container mt-8 p-8 max-w-xl rounded shadow-md">
-            <h1 className="text-2xl font-bold mb-6">Job Site List</h1>
-            {showSuccess && (
-                <div
-                    className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4"
-                    role="alert"
-                >
-                    <p className="font-bold">Success!</p>
-                    <p>The job site has been successfully deleted.</p>
-                </div>
-            )}
-            <div className="flex ">
-                <ul className="flex-1 mr-4">
-                    <div className="max-h-[48rem] overflow-y-scroll">
-                        {jobSites.map((jobSite) => (
-                            <li key={jobSite.id} className="mb-4">
-                                <div className="border border-gray-300 rounded-md p-4">
-                                    <h1 className="text-xl font-bold text-center">
-                                        {jobSite.id}
-                                    </h1>
-                                    <h2 className="text-xl font-semibold mb-2">
-                                        Job Name: {jobSite.job_name}
-                                    </h2>
-                                    <p className="text-gray-600">
-                                        Address: {jobSite.job_address}
-                                    </p>
-                                    <p className="text-gray-600">
-                                        Point of Contact: {jobSite.job_poc}
-                                    </p>
-                                    <button
-                                        onClick={() => handleDelete(jobSite.id)}
-                                        className="w-full bg-dark-orange text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:shadow-outline-blue"
-                                    >
-                                        Delete Job Site
-                                    </button>
-                                </div>
-                            </li>
-                        ))}
+        <div className="flex pl-20">
+            <div className="flex-1 mr-4 container bg-white mt-8 p-8 max-w-xl px-10 rounded shadow-md">
+                <h1 className="text-2xl pl-10 font-bold mb-6">Job Site List</h1>
+                {showSuccess && (
+                    <div
+                        className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4"
+                        role="alert"
+                    >
+                        <p className="font-bold">Success!</p>
+                        <p>The job site has been successfully deleted.</p>
                     </div>
-                </ul>
-                <div>
-                    <JobSiteMap
-                        jobSites={jobSites.map((jobSite) => ({
-                            id: jobSite.id,
-                            formatted_address: jobSite.job_address,
-                        }))}
-                    />
+                )}
+                        <ul>
+                            <div className="max-h-[48rem] overflow-y-scroll">
+                            {jobSites.map((jobSite) => (
+                                <li key={jobSite.id} className="mb-4">
+                                    <div className="border border-gray-300 bg-white rounded-md p-4">
+                                        <h1 className="text-xl font-bold text-center">
+                                            {jobSite.id}
+                                        </h1>
+                                        <h2 className="text-xl font-semibold mb-2">
+                                            Job Name: {jobSite.job_name}
+                                        </h2>
+                                        <p className="text-gray-600">
+                                            Address: {jobSite.job_address}
+                                        </p>
+                                        <p className="text-gray-600">
+                                            Point of Contact: {jobSite.job_poc}
+                                        </p>
+                                        <button
+                                            onClick={() => handleDelete(jobSite.id)}
+                                            className="w-full bg-dark-orange text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:shadow-outline-blue"
+                                        >
+                                            Delete Job Site
+                                        </button>
+                                    </div>
+                                </li>
+                            ))}
+                            </div>
+                        </ul>
                 </div>
-            </div>
-            {showConfirmation && (
+                {showConfirmation && (
                 <div className="z-10 inset-0 ">
                     <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                         <div
@@ -148,6 +140,14 @@ const JobSiteList = () => {
                     </div>
                 </div>
             )}
+            <div className="flex pt-10 pl-8">
+                        <JobSiteMap
+                            jobSites={jobSites.map((jobSite) => ({
+                                id: jobSite.id,
+                                formatted_address: jobSite.job_address,
+                            }))}
+                        />
+            </div>
         </div>
     )
 }

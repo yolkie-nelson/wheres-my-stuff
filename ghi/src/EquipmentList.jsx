@@ -24,9 +24,18 @@ const EquipmentList = () => {
         (!selectedType || equipment.equipment_type_id === selectedType))
     ) || [];
 
+    const getTodayDate = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+
     return (
-        <div className="flex justify-center h-screen">
-            <div className="w-screen px-40 py-20">
+        <div className="flex justify-center h-screen pt-10 pr-60">
+            <div className="max-w-screen-lg h-min mx-auto bg-white rounded-lg shadow-md p-6">
                 <h1 className="text-2xl font-bold rammetto mb-4">Equipment List</h1>
                 <div className="flex mb-4">
                     <div className="flex items-center mr-4">
