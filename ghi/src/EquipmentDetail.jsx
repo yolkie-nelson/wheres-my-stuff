@@ -62,7 +62,7 @@ const EquipmentDetail = () => {
             const endDate = new Date(inputEndDate);
             const contractStartDate = new Date(contract.start_date);
             const contractEndDate = new Date(contract.end_date);
-
+            console.log(inputStartDate > contract.end_date)
             if (startDate > contractEndDate || endDate < contractStartDate) {
                 return true;
             }
