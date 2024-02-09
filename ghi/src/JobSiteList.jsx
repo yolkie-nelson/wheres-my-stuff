@@ -9,28 +9,34 @@ const JobSiteList = () => {
     const { data: jobSites, isLoading, isError } = useGetJobSiteQuery()
     const [showConfirmation, setShowConfirmation] = useState(false)
     const [showSuccess, setShowSuccess] = useState(false)
+    const [showFailure, setShowFailure] = useState(false)
     const [deletedJobSite, setDeletedJobSite] = useState(null)
 
     useEffect(() => {
         let timeout
-        if (showSuccess) {
+        if (showSuccess || showFailure) {
             timeout = setTimeout(() => {
                 setShowSuccess(false)
-            }, 3000)
+                setShowFailure(false)
+            }, 6000)
         }
 
         return () => clearTimeout(timeout)
-    }, [showSuccess])
+    }, [showSuccess || showFailure])
 
     const handleDelete = (jobSiteId) => {
         setDeletedJobSite(jobSiteId)
         setShowConfirmation(true)
     }
 
-    const confirmDelete = () => {
-        deleteJobsite(deletedJobSite)
+    const confirmDelete = async () => {
+        const response = await deleteJobsite(deletedJobSite)
+        if(response.error && response.error.status === 422) {
+            setShowFailure(true)
+        } else {
+            setShowSuccess(true)
+        }
         setShowConfirmation(false)
-        setShowSuccess(true)
     }
 
     if (isLoading) {
@@ -47,12 +53,13 @@ const JobSiteList = () => {
 
     return (
         <div className="container mt-8 p-8 max-w-xl">
-             <div>
+            <div>
                 <CSVLink
                     data={jobSites}
-                    filename={"jobiste.csv"}
+                    filename={'jobiste.csv'}
                     className="export-button hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 "
-                    >Download File
+                >
+                    Download File
                 </CSVLink>
             </div>
             <h1 className="text-2xl font-bold mb-6">Job Site List</h1>
@@ -63,6 +70,15 @@ const JobSiteList = () => {
                 >
                     <p className="font-bold">Success!</p>
                     <p>The job site has been successfully deleted.</p>
+                </div>
+            )}
+            {showFailure && ( // Render failure banner when showFailure state is true
+                <div
+                    className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4"
+                    role="alert"
+                >
+                    <p className="font-bold">Failed!</p>
+                    <p>Failed to delete the job site!  Is a contract assigned to this job site?</p>
                 </div>
             )}
             <div className="flex ">
