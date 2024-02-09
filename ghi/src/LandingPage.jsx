@@ -14,6 +14,7 @@ import {
 import { Line } from 'react-chartjs-2';
 import "./static/LandingPage.css"
 import { current } from "@reduxjs/toolkit";
+import { CSVLink } from "react-csv";
 
 ChartJS.register(
   CategoryScale,
@@ -142,7 +143,7 @@ const LandingPage = () => {
         const currentDate = new Date(dateString);
         const differenceInMilliseconds = currentDate - startDate;
         const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
-        return Math.floor(differenceInDays)+2; 
+        return Math.floor(differenceInDays)+2;
     }
     const ganttBar = () => {
         const dates = {}
@@ -224,7 +225,34 @@ const LandingPage = () => {
 
     return(
         <section className=" flex flex-col">
-            <div className="font-bold pl-5 py-5 text-3xl">Dashboard</div>
+            <div className=" flex font-bold pl-5 py-5 text-3xl">Dashboard
+                <div>
+                    <CSVLink
+                        data={equipment}
+                        filename={"equipment.csv"}
+                        className="export-button rounded-full mx-3 text-base font-medium hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 "
+                        >Download equipment
+                    </CSVLink>
+                    <CSVLink
+                        data={contracts}
+                        filename={"contract.csv"}
+                        className="export-button rounded-full mx-3 text-base font-medium hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 "
+                        >Download contracts
+                    </CSVLink>
+                    <CSVLink
+                        data={equipmentTypes}
+                        filename={"equipmentType.csv"}
+                        className="export-button rounded-full mx-3 text-base font-medium hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 "
+                        >Download Equipment Type
+                    </CSVLink>
+                    <CSVLink
+                        data={jobsites}
+                        filename={"jobsites.csv"}
+                        className="export-button rounded-full mx-3 text-base font-medium hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 "
+                        >Download Jobsites
+                    </CSVLink>
+                </div>
+            </div>
             <div className="flex">
             <div className="ml-5">
                 <div className="pr-5">
