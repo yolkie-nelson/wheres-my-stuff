@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGetEquipmentQuery, useGetEquipmentTypeQuery, useGetStorageSiteQuery } from "./app/apiSlice.js";
 import './App.css';
+import { CSVLink } from "react-csv";
+
 
 const EquipmentList = () => {
     const { data: equipmentList, isLoading: equipmentLoading } = useGetEquipmentQuery();
     const { data: equipmentTypes, isLoading: equipmentTypesLoading } = useGetEquipmentTypeQuery();
     const { data: storageSites, isLoading: storageSitesLoading } = useGetStorageSiteQuery();
     const [searchQuery, setSearchQuery] = useState('');
-    console.log(equipmentTypes)
 
     if (equipmentLoading || equipmentTypesLoading || storageSitesLoading) {
         return (
@@ -20,7 +21,7 @@ const EquipmentList = () => {
     }
 
     const filteredEquipment = equipmentList?.filter((equipment) =>
-        equipment.model_name.toLowerCase().includes(searchQuery.toLowerCase())
+    equipment.model_name.toLowerCase().includes(searchQuery.toLowerCase())
     ) || [];
 
     return (
@@ -61,6 +62,12 @@ const EquipmentList = () => {
                     ))}
                 </tbody>
             </table>
+            <CSVLink
+                data={equipmentList}
+                filename={"equipmentList.csv"}
+                className="w-full bg-blue-500 text-white"
+                >Download File
+            </CSVLink>
         </div>
     );
 };
