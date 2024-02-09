@@ -76,7 +76,7 @@ const JobSiteList = () => {
                     <p>The job site has been successfully deleted.</p>
                 </div>
             )}
-            {showFailure && ( // Render failure banner when showFailure state is true
+            {showFailure && (
                 <div
                     className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4"
                     role="alert"
@@ -85,7 +85,7 @@ const JobSiteList = () => {
                     <p>Failed to delete the job site!  Is a contract assigned to this job site?</p>
                 </div>
             )}
-            <div className="flex ">
+
                 <ul className="flex-1 mr-4">
                     <div className="max-h-[48rem] overflow-y-scroll">
                         {jobSites.map((jobSite) => (
@@ -178,6 +178,7 @@ const JobSiteList = () => {
                         />
             </div>
         </div>
+        
     )
 }
 
