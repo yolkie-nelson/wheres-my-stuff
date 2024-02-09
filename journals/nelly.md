@@ -69,4 +69,7 @@
 - It was a wild ride today. I created a Modal which pops up when you click the edit button on the equipment detail card. We ran into a ton of issues with submitting the form. The data appeared to be formatted correctly for our API slice but we were getting a 422 error. Eventually we discovered that mutation api sclices can only take ONE argument, while we were trying to pass in both the serial number to identify the piece of equipment AND the data for the form body. Instead, we just passed in a single object, the body, to the api slice and found the serial number within that in order to identify the equipment. Now I need to get my modal to properly close!
 
 ### 02/08/24
-- Today I updated the nav buttons and created a drop down menu for "Create New" in the dropdown. In addition I continued to polish our README.md
+- Today I updated the nav buttons and created a drop down menu for "Create New" in the side nav. I also created the storage site list page and implemented a google api map to view all storage sites. In addition I continued to polish our README.md. Vivian got the export function working for exporting CSVs which is amazing!
+
+### 02/09/24
+- Oops we almost forgot to add a Contract List page! No Idea how that happened. I made it today and implemented a google API map to go on the component. I also added a bunch of 
