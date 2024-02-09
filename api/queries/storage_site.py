@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from psycopg_pool import ConnectionPool
 import os
 from typing import List, Union, Optional
+from fastapi import HTTPException
 
 pool = ConnectionPool(conninfo=os.environ.get("DATABASE_URL"))
 
@@ -147,7 +148,9 @@ class StorageSiteQueries:
                     )
                     return True
         except Exception:
-            return False
+            raise HTTPException(
+                status_code=422, detail="Failed to delete, Equipment assigned?"
+            )
 
     def storage_site_in_to_out(self, id: int, storage_site: StorageSiteIn):
         old_data = storage_site.dict()
