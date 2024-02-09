@@ -1,17 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useCreateStorageSiteMutation } from './app/apiSlice'
 import { useNavigate } from 'react-router-dom'
 
-const CreateStorageSiteForm = () => {
+import { Map, GoogleApiWrapper } from 'google-maps-react'
+
+const VITE_GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY
+
+const CreateStorageSiteForm = ({ google }) => {
     const navigate = useNavigate()
-        const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState({
         warehouse_number: '',
         location_address: '',
         point_of_contact: '',
     })
+    const [formattedAddresses, setFormattedAddresses] = useState([])
+    const [showOptions, setShowOptions] = useState(false)
+    const dropdownRef = useRef(null)
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
+
+        if (e.target.name === 'location_address') {
+            validateAddress(e.target.value)
+        }
     }
 
     const [createStorageSite, { isLoading, isError }] =
@@ -20,12 +31,45 @@ const CreateStorageSiteForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            await (createStorageSite(formData))
-            // Check if the action was successfully dispatched
-             // Navigate to the desired route
+            await createStorageSite(formData)
         } catch (err) {
             console.error('Failed to create storage site:', err)
         }
+    }
+
+    const validateAddress = async (address) => {
+        const geocoder = new google.maps.Geocoder()
+        geocoder.geocode({ address: address }, (results, status) => {
+            if (status === 'OK' && results[0]) {
+                const formattedAddresses = results.map(
+                    (result) => result.formatted_address
+                )
+                setFormattedAddresses(formattedAddresses)
+            } else {
+                console.error(
+                    'Geocode was not successful for the following reason:',
+                    status
+                )
+            }
+        })
+    }
+
+    const handleAddressSelect = (selectedAddress) => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            location_address: selectedAddress,
+        }))
+        setShowOptions(false)
+    }
+
+    const handleInputFocus = () => {
+        setShowOptions(true)
+    }
+
+    const handleInputBlur = () => {
+        setTimeout(() => {
+            setShowOptions(false)
+        }, 200)
     }
 
     return (
@@ -57,14 +101,34 @@ const CreateStorageSiteForm = () => {
                     >
                         Location Address
                     </label>
-                    <input
-                        type="text"
-                        id="location_address"
-                        name="location_address"
-                        className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-                        value={formData.location_address}
-                        onChange={handleChange}
-                    />
+                    <div className="relative">
+                        <input
+                            type="text"
+                            id="location_address"
+                            name="location_address"
+                            className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+                            value={formData.location_address}
+                            onChange={handleChange}
+                            onFocus={handleInputFocus}
+                            onBlur={handleInputBlur}
+                        />
+                        <div
+                            ref={dropdownRef}
+                            className={`absolute ${
+                                showOptions ? 'block' : 'hidden'
+                            } z-10 w-full border border-gray-300 rounded-md bg-white`}
+                        >
+                            {formattedAddresses.map((address, index) => (
+                                <div
+                                    key={index}
+                                    className="cursor-pointer py-2 px-4 hover:bg-gray-200"
+                                    onClick={() => handleAddressSelect(address)}
+                                >
+                                    {address}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
                 <div className="mb-4">
                     <label
@@ -94,14 +158,14 @@ const CreateStorageSiteForm = () => {
                         Error creating storage site
                     </div>
                 )}{' '}
-                {/* Display error message if API request fails */}
                 {isLoading && (
                     <div className="text-gray-600 mt-2">Loading...</div>
                 )}{' '}
-                {/* Display loading spinner while API request is in progress */}
             </form>
         </div>
     )
 }
 
-export default CreateStorageSiteForm
+export default GoogleApiWrapper({
+    apiKey: VITE_GOOGLE_API_KEY,
+})(CreateStorageSiteForm)
