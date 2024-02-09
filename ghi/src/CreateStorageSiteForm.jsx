@@ -32,6 +32,7 @@ const CreateStorageSiteForm = ({ google }) => {
         e.preventDefault()
         try {
             await createStorageSite(formData)
+            navigate('/storagesites')
         } catch (err) {
             console.error('Failed to create storage site:', err)
         }
