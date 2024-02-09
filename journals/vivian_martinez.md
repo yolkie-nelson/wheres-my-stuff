@@ -90,8 +90,19 @@ It is a Saturday and I am working on Logging in, while following along some vide
 
 ## 2/5/2024
 
-Paired program with ken to finish job site list page. Finished login page. I was able to redirect the components if somone is logged out or does not have an account.
+Paired program with ken to finish job site list page. Finished login page. I was able to redirect the components if somone is logged out or does not have an account. I had to adjust the login api slice, since the login was not in a json, the apiSlice had to take in a form instead.
 
 ## 2/6/2024
 
-The create account page was formatted but did not have logic. I finished that today.
+The create account page was formatted but did not have logic. I finished the logic today. I helped make the equipment type form to create one. I started reading about eportimg to csv, starting with pandas.
+
+## 2/7/2024
+
+created a drop down on the side nav, the 'new' button is a button that when hovers over, the user can click which feature they need to create. I adjusted the routes in app.jsx to prevent warnings in the console log.
+
+## 2/8/2024
+
+Today I started working on the export feature, I first attempted to do it on the back end using pandas. I was able to covert JSON to csv. After having some trouble using axios to create the exporty button on the front, I went back to try to add a router to get an endpoint foe the export button. After some more trouble shooting, I imported raact-csv and used a CSVlink in jsx.
+
+## 2/9/2024
+paired program with ken to fix an edge with the jobsite component. If the jobsite is on a contract, then the jobsite could not be deleted. We were able to handle this by going into queries, putting an error code, then in the front just put a pop up when equal to that error code. I adjusted a couple more routes, when the users token expires, they will be directed to the login page.
