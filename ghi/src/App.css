@@ -1,36 +1,8 @@
-
-
-
-/* .App {
-    text-align: center;
-}
-
-.App-header {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);`
-    color: white;
-} */
-/*
-.Navbar {
-    display: flex;
-    flex-direction: row;
-    height: 200px;
-} */
-
 nav {
     display: flex;
     flex-direction: row;
     height: 10rem;
 }
-
-/* div {
-    border: 1px solid red;
-} */
 
 .custom-container-nav {
     width: 50rem
@@ -79,6 +51,7 @@ nav {
 .unavailable {
     background-color: #E44D0A;
     color: white;
+
 }
 
 input {
@@ -117,14 +90,6 @@ input {
     font-size: 1.25rem;
 }
 
-/* .rental-table tbody tr:nth-child(even) {
-    background-color: #9fedee;
-}
-
-.rental-table tbody tr:nth-child(odd) {
-    background-color: white;
-} */
-
 .custom-header {
     font-size: 3rem;
     font-family: "rametto";
@@ -158,4 +123,8 @@ input {
     left: 0;
     right: 0;
     bottom: 0;
+}
+
+.export-button {
+    background-color: #00C1C3;
 }
