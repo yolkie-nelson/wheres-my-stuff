@@ -138,11 +138,11 @@ const LandingPage = () => {
             return 1
         }
         const year = new Date(dateString).getFullYear();
-        const startDate = new Date(year, 0, 1); // January 1st of the current year
+        const startDate = new Date(year, 0, 1);
         const currentDate = new Date(dateString);
         const differenceInMilliseconds = currentDate - startDate;
         const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
-        return Math.floor(differenceInDays)+2; // Add 1 to account for the first day of the year
+        return Math.floor(differenceInDays)+2; 
     }
     const ganttBar = () => {
         const dates = {}
@@ -323,7 +323,6 @@ const LandingPage = () => {
                     <div className="pb-4 text-2xl">Active Contracts</div>
                         <div>
                             {Object.keys(contractData()[0]).length > 0 ? (
-                            // Render the JSX if the dictionary is not empty
                             <div>
                                 {Object.entries(contractData()[0]).map((contract, index) => (
                                 <div className="flex items-center" key={index}>
@@ -338,7 +337,6 @@ const LandingPage = () => {
                                 ))}
                             </div>
                             ) : (
-                            // Render something else if the dictionary is empty
                             <div className="bg-slate-100 text-lg text-center font-semibold py-3 mx-5 text-slate-400 rounded-md">No data available</div>
                             )}
                         </div>
@@ -377,15 +375,12 @@ const LandingPage = () => {
                                         </div>
                                     ))}
                                 </div>
-
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
             </div>
-
-
         </section>
 
     )

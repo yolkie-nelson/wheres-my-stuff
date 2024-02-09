@@ -17,7 +17,7 @@ const EquipmentDetail = () => {
     const [showEditModal, setShowEditModal] = useState(false);
 
 
-    const getTodayDate = () => {
+    const getDate = () => {
         const today = new Date();
         const year = today.getFullYear();
         const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -25,8 +25,8 @@ const EquipmentDetail = () => {
         return `${year}-${month}-${day}`;
     };
 
-    const [inputStartDate, setInputStartDate] = useState(getTodayDate());
-    const [inputEndDate, setInputEndDate] = useState(getTodayDate());
+    const [inputStartDate, setInputStartDate] = useState(getDate());
+    const [inputEndDate, setInputEndDate] = useState(getDate());
 
     if (contractIsLoading) {
         return (
@@ -58,12 +58,11 @@ const EquipmentDetail = () => {
 
         for (let i = 0; i < contractList?.length; i++) {
             const contract = contractList[i];
-            const startDate = new Date(inputStartDate);
-            const endDate = new Date(inputEndDate);
-            const contractStartDate = new Date(contract.start_date);
-            const contractEndDate = new Date(contract.end_date);
+            const contractStartDate = getDate(new Date(contract.start_date));
+            const contractEndDate = getDate(new Date(contract.end_date));
 
-            if (startDate > contractEndDate || endDate < contractStartDate) {
+            console.log("start:", inputStartDate, "end:", inputEndDate)
+            if ((inputStartDate < inputEndDate) && (inputStartDate > contractEndDate || inputEndDate < contractStartDate)) {
                 return true;
             }
         }
@@ -98,7 +97,7 @@ const EquipmentDetail = () => {
                             <img src={equipmentDetail.photo} alt="No photo" className="max-w-[20rem]"/>
                         </div>
                         <div className="flex">
-                            <div className={isAvailable() ? 'flex w-min availability-card available' : 'flex w-2/3 availability-card unavailable'}>
+                            <div className={isAvailable() ? 'flex w-min availability-card available' : 'flex w-min availability-card unavailable'}>
                                 <p>{isAvailable() ? 'Available' : 'Unavailable'}</p>
                             </div>
                             <div className="flex w-auto pl-6 pt-2">
@@ -228,20 +227,6 @@ const EquipmentDetail = () => {
             </div>
         </div>
     )
-
-
-
-    // const filteredContract = contractList?.filter((contract) =>
-    //     contract.start_date >=
-    // )
 }
 
 export default EquipmentDetail;
-
-
-    // useEffect(() => {
-    //     if (contractList && contractList.length > 0) {
-    //         setInputStartDate(getTodayDate());
-    //         setInputEndDate(getTodayDate());
-    //     }
-    // }, [contractList]);
