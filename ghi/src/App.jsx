@@ -1,7 +1,3 @@
-// This makes VSCode check types as if you are using TypeScript
-//@ts-check
-import { useState, useEffect } from 'react'
-import ErrorNotification from './ErrorNotification'
 import Nav from './Nav.jsx'
 import './App.css'
 import Sidenav from './Sidenav'
@@ -12,7 +8,7 @@ import SplashPage from './SplashPage'
 import About from './About'
 import CreateAccount from './CreateAccount'
 import EquipmentDetail from './EquipmentDetail'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import JobSiteList from './JobSiteList'
 import CreateJobSiteForm from './CreateJobSiteForm'
 import StorageSiteList from './StorageSiteList'
@@ -21,6 +17,7 @@ import CreateEquipmentForm from './CreateEquipmentForm'
 import CreateStorageSiteForm from './CreateStorageSiteForm'
 import CreateEquipmentTypeForm from './CreateEquipmentTypeForm'
 import CreateContractForm from './CreateContractForm'
+import ContractList from './ContractList'
 
 
 const API_HOST = import.meta.env.VITE_API_HOST
@@ -40,11 +37,11 @@ function App() {
                     <div className='w-screen'>
                         <Routes>
                             {account && <Route path="/" element={<LandingPage />} />}
-                            {account && <Route path="/equipment" element={<EquipmentList />} />}
-                            {account && <Route path="/equipment/:equipmentSerial" element={<EquipmentDetail />} />}
+                            <Route path="/equipment" element={account ? <EquipmentList />: <Login />} />
+                            <Route path="/equipment/:equipmentSerial" element= {account ? <EquipmentDetail /> : <Login />} />
                             <Route path="/types/create" element={account ? <CreateEquipmentTypeForm /> : <Login />} />
                             <Route path="/equipment/create" element={account ? <CreateEquipmentForm /> : <Login />} />
-                            {account && <Route path="/jobsites" element={<JobSiteList />} /> }
+                            <Route path="/jobsites" element={account ? <JobSiteList /> : <Login />} />
                             <Route path="/jobsites/create"element={account ? <CreateJobSiteForm /> : <Login />} />
                             {!account && <Route path="/accounts" element={<CreateAccount />} />}
                             {!account && <Route path="/token" element={<Login />} />}
@@ -53,6 +50,7 @@ function App() {
                             <Route path="/storagesites" element={account ? <StorageSiteList /> : <Login />} />
                             <Route path="/storagesites/create" element={account ? <CreateStorageSiteForm /> : <Login />} />
                             <Route path="/contracts/create" element={account ? <CreateContractForm /> : <Login />} />
+                            <Route path="/contracts" element={account ? <ContractList /> : <Login />} />
                         </Routes>
                     </div>
                 </div>
