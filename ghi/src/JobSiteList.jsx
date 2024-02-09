@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useGetJobSiteQuery, useDeleteJobsiteMutation } from './app/apiSlice'
 import './App.css'
 import JobSiteMap from './JobSiteMap'
+import { CSVLink } from "react-csv";
 
 const JobSiteList = () => {
     const [deleteJobsite] = useDeleteJobsiteMutation()
@@ -45,7 +46,15 @@ const JobSiteList = () => {
     }
 
     return (
-        <div className="container mt-8 p-8 max-w-xl rounded shadow-md">
+        <div className="container mt-8 p-8 max-w-xl">
+             <div>
+                <CSVLink
+                    data={jobSites}
+                    filename={"jobiste.csv"}
+                    className="export-button hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 "
+                    >Download File
+                </CSVLink>
+            </div>
             <h1 className="text-2xl font-bold mb-6">Job Site List</h1>
             {showSuccess && (
                 <div

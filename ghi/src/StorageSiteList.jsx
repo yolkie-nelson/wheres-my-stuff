@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useGetStorageSiteQuery, useDeleteStorageSiteMutation, useGetEquipmentQuery } from './app/apiSlice'
 import './App.css'
 import StorageSiteMap from './StorageSiteMap'
+import { CSVLink } from "react-csv";
 
 const StorageSiteList = () => {
     const [deleteStorageSite] = useDeleteStorageSiteMutation();
@@ -47,7 +48,15 @@ const StorageSiteList = () => {
 
     return (
         <div className=" flex">
-            <div className="flex-1 mr-4 container mt-8 p-8 max-w-xl px-20 rounded shadow-md">
+            <div className="flex-1 mr-4 container mt-8 p-8 max-w-xl px-20">
+                <div>
+                    <CSVLink
+                        data={storageSites}
+                        filename={"storageSite.csv"}
+                        className="export-button hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 "
+                        >Download File
+                    </CSVLink>
+                </div>
                 <h1 className="text-2xl font-bold mb-6">Warehouse List</h1>
                 {showSuccess && (
                     <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
@@ -58,7 +67,7 @@ const StorageSiteList = () => {
                 <ul>
                     <div className="max-h-[42rem] overflow-y-scroll">
                     {storageSites.map((storageSite) => {
-                        const matchingEquipment = equipmentList.filter((equipment) => equipment.storage_site_id === storageSite.id);
+                        const matchingEquipment = equipmentList?.filter((equipment) => equipment.storage_site_id === storageSite.id);
                         return (
                             <li key={storageSite.id} className="mb-4">
                                 <div className="border border-gray-300 bg-white rounded-md p-4">

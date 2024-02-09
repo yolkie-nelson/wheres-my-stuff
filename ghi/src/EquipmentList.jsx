@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useGetEquipmentQuery, useGetEquipmentTypeQuery, useGetStorageSiteQuery } from "./app/apiSlice.js";
 import './App.css';
 import { CSVLink } from "react-csv";
@@ -77,12 +77,14 @@ const EquipmentList = () => {
                     ))}
                 </tbody>
             </table>
+            <div className='pt-6'>
             <CSVLink
                 data={equipmentList}
                 filename={"equipmentList.csv"}
-                className="export-button hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
+                className="export-button hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 "
                 >Download File
             </CSVLink>
+            </div>
         </div>
     </div>
     );
