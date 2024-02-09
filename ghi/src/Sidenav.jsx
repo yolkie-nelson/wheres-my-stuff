@@ -13,6 +13,9 @@ const Sidenav = () => {
                         <a href="/equipment">Equipment</a>
                     </li>
                     <li className="px-4 py-4 text-white hover:text-amber-600 cursor-pointer font-bold text-base uppercase tracking-wide">
+                        <a href="/contracts">Contracts</a>
+                    </li>
+                    <li className="px-4 py-4 text-white hover:text-amber-600 cursor-pointer font-bold text-base uppercase tracking-wide">
                         <a href="/jobsites">Job Sites</a>
                     </li>
                     <li className="px-4 py-4 text-white hover:text-amber-600 cursor-pointer font-bold text-base uppercase tracking-wide">
