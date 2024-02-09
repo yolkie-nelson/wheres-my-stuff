@@ -34,7 +34,6 @@ export const WMSApi = createApi({
                 const formData = new FormData()
                 formData.append('username', info.username)
                 formData.append('password', info.password)
-
                 return {
                     url: '/token',
                     method: 'post',

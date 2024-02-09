@@ -1,5 +1,5 @@
 import { useGetContractQuery, useGetEquipmentQuery, useGetEquipmentTypeQuery, useGetJobSiteQuery, useGetOneJobsiteQuery } from "./app/apiSlice"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import JobSiteMap from './JobSiteMap'
 import {
   Chart as ChartJS,
@@ -13,7 +13,6 @@ import {
 } from "chart.js"
 import { Line } from 'react-chartjs-2';
 import "./static/LandingPage.css"
-import { current } from "@reduxjs/toolkit";
 import { CSVLink } from "react-csv";
 
 ChartJS.register(
