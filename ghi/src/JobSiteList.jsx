@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useGetJobSiteQuery, useDeleteJobsiteMutation } from './app/apiSlice'
 import './App.css'
 import JobSiteMap from './JobSiteMap'
+import { CSVLink } from "react-csv";
 
 const JobSiteList = () => {
     const [deleteJobsite] = useDeleteJobsiteMutation()
@@ -46,8 +47,20 @@ const JobSiteList = () => {
 
     return (
         <div className="flex pl-20 pt-10">
-            <div className="flex-1 mr-4 container bg-white mt-8 p-8 max-w-xl px-10 rounded shadow-md">
-                <h1 className="text-2xl pl-10 font-bold mb-6">Job Site List</h1>
+            <div className="flex-1 mr-4 container bg-white mt-8 p-4 max-w-xl px-10 rounded shadow-md">
+                <div className="flex">
+                    <div className="pt-4">
+                        <h1 className="text-2xl pl-10 font-bold mb-6">Job Site List</h1>
+                    </div>
+                    <div className="flex pl-24">
+                        <CSVLink
+                            data={jobSites}
+                            filename={"jobiste.csv"}
+                            className="export-button hover:bg-blue-700 text-white font-bold py-4 px-4 rounded mb-2 "
+                            >Download File
+                        </CSVLink>
+                    </div>
+                </div>
                 {showSuccess && (
                 <div
                     className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4"
@@ -58,7 +71,7 @@ const JobSiteList = () => {
                 </div>
                 )}
                 <ul>
-                    <div className="max-h-[42rem] overflow-y-scroll">
+                    <div className="max-h-[45rem] overflow-y-scroll">
                     {jobSites.map((jobSite) => (
                         <li key={jobSite.id} className="mb-4">
                             <div className="border border-gray-300 bg-white rounded-md p-4">
@@ -76,7 +89,7 @@ const JobSiteList = () => {
                                 </p>
                                 <button
                                     onClick={() => handleDelete(jobSite.id)}
-                                    className="w-full bg-dark-orange text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:shadow-outline-blue"
+                                    className="w-md bg-dark-orange text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:shadow-outline-blue"
                                 >
                                     Delete Job Site
                                 </button>

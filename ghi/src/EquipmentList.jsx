@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useGetContractQuery, useGetEquipmentQuery, useGetEquipmentTypeQuery, useGetJobSiteQuery, useGetStorageSiteQuery } from "./app/apiSlice.js";
 import './App.css';
 import EquipmentListMap from './EquipmentListMap.jsx';
+import { CSVLink } from "react-csv";
+
 
 const EquipmentList = () => {
     const { data: equipmentList, isLoading: equipmentLoading } = useGetEquipmentQuery();
@@ -86,25 +88,24 @@ const EquipmentList = () => {
                                     {storageSites?.find(site => site.id === equipment.storage_site_id).location_address}
                                 </a>
                             </td>
-                                <td className="py-2 px-4 border-b">{equipment.date_serviced}</td>
-                                <td className="py-2 px-4 border-b">
-                                    {equipmentTypes?.find(type => type.id === equipment.equipment_type_id).name}
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                            <td className="py-2 px-4 border-b">{equipment.date_serviced}</td>
+                            <td className="py-2 px-4 border-b">
+                                {equipmentTypes?.find(type => type.id === equipment.equipment_type_id).name}
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            <div className='pt-6'>
+            <CSVLink
+                data={equipmentList}
+                filename={"equipmentList.csv"}
+                className="export-button hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2 "
+                >Download File
+            </CSVLink>
             </div>
-            {/* <div className="w-full lg:w-1/3 lg:pl-4">
-                <EquipmentListMap
-                    equipmentList={activeEquipment}
-                    contractList={contractList}
-                    jobSites={jobSites}
-                    storageSites={storageSites}
-                    google={window.google}
-                />
-            </div> */}
         </div>
+    </div>
     );
 };
 

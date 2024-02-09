@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useGetStorageSiteQuery, useDeleteStorageSiteMutation, useGetEquipmentQuery } from './app/apiSlice'
 import './App.css'
 import StorageSiteMap from './StorageSiteMap'
+import { CSVLink } from "react-csv";
 
 const StorageSiteList = () => {
     const [deleteStorageSite] = useDeleteStorageSiteMutation();
