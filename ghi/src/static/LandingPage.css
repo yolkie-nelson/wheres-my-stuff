@@ -3,53 +3,116 @@ section {
     flex-direction: row;
 }
 
-.doughnut-chart-section {
-    width: 30vw;
-    background-color: #00202A;
-    margin: 1em 2vw 1em 2vw;
-    border-radius: 1em;
+.line-graph {
+    width: 600px;
 }
 
-.doughnut-chart {
-    width: 10em;
-    height: 10em;
-
+.contract-chart {
+    width: 30rem;
+}
+.doughnut-chart-sectiton {
+    display: flex;
+    flex-direction: column;
+     width: 30rem;
 }
 
 .outer {
     display: flex;
     align-items: center;
+    background-color: #00c0c31e;
     justify-content: center;
-    height: 10em;
-    font-weight: 10em;
+    height: 15em;
+    width: 15em;
     border-radius: 50%;
-    /* box-shadow: 1em 1em 1em 1em rgba(0,0,0,0.15); */
+    box-shadow: .5em .5em 1em .1em rgba(0,0,0,0.15);
 }
 
 .inner {
-    height:9em;
-    width: 9em;
-    /* margin: .45em 1em 1em .38em; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    height:12.7em;
+    width: 12.7em;
     border-radius: 50%;
-    border: 1px solid red;
+    box-shadow: inset .4em .5em .8em .1em rgba(0,0,0,0.15);;
 }
 
-svg {
-    position: absolute;
-    top: 11.5rem;
+.number {
+    color: black;
+}
+
+.circle {
+    margin-top: -17.5em;
+
 }
 
 circle {
     fill: none;
-    stroke: cornflowerblue;
-    stroke-width: .5em;
-    stroke-dasharray: 472;
-    stroke-dashoffset: 472;
+    stroke: #00C1C3;
+    stroke-width: 1.2em;
+    stroke-dasharray: 687;
+    /* stroke-dashoffset: 472; */
     animation: anim 2s linear forwards;
 }
 
 @keyframes anim {
     100%{
-        stroke-dashoffset: 0;
+        /* stroke-dashoffset: 0; */
     }
+}
+
+rect {
+    fill: #00C1C3;
+    margin-top: 20rem;
+}
+
+.gantt-chart {
+    overflow: auto;
+    width: 40rem;
+
+}
+
+.gantt-spacer {
+    padding-left: 13.25em;
+}
+
+.months {
+
+    min-height: 36em;
+    display: flex;
+
+}
+
+.month {
+   /* width: calc(100% / 12); */
+   text-align: center;
+   height: 36rem;
+}
+
+.gnatt-svg{
+    /* padding-left: 13.25em; */
+    margin-top: -30em;
+}
+
+.contract-name {
+    width: 212px;
+    max-width: 212;
+}
+
+.contract-name2 {
+    width: 212px;
+    max-width: 212;
+    height: 100%;
+    max-height: 36.5em;
+}
+
+.bars {
+    /* padding-left: 13.25em; */
+}
+
+.y-axis {
+    min-height: 36em;
+    margin-top: 15.1em;
 }

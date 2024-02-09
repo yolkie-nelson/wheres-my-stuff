@@ -42,4 +42,60 @@
 
 ## 1/22/2024
 
-> Friday provided an odd list of issues, my VENV would not install the the requirements.txt so I had to install manually.  Container seems to have no issues with our Requirement.txt so we are moving ahead.
+> Friday provided an odd list of issues, my VENV would not install the the requirements.txt so I had to install manually.  Container seems to have no issues with our Requirement.txt so we are moving ahead.Completed Job Site list
+
+## 1/23/2024
+
+>Completed endpoints started unit testing
+
+## 1/24/2024
+
+> I was sick today
+
+## 1/25/2024
+
+>Finished up some things and and tried to catch up, yesterday was terrible
+
+## 1/26/2024
+
+>completed unit test for delete contract
+
+## 1/29/2024
+
+> Today was a day of Family distractions.  I will be better
+
+## 1/30/2024
+
+>Still working on the nav bar....CSS sucks...I dont care if its bootstrap tailwind or any other brand
+
+## 1/31/2024
+
+>worked on nav css and display jobsite data
+
+## 2/1/2024
+
+>Merged stuff to main.... that was so messy
+
+## 2/2/2024
+
+>DAY OFF
+
+## 2/5/2024
+
+>Completed Jobsite List and delete button
+
+## 2/6/2024
+
+>Completed Google Maps API it works but API Key is hard coded
+
+## 2/7/2024
+
+>Finished masking API key google react map npm doesnt like our current dependancies.
+
+## 2/8/2024
+
+>Looked at changing the libraries but honesty it took me almost 4 days to get this thing working, I am going to hit the easy button and add --force to our NPM cmd in dockercompose.  Not the real world right answer but time is a factor.
+
+## 2/9/2024
+
+>Today is the turn in day. 
