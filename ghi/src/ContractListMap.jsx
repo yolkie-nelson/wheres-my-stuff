@@ -14,14 +14,9 @@ const ContractListMap = ({ contractList, google }) => {
             const today = new Date()
             today.setHours(0, 0, 0, 0)
 
-            const validContracts = contractList?.filter((contract) => {
-                const startDate = new Date(contract.start_date)
-                const endDate = new Date(contract.end_date)
-                return startDate <= today && endDate >= today
-            })
 
             try {
-                const promises = validContracts?.map(async (contract) => {
+                const promises = contractList?.map(async (contract) => {
                     const response = await fetch(
                         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
                             contract.formatted_address

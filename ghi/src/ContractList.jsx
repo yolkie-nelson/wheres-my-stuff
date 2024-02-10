@@ -87,14 +87,14 @@ const ContractList = () => {
                                 <div className="border border-gray-300 bg-white rounded-md p-4">
                                     <div className="pt-4 pl-4">
                                         <h1 className="text-l font-semibold mb-2">Equipment:</h1>
-                                        {matchingEquipment.map((equipment) => (
+                                        {matchingEquipment?.map((equipment) => (
                                             <div key={equipment.id}>
                                                 <p className="text-gray-600">Name: {equipment.model_name}</p>
                                                 <p className="text-gray-600 pb-4">Serial Number: {equipment.serial_number}</p>
                                             </div>
                                         ))}
                                     </div>
-                                    {matchingJobSite.map((jobSite) => (
+                                    {matchingJobSite?.map((jobSite) => (
                                     <div key={jobSite.id} className="p-4">
                                         <h2 className="text-l font-semibold mb-2">Job Site: {jobSite.name}</h2>
                                         <p className="text-gray-600">Address: {jobSite.job_address}</p>
