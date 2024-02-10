@@ -1,61 +1,56 @@
-import React, { useEffect, useState } from 'react';
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import React, { useEffect, useState } from 'react'
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 
-const VITE_GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
+const VITE_GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY
 
-const ContractListMap = ({ contracts, google }) => {
-    const [markers, setMarkers] = useState([]);
-    const [loading, setLoading] = useState(false);
+const ContractListMap = ({ contractList, google }) => {
+    const [markers, setMarkers] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        let isMounted = true;
+        let isMounted = true
         const fetchGeocodingData = async () => {
-            setLoading(true);
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
+            setLoading(true)
+            const today = new Date()
+            today.setHours(0, 0, 0, 0)
 
-            const validContracts = contracts?.filter((contract) => {
-                const startDate = new Date(contract.start_date);
-                const endDate = new Date(contract.end_date);
-                return startDate <= today && endDate >= today;
-            });
 
             try {
-                const promises = validContracts?.map(async (contract) => {
+                const promises = contractList?.map(async (contract) => {
                     const response = await fetch(
                         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
                             contract.formatted_address
                         )}&key=${VITE_GOOGLE_API_KEY}`
-                    );
+                    )
 
                     if (!response.ok) {
-                        throw new Error('Failed to fetch geocoding data');
+                        throw new Error('Failed to fetch geocoding data')
                     }
-                    const data = await response.json();
+                    const data = await response.json()
                     if (data.results && data.results.length > 0) {
-                        const { lat, lng } = data.results[0].geometry.location;
-                        return { id: contract.id, lat, lng };
+                        const { lat, lng } = data.results[0].geometry.location
+                        return { id: contract.id, lat, lng }
                     } else {
-                        throw new Error('No geocoding results found');
+                        throw new Error('No geocoding results found')
                     }
-                });
-                const resolvedMarkers = await Promise?.all(promises);
+                })
+                const resolvedMarkers = await Promise.all(promises)
                 if (isMounted) {
-                    setMarkers(resolvedMarkers);
+                    setMarkers(resolvedMarkers)
                 }
             } catch (error) {
-                console.error('Error fetching geocoding data:', error);
+                console.error('Error fetching geocoding data:', error)
             } finally {
-                setLoading(false);
+                setLoading(false)
             }
-        };
+        }
 
-        fetchGeocodingData();
+        fetchGeocodingData()
 
         return () => {
-            isMounted = false;
-        };
-    }, [contracts, google]);
+            isMounted = false
+        }
+    }, [contractList, google])
 
     return (
         <div style={{ height: '400px', width: '100%' }}>
@@ -81,9 +76,9 @@ const ContractListMap = ({ contracts, google }) => {
                 </Map>
             )}
         </div>
-    );
-};
+    )
+}
 
 export default GoogleApiWrapper({
     apiKey: VITE_GOOGLE_API_KEY,
-})(ContractListMap);
+})(ContractListMap)
