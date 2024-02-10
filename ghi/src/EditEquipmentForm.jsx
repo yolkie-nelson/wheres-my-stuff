@@ -28,7 +28,6 @@ const EditEquipmentForm = ({ equipmentDetail, onClose }) => {
                 data: formData
             }
             await updateEquipment(object);
-            console.log("serial", equipmentDetail.serial_number, "data", formData);
             onClose();
             navigate(`/equipment/${equipmentDetail.serial_number}`);
         } catch (err) {

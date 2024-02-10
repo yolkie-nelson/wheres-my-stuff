@@ -56,7 +56,19 @@ const StorageSiteList = () => {
     return (
         <div className=" flex pl-20 pt-10">
             <div className="flex-1 mr-4 container bg-white mt-8 p-8 max-w-xl px-10 rounded shadow-md">
-                <h1 className="text-2xl font-bold mb-6">Warehouse List</h1>
+                 <div className='flex'>
+                    <div className="pt-4">
+                        <h1 className="text-2xl font-bold mb-6">Warehouse List</h1>
+                    </div>
+                    <div className="pt-4 pl-24">
+                        <CSVLink
+                            data={storageSites}
+                            filename={"storageSite.csv"}
+                            className="export-button hover:bg-blue-700 text-white font-bold py-4 px-4 rounded mb-2 "
+                            >Download File
+                        </CSVLink>
+                    </div>
+                </div>
                 {showSuccess && (
                     <div
                         className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4"

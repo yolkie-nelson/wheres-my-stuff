@@ -58,7 +58,7 @@ const JobSiteList = () => {
                     <div className="pt-4">
                         <h1 className="text-2xl pl-10 font-bold mb-6">Job Site List</h1>
                     </div>
-                    <div className="flex pl-24">
+                    <div className="pt-4 pl-24">
                         <CSVLink
                             data={jobSites}
                             filename={"jobiste.csv"}
@@ -178,7 +178,7 @@ const JobSiteList = () => {
                         />
             </div>
         </div>
-        
+
     )
 }
 

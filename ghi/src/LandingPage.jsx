@@ -80,7 +80,6 @@ const LandingPage = () => {
                         }, {});
                     }
                     if (contract["equipment_id"] in extractIdDictionary(selectedEquipment)) {
-                        // console.log(contract)
                         rentedItems++
                         const jobId = contract["job_site_id"]
                         const jobName = jobsites?.filter(jobsite => jobsite["id"] == jobId)

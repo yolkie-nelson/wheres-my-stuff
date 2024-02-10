@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDeleteContractMutation, useGetContractQuery, useGetEquipmentQuery, useGetJobSiteQuery } from './app/apiSlice'
 import './App.css'
 import ContractListMap from './ContractListMap'
+import { CSVLink } from "react-csv";
 
 const ContractList = () => {
     const [deleteContract] = useDeleteContractMutation();
@@ -57,7 +58,19 @@ const ContractList = () => {
     return (
         <div className="flex pl-20 pt-10">
             <div className="flex-1 mr-4 bg-white container mt-8 p-8 max-w-xl px-20 rounded shadow-md">
-                <h1 className="text-2xl font-bold mb-6">Contract List</h1>
+                <div className='flex'>
+                    <div className="pt-4">
+                        <h1 className="text-2xl font-bold mb-6">Contract List</h1>
+                    </div>
+                    <div className="pt-4 pl-24">
+                        <CSVLink
+                            data={contractList}
+                            filename={"contract.csv"}
+                            className="export-button hover:bg-blue-700 text-white font-bold py-4 px-4 rounded mb-2 "
+                            >Download File
+                        </CSVLink>
+                    </div>
+                </div>
                 {showSuccess && (
                     <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
                         <p className="font-bold">Success!</p>

@@ -53,13 +53,11 @@ circle {
     stroke: #00C1C3;
     stroke-width: 1.2em;
     stroke-dasharray: 687;
-    /* stroke-dashoffset: 472; */
     animation: anim 2s linear forwards;
 }
 
 @keyframes anim {
     100%{
-        /* stroke-dashoffset: 0; */
     }
 }
 
