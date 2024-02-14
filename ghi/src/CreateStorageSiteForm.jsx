@@ -1,8 +1,8 @@
-import React, { useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useCreateStorageSiteMutation } from './app/apiSlice'
 import { useNavigate } from 'react-router-dom'
 
-import { Map, GoogleApiWrapper } from 'google-maps-react'
+import { GoogleApiWrapper } from 'google-maps-react'
 
 const VITE_GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY
 

@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCreateContractMutation } from './app/apiSlice'
 import { useGetEquipmentQuery, useGetJobSiteQuery } from './app/apiSlice'
 
 const CreateContractForm = () => {
-    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         equipment_id: '',
         job_site_id: '',
@@ -21,7 +20,7 @@ const CreateContractForm = () => {
     const { data: equipment } = useGetEquipmentQuery()
     const { data: jobSites } = useGetJobSiteQuery()
 
-    const [createContract, { isLoading, isError }] = useCreateContractMutation()
+    const [createContract, { isLoading }] = useCreateContractMutation()
 
     const handleSubmit = async (e) => {
         e.preventDefault()

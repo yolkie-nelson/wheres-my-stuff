@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import {
     useCreateEquipmentMutation,
     useGetStorageSiteQuery,
@@ -25,7 +25,7 @@ const CreateEquipmentForm = () => {
     const { data: storageSites } = useGetStorageSiteQuery()
     const { data: equipmentTypes } = useGetEquipmentTypeQuery()
 
-    const [createEquipment, { isLoading, isError }] =
+    const [createEquipment, { isLoading }] =
         useCreateEquipmentMutation()
 
     const handleSubmit = async (e) => {

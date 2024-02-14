@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 
 const VITE_GOOGLE_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY

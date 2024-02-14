@@ -178,13 +178,6 @@ export const WMSApi = createApi({
             }),
             providesTags: ['Jobsites'],
         }),
-        getContract: builder.query({
-            query: () => ({
-                url: '/api/contracts',
-                credentials: 'include',
-            }),
-            providesTags: ['Contract'],
-        }),
         createJobsite: builder.mutation({
             query: (data) => ({
                 url: 'api/jobsites',

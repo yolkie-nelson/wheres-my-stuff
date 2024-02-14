@@ -35,7 +35,7 @@ const EquipmentDetail = () => {
                 </header>
             </div>
         );
-    };
+    }
 
     const handleDelete = () => {
         setShowConfirmation(true);

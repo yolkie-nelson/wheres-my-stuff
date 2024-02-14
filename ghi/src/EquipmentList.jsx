@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { useState } from 'react';
 import { useGetContractQuery, useGetEquipmentQuery, useGetEquipmentTypeQuery, useGetJobSiteQuery, useGetStorageSiteQuery } from "./app/apiSlice.js";
 import './App.css';
-import EquipmentListMap from './EquipmentListMap.jsx';
+// import EquipmentListMap from './EquipmentListMap.jsx';
 import { CSVLink } from "react-csv";
 
 
@@ -10,8 +10,8 @@ const EquipmentList = () => {
     const { data: equipmentList, isLoading: equipmentLoading } = useGetEquipmentQuery();
     const { data: equipmentTypes, isLoading: equipmentTypesLoading } = useGetEquipmentTypeQuery();
     const { data: storageSites, isLoading: storageSitesLoading } = useGetStorageSiteQuery();
-    const { data: contractList, isLoading: contractsLoading } = useGetContractQuery();
-    const { data: jobSites, isLoading: jobSitesIsLoading } = useGetJobSiteQuery();
+    const { data: contractList} = useGetContractQuery();
+    const { data: jobSites} = useGetJobSiteQuery();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedType, setSelectedType] = useState(null);
 
@@ -40,10 +40,10 @@ const EquipmentList = () => {
 
     const today = getTodayDate();
     const activeContracts = contractList?.filter(contract => contract.start_date <= today && contract.end_date >= today);
-    const activeJobSiteIds = new Set(activeContracts.map(contract => contract.job_site_id));
-    const activeJobSites = jobSites?.filter(jobSite => activeJobSiteIds.has(jobSite.id));
-    const activeEquipmentIds = new Set(activeContracts.map(contract => contract.equipment_id));
-    const activeEquipment = equipmentList?.filter(equipment => activeEquipmentIds.has(equipment.id));
+    // const activeJobSiteIds = new Set(activeContracts.map(contract => contract.job_site_id));
+    // const activeJobSites = jobSites?.filter(jobSite => activeJobSiteIds.has(jobSite.id));
+    // const activeEquipmentIds = new Set(activeContracts.map(contract => contract.equipment_id));
+    // const activeEquipment = equipmentList?.filter(equipment => activeEquipmentIds.has(equipment.id));
 
 
     return (
