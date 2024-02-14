@@ -23,7 +23,7 @@ const StorageSiteList = () => {
         }
 
         return () => clearTimeout(timeout)
-    }, [showSuccess || showFailure])
+    }, [showSuccess], [showFailure])
 
     const handleDelete = (storageSiteId) => {
         setDeletedStorageSite(storageSiteId)
@@ -85,8 +85,8 @@ const StorageSiteList = () => {
                     >
                         <p className="font-bold">Failed!</p>
                         <p>
-                            Failed to delete the job site! Is a contract
-                            assigned to this job site?
+                            Failed to delete the warehouse! Is there equipment
+                            assigned to this warehouse?
                         </p>
                     </div>
                 )}

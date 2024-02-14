@@ -22,7 +22,7 @@ const JobSiteList = () => {
         }
 
         return () => clearTimeout(timeout)
-    }, [showSuccess || showFailure])
+    }, [showSuccess], [showFailure])
 
     const handleDelete = (jobSiteId) => {
         setDeletedJobSite(jobSiteId)

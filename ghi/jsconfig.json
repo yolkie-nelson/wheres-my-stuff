@@ -10,6 +10,6 @@
       "*": ["src/*"]
     }
   },
-  "include": ["src/**/*", "react-refresh/only-export-components/ContractListMap.jsx"],
+  "include": ["src/**/*", "src/ContractListMap.jsx"],
   "exclude": ["node_modules"]
 }
