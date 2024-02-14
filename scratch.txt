@@ -18,4 +18,4 @@ glv-cloud-cli deploy -a api \
   -e SECRET_KEY=10d796384ac7714983d3d59045e94106452589a12e9eea30d6a02e8359b365a5 \
   -e CORS_HOST=https://dev-dynasty.gitlab.io \
   -e KEY_FROM_DOCKER_COMPOSE_YML=postgresql:// Marce:Marcerocks@oct-2023-1-et-db-service.default.svc.cluster.local/postgres-data \
-  -e KEY_FROM_THIRD_PARTY_API=AIzaSyDhQMk7aUcvkxKTCdbYtUknOD7C6iyRRgo
+  -e VITE_GOOGLE_API_KEY=AIzaSyDhQMk7aUcvkxKTCdbYtUknOD7C6iyRRgo
