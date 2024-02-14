@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { useState } from 'react';
 import { useGetContractQuery, useGetEquipmentQuery, useGetEquipmentTypeQuery, useGetJobSiteQuery, useGetStorageSiteQuery } from "./app/apiSlice.js";
 import './App.css';
@@ -79,14 +80,14 @@ const EquipmentList = () => {
                         {filteredEquipment.map((equipment) => (
                             <tr key={equipment.id}>
                                 <td className="py-2 px-4 border-b">
-                                    <a href={`/equipment/${equipment.serial_number}`} className="text-black hover:text-blue-500">{equipment.model_name}</a>
+                                    <Link to={`/equipment/${equipment.serial_number}`} className="text-black hover:text-blue-500">{equipment.model_name}</Link>
                                 </td>
                                 <td className="py-2 px-4 border-b">{equipment.description}</td>
                                 <td className="py-2 px-4 border-b">{equipment.serial_number}</td>
                                 <td className="py-2 px-4 border-b">
-                                <a href={`/storagesites`} className="text-blue-600 hover:underline">
+                                <Link to={`/storagesites`} className="text-blue-600 hover:underline">
                                     {storageSites?.find(site => site.id === equipment.storage_site_id).location_address}
-                                </a>
+                                </Link>
                             </td>
                             <td className="py-2 px-4 border-b">{equipment.date_serviced}</td>
                             <td className="py-2 px-4 border-b">
