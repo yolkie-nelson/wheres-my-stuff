@@ -17,10 +17,10 @@ const Nav = () => {
                         />
                     </div>
                     <div className="  col-start-6 sm:col-start-3 rammetto col-start 2 col-span-8 app-name row-span-3 xl:text-7xl lg:text-5xl sm:text-xl sm:pl-9 md:pl-3 lg:pl-0">
-                        <p>Where's My Stuff?</p>
+                        <p>Where&rsquo;s My Stuff?</p>
                     </div>
                     <div className=" whitespace-nowrap text-teal pl-9 col-span-3 row-start-4 col-start-3 xl:text-2xl invisible md:visible">
-                        <p>You'll never ask that question again!</p>
+                        <p>You&rsquo;ll never ask that question again!</p>
                     </div>
                     <div className=" justify-end pr-10 space-x-4 col-start-10 row-start-4 hidden sm:inline-block">
                         <NavLink

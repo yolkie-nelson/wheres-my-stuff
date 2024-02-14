@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useDeleteContractMutation, useGetContractQuery, useGetEquipmentQuery, useGetJobSiteQuery } from './app/apiSlice'
 import './App.css'
-import ContractListMap from './ContractListMap'
+import ContractListMap from '../react-refresh/only-export-components/ContractListMap'
 import { CSVLink } from "react-csv";
 
 const ContractList = () => {
