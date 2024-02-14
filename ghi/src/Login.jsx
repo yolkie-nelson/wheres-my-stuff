@@ -14,6 +14,7 @@ const Login = () => {
         if (loginStatus.isError) {
             setErrorMessage(loginStatus.error)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loginStatus])
 
     const handleSubmit = (e) => {

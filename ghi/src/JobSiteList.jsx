@@ -22,7 +22,8 @@ const JobSiteList = () => {
         }
 
         return () => clearTimeout(timeout)
-    }, [showSuccess], [showFailure])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [showSuccess || showFailure])
 
     const handleDelete = (jobSiteId) => {
         setDeletedJobSite(jobSiteId)
