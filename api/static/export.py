@@ -1,5 +1,4 @@
 import psycopg2
-import csv
 import os
 from dotenv import load_dotenv
 import pandas as pd
@@ -22,7 +21,6 @@ def export_csv():
         host=db_host,
         port=db_port,
     )
-    cursor = conn.cursor()
 
     # Execute your SQL query
     query = "SELECT * FROM equipment"
