@@ -22,7 +22,7 @@ import ContractList from './ContractList'
 
 const API_HOST = import.meta.env.VITE_API_HOST
 const domain = /https:\/\/[^/]+/;
-const basename = import.meta.env.PUBLIC_URL.replace(domain, '');
+const basename = "https://dev-dynasty.gitlab.io/wheres-my-stuff/".replace(domain, '');
 
 if (!API_HOST) {
     throw new Error('VITE_API_HOST is not defined')

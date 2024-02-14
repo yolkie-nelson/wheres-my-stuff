@@ -1,4 +1,4 @@
-import { useGetContractQuery, useGetEquipmentQuery, useGetEquipmentTypeQuery, useGetJobSiteQuery, useGetOneJobsiteQuery } from "./app/apiSlice"
+import { useGetContractQuery, useGetEquipmentQuery, useGetEquipmentTypeQuery, useGetJobSiteQuery } from "./app/apiSlice"
 import { useState } from "react"
 import JobSiteMap from './JobSiteMap'
 import {

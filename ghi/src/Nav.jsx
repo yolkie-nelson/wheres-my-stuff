@@ -17,35 +17,31 @@ const Nav = () => {
                         />
                     </div>
                     <div className="  col-start-6 sm:col-start-3 rammetto col-start 2 col-span-8 app-name row-span-3 xl:text-7xl lg:text-5xl sm:text-xl sm:pl-9 md:pl-3 lg:pl-0">
-                        
-                        Where's My Stuff?
+                        <p>Where's My Stuff?</p>
                     </div>
                     <div className=" whitespace-nowrap text-teal pl-9 col-span-3 row-start-4 col-start-3 xl:text-2xl invisible md:visible">
-                        
-                        You'll never ask that question again!
+                        <p>You'll never ask that question again!</p>
                     </div>
                     <div className=" justify-end pr-10 space-x-4 col-start-10 row-start-4 hidden sm:inline-block">
-                        
                         <NavLink
                             to="/"
                             aria-current="page"
                             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 md: text-[.7rem] xl:text-sm "
                         >
-                            Home
+                            <p>Home</p>
                         </NavLink>
                     </div>
                     <div className="justify-end pr-10 space-x-4 col-start-11 row-start-4 hidden sm:inline-block ">
-                        
                         <NavLink
                             to="/about"
                             aria-current="page"
                             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-[.7rem] xl:text-sm "
                         >
-                            About
+                            <p>About</p>
                         </NavLink>
                     </div>
                     {!account && <div className="justify-end pr-10 space-x-4 col-start-12 row-start-4 hidden sm:inline-block">
-                        
+
                         <NavLink
                             to="/token"
                             aria-current="page"

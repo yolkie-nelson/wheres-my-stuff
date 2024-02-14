@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useCreateContractMutation } from './app/apiSlice'
 import { useGetEquipmentQuery, useGetJobSiteQuery } from './app/apiSlice'
 

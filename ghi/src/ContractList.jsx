@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useDeleteContractMutation, useGetContractQuery, useGetEquipmentQuery, useGetJobSiteQuery } from './app/apiSlice'
 import './App.css'
 import ContractListMap from './ContractListMap'
