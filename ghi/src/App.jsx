@@ -18,6 +18,8 @@ import CreateStorageSiteForm from './CreateStorageSiteForm'
 import CreateEquipmentTypeForm from './CreateEquipmentTypeForm'
 import CreateContractForm from './CreateContractForm'
 import ContractList from './ContractList'
+import { store } from "./app/store.js"
+import { Provider } from "react-redux"
 
 
 const API_HOST = import.meta.env.VITE_API_HOST
@@ -31,7 +33,9 @@ if (!API_HOST) {
 function App() {
     const { data: account } = useGetTokenQuery()
     return (
+
         <BrowserRouter basename={basename}>
+            <Provider store={store}>
             <div>
                 <Nav />
                 <div className='main-section flex h-screen'>
@@ -57,6 +61,7 @@ function App() {
                     </div>
                 </div>
             </div>
+            </Provider>
         </BrowserRouter>
     )
 }
