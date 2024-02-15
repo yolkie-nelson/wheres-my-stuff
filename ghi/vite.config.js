@@ -21,5 +21,5 @@ export default defineConfig({
             usePolling: true
         }
     },
-    build: "./"
+    base: "./"
 })
