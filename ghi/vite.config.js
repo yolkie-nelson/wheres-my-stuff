@@ -21,5 +21,4 @@ export default defineConfig({
             usePolling: true
         }
     },
-    base: 'https://dev-dynasty.gitlab.io/wheres-my-stuff/',
 })
